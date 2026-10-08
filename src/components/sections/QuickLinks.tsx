@@ -59,12 +59,12 @@ export function QuickLinks() {
       <div className="container-wide">
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {links.map((link, i) => (
+            // Revealed on load, just after the hero headline, as the tops peek above the fold in every hero layout.
             <motion.li
               key={link.title}
               initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.45 + i * 0.08 }}
             >
               <QuickLinkCard link={link} />
             </motion.li>
