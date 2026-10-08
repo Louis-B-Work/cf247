@@ -61,7 +61,7 @@ function LimeAccent({ children, delay }: { children: string; delay: number }) {
           d="M78 32A38 38 0 0 1 21 72.9"
           stroke="currentColor"
           strokeWidth={13}
-          strokeLinecap="round"
+          strokeLinecap="butt"
           initial={reduce ? false : { pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true, amount: 0.8 }}

@@ -7,7 +7,7 @@ const ease = [0.22, 1, 0.36, 1] as const
 /** Smile cut into the logo mark, in a 100 x 100 box. */
 const MARK_SMILE = 'M24 54A26 26 0 0 0 76 54'
 
-/** The smile in the official logo is tilted anticlockwise (right end higher), measured from the logo artwork. */
+/** The smile in the official logo is tilted anticlockwise (right end higher) with square-cut ends, measured from the logo artwork. */
 const MARK_TILT = 'rotate(-12 50 50)'
 
 /** Official logo colourways: purple or blackcurrant on light backgrounds, white on purple, dark or photos. */
@@ -53,7 +53,7 @@ export function SmileMark({ tone = 'purple', size = 0.5, delay = 0.2, scroll, cl
           fill="none"
           stroke="black"
           strokeWidth={12}
-          strokeLinecap="round"
+          strokeLinecap="butt"
           style={scroll && !reduce ? { pathLength: scroll.draw } : undefined}
           initial={animate ? { pathLength: 0 } : false}
           whileInView={animate ? { pathLength: 1 } : undefined}
@@ -130,7 +130,7 @@ export function PullOut({ children, delay = 0.3 }: PullOutProps) {
           d="M12 8A80 80 0 0 0 92 88"
           stroke="currentColor"
           strokeWidth={19}
-          strokeLinecap="round"
+          strokeLinecap="butt"
           initial={reduce ? false : { pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true, amount: 0.8 }}
