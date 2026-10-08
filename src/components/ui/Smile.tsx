@@ -4,11 +4,12 @@ import { cn } from '../../lib/utils'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-/** Smile cut into the logo mark, in a 100 x 100 box. */
-const MARK_SMILE = 'M24 54A26 26 0 0 0 76 54'
-
-/** The smile in the official logo is tilted anticlockwise (right end higher) with square-cut ends, measured from the logo artwork. */
-const MARK_TILT = 'rotate(-12 50 50)'
+/**
+ * Smile cut into the logo mark, in a 100 x 100 box, traced from the official logo artwork:
+ * an arc around the circle's centre, tilted so the right end sits higher, with square-cut ends.
+ */
+const MARK_SMILE = 'M21.67 57.58A29.32 29.32 0 0 0 79.04 45.98'
+const MARK_SMILE_WIDTH = 9.42
 
 /** Official logo colourways: purple or blackcurrant on light backgrounds, white on purple, dark or photos. */
 const markTones = {
@@ -49,10 +50,9 @@ export function SmileMark({ tone = 'purple', size = 0.5, delay = 0.2, scroll, cl
         <rect width={100} height={100} fill="white" />
         <motion.path
           d={MARK_SMILE}
-          transform={MARK_TILT}
           fill="none"
           stroke="black"
-          strokeWidth={12}
+          strokeWidth={MARK_SMILE_WIDTH}
           strokeLinecap="butt"
           style={scroll && !reduce ? { pathLength: scroll.draw } : undefined}
           initial={animate ? { pathLength: 0 } : false}
