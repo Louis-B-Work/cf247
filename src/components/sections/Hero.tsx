@@ -94,19 +94,19 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.6 }}
-            className="mt-[clamp(28px,4.5svh,40px)] flex max-w-[820px] flex-col items-center gap-5 hero-centered:mx-auto sm:mt-6 sm:flex-row sm:items-stretch sm:gap-3 md:mt-7"
+            className="mt-[clamp(28px,4.5svh,40px)] flex max-w-[820px] flex-col items-center gap-5 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-[640px] sm:mt-6 sm:flex-row sm:items-stretch sm:gap-3 hero-centered:sm:flex-col hero-centered:sm:items-center hero-centered:sm:gap-4 md:mt-7"
           >
-            <div className="w-full flex-1">
+            <div className="w-full flex-1 hero-centered:sm:flex-none">
               <HeroSearch />
             </div>
             {/* Separates the two routes in: search for help, or go straight to a quote. */}
             <span
               aria-hidden
-              className="flex w-full items-center gap-3 font-display text-base font-medium text-white/70 sm:w-auto sm:px-1"
+              className="flex w-full items-center gap-3 font-display text-base font-medium text-white/70 sm:w-auto sm:px-1 hero-centered:sm:w-full hero-centered:sm:px-0"
             >
-              <span className="h-px flex-1 bg-white/20 sm:hidden" />
+              <span className="h-px flex-1 bg-white/20 sm:hidden hero-centered:sm:block" />
               or
-              <span className="h-px flex-1 bg-white/20 sm:hidden" />
+              <span className="h-px flex-1 bg-white/20 sm:hidden hero-centered:sm:block" />
             </span>
             <Button href={quoteUrl} variant="reverse" size="xl">
               Get my quote
