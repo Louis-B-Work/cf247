@@ -88,7 +88,7 @@ export function Hero() {
             >
               <span className="flex items-center gap-3">
                 <strong className="font-display">Excellent</strong>
-                <TrustpilotStars boxClassName="size-[22px]" />
+                <TrustpilotStars tone="light" boxClassName="size-[22px]" />
               </span>
               <span className="flex items-center gap-2">
                 <span className="text-white/75 transition-colors group-hover:text-white">

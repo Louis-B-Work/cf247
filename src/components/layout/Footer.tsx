@@ -120,7 +120,7 @@ export function Footer() {
           <a href={trustpilot.url} className="mt-6 block w-fit text-sm text-white/75 transition-colors hover:text-white">
             <span className="flex items-center gap-3">
               <TrustpilotLogo tone="light" className="text-[15px]" />
-              <TrustpilotStars boxClassName="size-[18px]" />
+              <TrustpilotStars tone="light" boxClassName="size-[18px]" />
             </span>
             <span className="mt-2 block">
               TrustScore {trustpilot.score} from {trustpilot.reviews} reviews

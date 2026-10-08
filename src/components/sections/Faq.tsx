@@ -173,7 +173,7 @@ export function Faq() {
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 lg:hidden">
             <p className="font-display text-[17px] font-semibold">Still got a question?</p>
-            <Button href={siteUrl('/contact-us')} size="md">
+            <Button href={siteUrl('/contact-us')} variant="light" size="md">
               Contact us
             </Button>
           </div>

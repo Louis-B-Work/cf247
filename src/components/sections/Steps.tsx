@@ -23,7 +23,7 @@ export function Steps() {
             </>
           }
           actionOn="desktop"
-          action={<Button href={quoteUrl} size="lg">Get my quote</Button>}
+          action={<Button href={quoteUrl} variant="light" size="lg">Get my quote</Button>}
         />
 
         {/* Phones: compact rows (thumbnail beside text). Tablet and up: three image cards. Every card links to the quote form. */}
@@ -75,7 +75,7 @@ export function Steps() {
           ))}
         </ol>
         <div className="mt-7 md:hidden">
-          <Button href={quoteUrl} size="lg">Get my quote</Button>
+          <Button href={quoteUrl} variant="light" size="lg">Get my quote</Button>
         </div>
       </div>
     </section>

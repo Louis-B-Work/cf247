@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { cn } from '../../lib/utils'
 import { Icon } from './Icon'
 
-type Variant = 'primary' | 'reverse' | 'outline-light' | 'outline-dark'
+type Variant = 'primary' | 'reverse' | 'light' | 'outline-light' | 'outline-dark'
 type Size = 'md' | 'lg' | 'xl'
 
 type ButtonProps = {
@@ -26,6 +26,8 @@ type ButtonProps = {
 const variantStyles: Record<Variant, string> = {
   primary: 'bg-purple text-white',
   reverse: 'bg-white text-purple',
+  // The white button for white or tint backgrounds: a fine purple-tint outline and soft shadow keep its edge visible.
+  light: 'bg-white text-purple ring-1 ring-inset ring-purple-30 shadow-[0_10px_24px_-14px_rgba(105,5,242,0.45)]',
   'outline-light': 'bg-transparent text-white ring-2 ring-inset ring-white/80',
   'outline-dark': 'bg-transparent text-purple ring-2 ring-inset ring-purple',
 }

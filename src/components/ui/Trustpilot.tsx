@@ -1,31 +1,35 @@
 import { cn } from '../../lib/utils'
 
-const TP_GREEN = '#00B67A'
-
-/** Test: brand lime instead of Trustpilot green. Set to false to restore the official colours. */
-const USE_BRAND_LIME = true
-const BOX_FILL = USE_BRAND_LIME ? 'var(--color-lime)' : TP_GREEN
-// White stars disappear on lime, so the lime version uses blackcurrant stars.
-const BOX_STAR = USE_BRAND_LIME ? 'var(--color-blackcurrant)' : '#fff'
 const STAR = 'M24 5l5.6 12 13.1 1.5-9.7 8.9 2.7 13L24 33.9l-11.7 6.5 2.7-13-9.7-8.9 13.1-1.5z'
 
-/** Trustpilot's five green star boxes. Size each box with `boxClassName`. */
-export function TrustpilotStars({ className, boxClassName = 'size-5' }: { className?: string; boxClassName?: string }) {
+type Tone = 'dark' | 'light'
+
+/** Brand star colour: purple on light backgrounds, white on purple or blackcurrant ones where purple would vanish. */
+const starFill = (tone: Tone) => (tone === 'dark' ? 'fill-purple' : 'fill-white')
+
+/** Five plain stars (no boxes). Size each star with `boxClassName`; `tone="light"` for dark backgrounds. */
+export function TrustpilotStars({
+  className,
+  boxClassName = 'size-5',
+  tone = 'dark',
+}: {
+  className?: string
+  boxClassName?: string
+  tone?: Tone
+}) {
   return (
-    <span className={cn('inline-flex gap-[2px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
+    <span className={cn('inline-flex gap-[1px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
       {Array.from({ length: 5 }, (_, i) => (
-        <span key={i} className={cn('grid place-items-center', boxClassName)} style={{ backgroundColor: BOX_FILL }}>
-          <svg viewBox="0 0 48 48" aria-hidden className="size-[78%]" style={{ fill: BOX_STAR }}>
-            <path d={STAR} />
-          </svg>
-        </span>
+        <svg key={i} viewBox="0 0 48 48" aria-hidden className={cn(boxClassName, starFill(tone))}>
+          <path d={STAR} />
+        </svg>
       ))}
     </span>
   )
 }
 
 /** Trustpilot star and wordmark. `tone` sets the wordmark colour for light or dark backgrounds. */
-export function TrustpilotLogo({ tone = 'dark', className }: { tone?: 'dark' | 'light'; className?: string }) {
+export function TrustpilotLogo({ tone = 'dark', className }: { tone?: Tone; className?: string }) {
   return (
     <span
       className={cn(
@@ -34,7 +38,7 @@ export function TrustpilotLogo({ tone = 'dark', className }: { tone?: 'dark' | '
         className,
       )}
     >
-      <svg viewBox="0 0 48 48" aria-hidden className="size-[1.15em] -translate-y-[0.06em]" style={{ fill: BOX_FILL }}>
+      <svg viewBox="0 0 48 48" aria-hidden className={cn('size-[1.15em] -translate-y-[0.06em]', starFill(tone))}>
         <path d={STAR} />
       </svg>
       Trustpilot
