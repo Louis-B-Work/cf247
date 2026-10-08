@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useId, useState } from 'react'
-import { faqCategories, type Faq as FaqItemData } from '../../data/faqs'
+import { faqCategories as defaultCategories, type Faq as FaqItemData, type FaqCategory } from '../../data/faqs'
 import { images } from '../../data/images'
 import { cn, siteUrl } from '../../lib/utils'
 import { Button } from '../ui/Button'
@@ -71,7 +71,13 @@ function FaqItem({ item, open, onToggle }: { item: FaqItemData; open: boolean; o
   )
 }
 
-export function Faq() {
+type FaqProps = {
+  /** Question sets. With a single set the topic tabs are hidden. */
+  categories?: FaqCategory[]
+}
+
+export function Faq({ categories: faqCategories = defaultCategories }: FaqProps = {}) {
+  const showTabs = faqCategories.length > 1
   const [activeId, setActiveId] = useState(faqCategories[0].id)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const active = faqCategories.find((c) => c.id === activeId) ?? faqCategories[0]
@@ -88,7 +94,7 @@ export function Faq() {
     syncFromHash()
     window.addEventListener('hashchange', syncFromHash)
     return () => window.removeEventListener('hashchange', syncFromHash)
-  }, [])
+  }, [faqCategories])
 
   const selectCategory = (id: string) => {
     setActiveId(id)
@@ -105,6 +111,7 @@ export function Faq() {
             </h2>
           </Reveal>
 
+          {showTabs && (
           <div
             role="tablist"
             aria-label="Question topics"
@@ -146,10 +153,11 @@ export function Faq() {
               )
             })}
           </div>
+          )}
         </div>
 
         <div className="mt-7 grid grid-cols-1 gap-3 md:mt-6 lg:grid-cols-12">
-          <div id="faq-panel" role="tabpanel" aria-labelledby={`faq-${active.id}`} className="lg:col-span-8 xl:col-span-9">
+          <div id="faq-panel" role={showTabs ? 'tabpanel' : undefined} aria-labelledby={showTabs ? `faq-${active.id}` : undefined} className="lg:col-span-8 xl:col-span-9">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={active.id}

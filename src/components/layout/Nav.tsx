@@ -15,7 +15,14 @@ import { MobileMenu } from './MobileMenu'
 
 const CLOSE_DELAY = 140
 
-export function Nav() {
+type NavProps = {
+  /** minimal: logo and quote button only, for paid landing pages that keep visitors focused on one action. */
+  variant?: 'full' | 'minimal'
+  quoteHref?: string
+}
+
+export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
+  const minimal = variant === 'minimal'
   const [openId, setOpenId] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -60,6 +67,7 @@ export function Nav() {
             <Logo variant="inline" className="hidden h-[26px] w-auto text-white sm:block lg:max-xl:h-[22px] xl:h-[28px]" />
           </a>
 
+          {!minimal && (
           <ul className="hidden h-full items-stretch lg:flex xl:ml-4">
             {navItems.map((item) => (
               <DesktopItem
@@ -72,12 +80,14 @@ export function Nav() {
               />
             ))}
           </ul>
+          )}
 
           <div className="ml-auto flex items-center gap-1 sm:gap-4">
-            <SignInLink />
-            <Button href={quoteUrl} variant="outline-light" size="md">
+            {!minimal && <SignInLink />}
+            <Button href={quoteHref} variant="outline-light" size="md">
               Get my quote
             </Button>
+            {!minimal && (
             <button
               type="button"
               className="grid size-12 place-items-center rounded-brand lg:hidden"
@@ -87,6 +97,7 @@ export function Nav() {
             >
               <Icon name="menu" className="size-7" />
             </button>
+            )}
           </div>
         </nav>
 
@@ -97,7 +108,7 @@ export function Nav() {
         />
       </div>
 
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      {!minimal && <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />}
     </header>
   )
 }

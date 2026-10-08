@@ -141,7 +141,13 @@ function MarqueeRow({ items, reverse, speed }: { items: Review[]; reverse?: bool
   )
 }
 
-export function Reviews() {
+type ReviewsProps = {
+  /** Show the three customer video stories above the review row. */
+  showVideos?: boolean
+  quoteHref?: string
+}
+
+export function Reviews({ showVideos = true, quoteHref = quoteUrl }: ReviewsProps = {}) {
   const rowRef = useRef<HTMLDivElement>(null)
   useVerticalWheelPassthrough(rowRef)
 
@@ -173,6 +179,7 @@ export function Reviews() {
         />
 
         {/* Phones: a swipeable row that peeks the next story. Larger screens: a three-up grid. */}
+        {showVideos && (
         <div ref={rowRef}
         className="-mx-[clamp(20px,4vw,48px)] mt-7 flex snap-x snap-mandatory scroll-px-[clamp(20px,4vw,48px)] gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x touch-pan-y px-[clamp(20px,4vw,48px)] pb-1 [scrollbar-width:none] sm:mx-0 md:mt-10 sm:grid sm:grid-cols-3 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0">
           {videoReviews.map((video, i) => (
@@ -206,15 +213,16 @@ export function Reviews() {
             </motion.a>
           ))}
         </div>
+        )}
       </div>
 
-      <div className="mt-5 sm:mt-5">
+      <div className={showVideos ? 'mt-5 sm:mt-5' : 'mt-7 md:mt-10'}>
         <MarqueeRow items={reviews} speed={32} />
       </div>
 
       <div className="container-cf mt-5 flex flex-wrap items-center justify-end gap-x-5 gap-y-3 text-right md:mt-8">
         <p className="font-display text-lg font-semibold md:text-xl">Join them with a quote in minutes</p>
-        <Button href={quoteUrl} variant="light" size="lg">
+        <Button href={quoteHref} variant="light" size="lg">
           Get my quote
         </Button>
       </div>

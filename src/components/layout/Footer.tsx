@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { navItems } from '../../data/nav'
 import { trustpilot } from '../../data/reviews'
-import { siteUrl } from '../../lib/utils'
+import { cn, siteUrl } from '../../lib/utils'
 import { Logo } from '../brand/Logo'
 import { BrandIcon, type BrandMark } from '../ui/BrandIcon'
 import { Icon } from '../ui/Icon'
@@ -98,7 +98,15 @@ function AppAndSocial() {
   )
 }
 
-export function Footer() {
+type FooterProps = {
+  /** compact: brand, address and legal text only (no link columns or app strip), for landing pages. */
+  variant?: 'full' | 'compact'
+  /** Extra disclosures shown above the standard legal text. */
+  notes?: string[]
+}
+
+export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
+  const compact = variant === 'compact'
   const wide = useWide()
   const columns = navItems.map((item) => ({
     title: item.label,
@@ -108,7 +116,8 @@ export function Footer() {
   return (
     <footer className="on-dark bg-blackcurrant">
       <div className="container-cf grid grid-cols-1 gap-8 pt-12 pb-8 sm:gap-10 sm:py-14 lg:grid-cols-12">
-        <div className="lg:col-span-4">
+        <div className={compact ? 'flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:col-span-12' : 'lg:col-span-4'}>
+          <div>
           <Logo className="h-14 w-auto text-white sm:h-16" />
           <address className="mt-6 text-[15px] sm:mt-8 leading-relaxed text-white/70 not-italic">
             Car Finance 247 Limited
@@ -117,7 +126,8 @@ export function Footer() {
             <br />
             Manchester, M12 6JH
           </address>
-          <a href={trustpilot.url} className="mt-6 block w-fit text-sm text-white/75 transition-colors hover:text-white">
+          </div>
+          <a href={trustpilot.url} className={cn('block w-fit text-sm text-white/75 transition-colors hover:text-white', !compact && 'mt-6')}>
             <span className="flex items-center gap-3">
               <TrustpilotLogo tone="light" className="text-[15px]" />
               <TrustpilotStars tone="light" boxClassName="size-[18px]" />
@@ -128,7 +138,8 @@ export function Footer() {
           </a>
         </div>
 
-        {/* Phones: collapsible link groups (native details/summary). Tablet and up: always-open columns. */}
+        {!compact && (
+        /* Phones: collapsible link groups (native details/summary). Tablet and up: always-open columns. */
         <nav aria-label="Footer" className="divide-y divide-white/10 border-y border-white/10 sm:grid sm:grid-cols-4 sm:gap-10 sm:divide-y-0 sm:border-0 lg:col-span-8">
           {columns.map((col) => (
             <details key={col.title} className="group/f" open={wide || undefined}>
@@ -148,9 +159,10 @@ export function Footer() {
             </details>
           ))}
         </nav>
+        )}
       </div>
 
-      <AppAndSocial />
+      {!compact && <AppAndSocial />}
 
       <div className="border-t border-white/10">
         <div className="container-cf space-y-4 py-8 text-xs sm:py-10 leading-relaxed text-white/55">
@@ -163,6 +175,9 @@ export function Footer() {
               </li>
             ))}
           </ul>
+          {notes.map((n) => (
+            <p key={n}>{n}</p>
+          ))}
           <p>
             Registered office: Universal Square, Devonshire Street North, Manchester, M12 6JH. Registered in England
             (Registration Number 06035525).
