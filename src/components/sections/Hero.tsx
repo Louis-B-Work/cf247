@@ -1,18 +1,20 @@
-import { motion } from 'motion/react'
-import type { ReactNode } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { heroCar } from '../../data/assets'
+import { heroCycle } from '../../data/cars'
 import { quoteUrl } from '../../data/nav'
 import { trustpilot } from '../../data/reviews'
 import { Button } from '../ui/Button'
 import { Accent, EndSmile } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
+import { useTestOption } from '../../lib/useTestOption'
 import { HeroSearch } from './HeroSearch'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 function Line({ children, delay }: { children: ReactNode; delay: number }) {
   return (
-    <span className="-mb-[0.22em] block overflow-hidden pr-[0.4em] pb-[0.34em] whitespace-nowrap hero-centered:px-[0.2em]">
+    <span className="-mb-[0.22em] block overflow-hidden pr-[0.4em] pb-[0.34em] whitespace-nowrap hero-centered:px-[0.2em] hero-centered:md:inline-block hero-centered:md:align-top hero-centered:md:not-first:-ml-[0.15em]">
       <motion.span
         className="block"
         initial={{ y: '105%' }}
@@ -25,7 +27,26 @@ function Line({ children, delay }: { children: ReactNode; delay: number }) {
   )
 }
 
+const CYCLE_MS = 4000
+
+/** The hero car. In the "Cycling cars" test option it rotates through the Fiesta and the three value card models. */
+function useHeroCar() {
+  const cycling = useTestOption('hero') === 'cycle'
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    if (!cycling) return
+    // Warm the cache so each swap is instant rather than waiting on the network.
+    for (const car of heroCycle) new Image().src = car.src
+    const t = window.setInterval(() => setIndex((i) => (i + 1) % heroCycle.length), CYCLE_MS)
+    return () => window.clearInterval(t)
+  }, [cycling])
+
+  return cycling ? heroCycle[index] : heroCar
+}
+
 export function Hero() {
+  const car = useHeroCar()
   // z-10 and overflow-x-clip let the car hang over the white section below without causing sideways scroll.
   return (
     <section id="top" className="on-dark relative isolate z-10 flex flex-col overflow-x-clip bg-purple pt-[var(--nav-height)] max-sm:min-h-[80svh]">
@@ -35,7 +56,7 @@ export function Hero() {
 
       <div className="container-wide relative flex flex-1 flex-col pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:lg:pt-20 hero-centered:lg:pb-24">
         {/* Test option "Centred, no car": the copy and actions centre across the full width and the car is hidden. */}
-        <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-4xl hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
+        <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-6xl hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
           <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">
             <Line delay={0.1}>Car finance</Line>
             <Line delay={0.22}>
@@ -47,7 +68,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.45 }}
-            className="mt-6 max-w-xl text-[17px] leading-relaxed text-white/85 hero-centered:mx-auto sm:mt-5 sm:text-base md:mt-6 md:text-lg"
+            className="mt-6 max-w-xl text-[17px] leading-relaxed text-white/85 hero-centered:mx-auto hero-centered:md:max-w-2xl sm:mt-5 sm:text-base md:mt-6 md:text-lg"
           >
             Find your next car, compare finance from our panel of lenders and get a decision in minutes. No impact
             on your credit score.
@@ -115,14 +136,22 @@ export function Hero() {
           transition={{ duration: 1.1, ease, delay: 0.35 }}
           className="relative mt-auto pt-[clamp(24px,4.5svh,40px)] sm:mt-6 sm:pt-0 hero-centered:hidden lg:absolute lg:mt-0 lg:right-[var(--wide-right)] lg:bottom-0 lg:w-[32vw] xl:w-[min(32vw,600px)]"
         >
-          <img
-            src={heroCar.src}
-            alt={heroCar.alt}
-            width={1800}
-            height={1125}
-            fetchPriority="high"
-            className="relative z-0 mx-auto -mb-[33%] w-[min(70%,360px)] sm:mt-0 sm:mr-0 sm:ml-auto sm:-mb-[18%] lg:mt-0 drop-shadow-[0_24px_24px_rgba(22,1,50,0.28)] sm:w-[min(48%,360px)] lg:mb-0 lg:w-full lg:translate-y-[34%]"
-          />
+          {/* Each new car drives in from the right as the previous one drives off to the left. */}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.img
+              key={car.src}
+              src={car.src}
+              alt={car.alt}
+              width={1800}
+              height={1125}
+              fetchPriority="high"
+              initial={{ opacity: 0, x: 70 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -70 }}
+              transition={{ duration: 0.45, ease }}
+              className="relative z-0 mx-auto -mb-[33%] w-[min(70%,360px)] sm:mt-0 sm:mr-0 sm:ml-auto sm:-mb-[18%] lg:mt-0 drop-shadow-[0_24px_24px_rgba(22,1,50,0.28)] sm:w-[min(48%,360px)] lg:mb-0 lg:w-full lg:translate-y-[34%]"
+            />
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>

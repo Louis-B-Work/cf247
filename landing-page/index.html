@@ -11,7 +11,8 @@
       try {
         var saved = localStorage.getItem('cf247-heading-font')
         document.documentElement.dataset.headingFont = ['general-sans', 'manrope', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
-        document.documentElement.dataset.hero = localStorage.getItem('cf247-hero') === 'centered' ? 'centered' : 'car'
+        var hero = localStorage.getItem('cf247-hero')
+        document.documentElement.dataset.hero = hero === 'centered' || hero === 'cycle' ? hero : 'car'
         document.documentElement.dataset.tp = localStorage.getItem('cf247-tp') === 'brand' ? 'brand' : 'purple'
       } catch (e) {}
     </script>

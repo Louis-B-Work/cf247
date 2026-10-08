@@ -4,7 +4,7 @@ import { images } from '../../data/images'
 import { quoteUrl } from '../../data/nav'
 import { Button } from '../ui/Button'
 import { Reveal } from '../ui/Reveal'
-import { Accent } from '../ui/Smile'
+import { Accent, EndSmile } from '../ui/Smile'
 
 /** Full-bleed photo band with short copy sitting in the image's quiet zone. */
 export function LifestyleBand() {
@@ -35,7 +35,7 @@ export function LifestyleBand() {
       <div className="container-cf flex flex-col justify-between gap-10 pt-[clamp(48px,8vh,96px)] pb-[clamp(36px,6vh,64px)]">
         <Reveal>
           <h2 id="band-title" className="text-[clamp(2.6rem,5vw,4.75rem)] leading-[var(--leading-title)] font-medium">
-            Find your <Accent>match</Accent>
+            Find your <EndSmile tone="white" size={0.66}><Accent>match</Accent></EndSmile>
           </h2>
         </Reveal>
         <Reveal className="max-w-xl self-end text-right" delay={0.1}>

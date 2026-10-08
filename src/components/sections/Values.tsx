@@ -1,13 +1,11 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
+import { valueCars } from '../../data/cars'
 import { quoteUrl } from '../../data/nav'
 import { cn } from '../../lib/utils'
 import { Logo } from '../brand/Logo'
 import { Button } from '../ui/Button'
 import { useVerticalWheelPassthrough } from '../../lib/useVerticalWheelPassthrough'
-
-const carSrc = (make: string, model: string, year: number) =>
-  `https://cdn.imagin.studio/getImage?customer=gb-carfinance247&zoomType=fullscreen&margins=0.03&fileType=webp&version=5&countryCode=0&licensePlateType=eu&aspectRatio=1.6&angle=23&width=1200&make=${make}&modelFamily=${model}&modelYear=${year}`
 
 type Value = {
   title: string
@@ -24,7 +22,7 @@ const values: Value[] = [
     before: 'You can bank on us to find the',
     accent: 'best',
     after: 'car finance deal',
-    car: { src: carSrc('volvo', 'xc40', 2022), alt: 'White Volvo XC40' },
+    car: valueCars.volvo,
     bg: 'bg-purple',
   },
   {
@@ -32,7 +30,7 @@ const values: Value[] = [
     before: 'A decision in',
     accent: 'minutes',
     after: 'so you can get on the road sooner',
-    car: { src: carSrc('kia', 'sportage', 2023), alt: 'White Kia Sportage' },
+    car: valueCars.kia,
     bg: 'bg-blackcurrant',
   },
   {
@@ -40,7 +38,7 @@ const values: Value[] = [
     before: 'A dedicated account manager',
     accent: 'with you',
     after: 'from quote to keys',
-    car: { src: carSrc('mini', 'hatch', 2022), alt: 'White MINI hatch' },
+    car: valueCars.mini,
     bg: 'bg-purple-80',
   },
 ]
