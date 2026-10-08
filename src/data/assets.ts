@@ -33,6 +33,8 @@ export const partners = [
   { name: 'Compare the Market', logo: dA('b0032fb627/fileAsset/compareTheMarket.png/100vw/webp_q') },
   { name: 'Experian', logo: dA('b3944ca70f/fileAsset/experian.png/100vw/webp_q') },
   { name: 'Credit Karma', logo: dA('6f16e7bbd8/fileAsset/creditKarma.png/100vw/webp_q') },
+  // Not hosted on carfinance247.co.uk: the current logo from Wikimedia Commons (File:Msm-aug-21-logo.png), stored in public/.
+  { name: 'MoneySuperMarket', logo: `${import.meta.env.BASE_URL}partners/moneysupermarket.png` },
 ]
 
 export const founders = {

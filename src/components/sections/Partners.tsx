@@ -10,10 +10,10 @@ export function Partners() {
         >
           We only work with trusted partners and lenders
         </h2>
-        {/* Phones: a 2 x 2 grid. Tablet and up: one even row. */}
-        <ul className="grid w-full grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4 sm:max-w-4xl">
+        {/* Phones: two per row, with an odd last logo centred across the row. Tablet and up: one even row. */}
+        <ul className="grid w-full grid-cols-2 gap-x-6 gap-y-6 sm:max-w-5xl sm:grid-cols-5">
           {partners.map((p) => (
-            <li key={p.name} className="flex h-8 min-w-0 items-center justify-center md:h-9">
+            <li key={p.name} className="flex h-8 min-w-0 items-center justify-center last:odd:col-span-2 sm:last:odd:col-span-1 md:h-9">
               <img
                 src={p.logo}
                 alt={p.name}
