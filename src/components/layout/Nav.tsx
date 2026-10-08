@@ -24,7 +24,7 @@ type NavProps = {
 export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
   const minimal = variant === 'minimal'
   const [openId, setOpenId] = useState<string | null>(null)
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 8)
   const [mobileOpen, setMobileOpen] = useState(false)
   const closeTimer = useRef<number | undefined>(undefined)
 
@@ -50,11 +50,15 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  // Over the full-bleed photo hero the bar starts clear and fades to purple once the page scrolls or a menu opens.
+  const clear = !minimal && !scrolled && !openId && !mobileOpen
+
   return (
     <header className="on-dark fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
-          'relative bg-purple transition-shadow duration-300',
+          'relative bg-purple transition-[background-color,box-shadow] duration-500 ease-[var(--ease-brand)]',
+          clear && 'hero-bleed:bg-transparent',
           scrolled && 'shadow-[0_10px_40px_-12px_rgba(22,1,50,0.55)]',
         )}
       >

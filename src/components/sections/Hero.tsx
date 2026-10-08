@@ -64,6 +64,8 @@ export function Hero() {
           />
           <div className="absolute inset-0 mix-blend-multiply bg-[linear-gradient(to_right,rgba(105,5,242,0.8)_0%,rgba(105,5,242,0.55)_40%,rgba(105,5,242,0.15)_75%,rgba(105,5,242,0.05)_100%)] max-lg:bg-[linear-gradient(to_bottom,rgba(105,5,242,0.75)_0%,rgba(105,5,242,0.6)_60%,rgba(105,5,242,0.35)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(22,1,50,0.45)_0%,rgba(22,1,50,0.2)_40%,rgba(22,1,50,0)_65%)] max-lg:bg-blackcurrant/30" />
+          {/* Shade under the clear nav so its white links stay legible on the brighter parts of the photo. */}
+          <div className="absolute inset-x-0 top-0 h-[calc(var(--nav-height)*2.5)] bg-[linear-gradient(to_bottom,rgba(22,1,50,0.55),rgba(22,1,50,0))]" />
         </div>
       </div>
 
