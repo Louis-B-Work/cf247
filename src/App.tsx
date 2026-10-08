@@ -1,4 +1,4 @@
-﻿import { MotionConfig } from 'motion/react'
+import { MotionConfig } from 'motion/react'
 import { FontSwitcher } from './components/layout/FontSwitcher'
 import { Footer } from './components/layout/Footer'
 import { Nav } from './components/layout/Nav'
@@ -7,7 +7,6 @@ import { FinalCta } from './components/sections/FinalCta'
 import { Founders } from './components/sections/Founders'
 import { Guides } from './components/sections/Guides'
 import { Hero } from './components/sections/Hero'
-import { LifestyleBand } from './components/sections/LifestyleBand'
 import { Partners } from './components/sections/Partners'
 import { QuickLinks } from './components/sections/QuickLinks'
 import { Reviews } from './components/sections/Reviews'
@@ -30,7 +29,6 @@ export default function App() {
         <Hero />
         <QuickLinks />
         <Steps />
-        <LifestyleBand />
         <Statement />
         <Values />
         <Reviews />

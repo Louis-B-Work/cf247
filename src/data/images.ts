@@ -22,17 +22,6 @@ export const images = {
     objectPosition: '62% 55%',
     quietZone: 'left',
   },
-  lifestyleBand: {
-    src: u('1608341089966-92c09e62214f', 2400),
-    alt: 'Two cars parked at a mountain overlook at sunset',
-    credit: {
-      name: 'Tyler Clemmensen',
-      profileUrl: 'https://unsplash.com/@tyler_clemmensen',
-      photoUrl: 'https://unsplash.com/photos/two-cars-parked-on-mountain-overlook-5q1xp_kresk',
-    },
-    objectPosition: '60% 30%',
-    quietZone: 'top',
-  },
   situationSearching: {
     src: u('1541570213932-8cd806e3f8f6', 1200),
     alt: 'Passenger leaning out of a car window on a tree-lined road',
@@ -92,17 +81,6 @@ export const images = {
 
 /** Previous picks, kept as swaps. */
 export const alternates: Partial<Record<keyof typeof images, BrandImage>> = {
-  lifestyleBand: {
-    src: u('1610809589386-9ea41901eb54', 2400),
-    alt: 'Car travelling through green hills at golden hour',
-    credit: {
-      name: 'Thyler Voss',
-      profileUrl: 'https://unsplash.com/@thylervoss',
-      photoUrl: 'https://unsplash.com/photos/black-car-on-road-during-daytime-xFgL8xGIGpk',
-    },
-    objectPosition: '68% 58%',
-    quietZone: 'left',
-  },
   situationSearching: {
     src: u('1564415051543-cb73a7468103', 1600),
     alt: 'Two friends sitting on a car roof at dusk',

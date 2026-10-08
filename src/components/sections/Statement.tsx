@@ -5,7 +5,7 @@ const copy =
 
 export function Statement() {
   return (
-    <section aria-label="About Car Finance 247" className="bg-white py-20 md:py-[clamp(72px,14vh,140px)]">
+    <section aria-label="About Car Finance 247" className="bg-white pt-6 pb-20 md:pt-8 md:pb-28">
       <div className="container-cf flex justify-center">
         <MagicText
           copy={copy}
