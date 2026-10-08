@@ -28,7 +28,7 @@ A settings cog in the bottom-left corner opens a menu that switches headings bet
 The same cog has test options, saved in the browser. Each page's cog only lists the options that apply to it:
 
 - **Hero layout** (homepage only): *Cycling cars* (default, the car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car and centres the headline, actions and trust line) or *Photo* (a full-bleed lifestyle photo under a purple wash, darkest behind the copy, with the nav clear until you scroll).
-- **Trustpilot stars**: *Brand purple* (default), *Trustpilot green*, which restores Trustpilot's green boxes with white stars and the green logo star, or *CF247 green*: brand lime boxes with blackcurrant stars, and a lime logo star on dark backgrounds.
+- **Trustpilot stars**: *Brand purple* (default), *Trustpilot green*, which restores Trustpilot's green boxes with white stars and the green logo star, or *CF247 green*: brand lime boxes with white stars, and a lime logo star on dark backgrounds.
 - **Button styles**: *All white* (default) or *Mixed (original)*, which restores the earlier mix: solid purple buttons on white and tint sections and an outlined nav button. Buttons on purple and photos stay white in both.
 
 They work by setting data-hero and data-tp on <html>, read by the hero-centered: and 	p-brand: Tailwind variants in src/index.css.

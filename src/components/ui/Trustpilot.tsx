@@ -21,9 +21,9 @@ export function TrustpilotStars({
     <span className={cn('inline-flex gap-[1px] tp-brand:gap-[2px] tp-lime:gap-[2px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
       {Array.from({ length: 5 }, (_, i) => (
         // Test options: "Trustpilot green" boxes each star in Trustpilot's green with a white star; "CF247 green"
-        // uses the brand lime box with a blackcurrant star, as white on lime would be too faint.
+        // does the same in the brand lime.
         <span key={i} className={cn('grid place-items-center tp-brand:bg-[#00B67A] tp-lime:bg-lime', boxClassName)}>
-          <svg viewBox="0 0 48 48" aria-hidden className={cn('size-full tp-brand:size-[78%] tp-brand:fill-white tp-lime:size-[78%] tp-lime:fill-blackcurrant', starFill(tone))}>
+          <svg viewBox="0 0 48 48" aria-hidden className={cn('size-full tp-brand:size-[78%] tp-brand:fill-white tp-lime:size-[78%] tp-lime:fill-white', starFill(tone))}>
             <path d={STAR} />
           </svg>
         </span>
