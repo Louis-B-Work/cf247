@@ -18,11 +18,14 @@ export function TrustpilotStars({
   tone?: Tone
 }) {
   return (
-    <span className={cn('inline-flex gap-[1px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
+    <span className={cn('inline-flex gap-[1px] tp-brand:gap-[2px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
       {Array.from({ length: 5 }, (_, i) => (
-        <svg key={i} viewBox="0 0 48 48" aria-hidden className={cn(boxClassName, starFill(tone))}>
-          <path d={STAR} />
-        </svg>
+        // Test option "Trustpilot green" turns each star into Trustpilot's green box with a white star.
+        <span key={i} className={cn('grid place-items-center tp-brand:bg-[#00B67A]', boxClassName)}>
+          <svg viewBox="0 0 48 48" aria-hidden className={cn('size-full tp-brand:size-[78%] tp-brand:fill-white', starFill(tone))}>
+            <path d={STAR} />
+          </svg>
+        </span>
       ))}
     </span>
   )
@@ -38,7 +41,7 @@ export function TrustpilotLogo({ tone = 'dark', className }: { tone?: Tone; clas
         className,
       )}
     >
-      <svg viewBox="0 0 48 48" aria-hidden className={cn('size-[1.15em] -translate-y-[0.06em]', starFill(tone))}>
+      <svg viewBox="0 0 48 48" aria-hidden className={cn('size-[1.15em] -translate-y-[0.06em] tp-brand:fill-[#00B67A]', starFill(tone))}>
         <path d={STAR} />
       </svg>
       Trustpilot

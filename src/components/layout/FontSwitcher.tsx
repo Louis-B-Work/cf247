@@ -17,9 +17,45 @@ function initialFont(): FontId {
   return fonts.some((f) => f.id === saved) ? (saved as FontId) : fonts[0].id
 }
 
-/** Settings cog in the bottom-left corner for trying heading fonts from Fontshare. Mockup tooling only. */
+/**
+ * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered` and `tp-brand`
+ * Tailwind variants in index.css) and is saved, so it survives reloads and applies on both pages.
+ */
+const toggles = [
+  {
+    key: 'cf247-hero',
+    attr: 'hero',
+    label: 'Hero layout',
+    options: [
+      { id: 'car', label: 'With car' },
+      { id: 'centered', label: 'Centred, no car' },
+    ],
+  },
+  {
+    key: 'cf247-tp',
+    attr: 'tp',
+    label: 'Trustpilot stars',
+    options: [
+      { id: 'purple', label: 'Brand purple' },
+      { id: 'brand', label: 'Trustpilot green' },
+    ],
+  },
+] as const
+
+type ToggleKey = (typeof toggles)[number]['key']
+
+function initialToggles(): Record<ToggleKey, string> {
+  return Object.fromEntries(
+    toggles.map((t) => {
+      const saved = localStorage.getItem(t.key)
+      return [t.key, t.options.some((o) => o.id === saved) ? saved : t.options[0].id]
+    }),
+  ) as Record<ToggleKey, string>
+}
+/** Settings cog in the bottom-left corner for testing heading fonts, hero layout and Trustpilot styling. Mockup tooling only. */
 export function FontSwitcher() {
   const [font, setFont] = useState<FontId>(initialFont)
+  const [opts, setOpts] = useState(initialToggles)
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const panelId = useId()
@@ -29,6 +65,12 @@ export function FontSwitcher() {
     localStorage.setItem(STORAGE_KEY, font)
   }, [font])
 
+  useEffect(() => {
+    for (const t of toggles) {
+      document.documentElement.dataset[t.attr] = opts[t.key]
+      localStorage.setItem(t.key, opts[t.key])
+    }
+  }, [opts])
   // Fetch every option up front so switching is instant and the labels never show a fallback.
   useEffect(() => {
     for (const f of fonts) {
@@ -63,7 +105,7 @@ export function FontSwitcher() {
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: 'bottom left' }}
-            className="absolute bottom-[calc(100%+10px)] left-0 w-56 rounded-brand bg-blackcurrant/95 p-2 text-white shadow-[0_20px_50px_-15px_rgba(22,1,50,0.7)] ring-1 ring-white/10 backdrop-blur-md"
+            className="absolute bottom-[calc(100%+10px)] left-0 w-64 rounded-brand bg-blackcurrant/95 p-2 text-white shadow-[0_20px_50px_-15px_rgba(22,1,50,0.7)] ring-1 ring-white/10 backdrop-blur-md"
           >
             <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Heading font</p>
             <div role="radiogroup" aria-label="Heading font" className="grid gap-1">
@@ -95,13 +137,39 @@ export function FontSwitcher() {
                 )
               })}
             </div>
+
+            {toggles.map((t) => (
+              <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
+                <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
+                <div role="radiogroup" aria-label={t.label} className="grid grid-cols-2 gap-1 rounded-[12px] bg-white/5 p-1">
+                  {t.options.map((o) => {
+                    const selected = opts[t.key] === o.id
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        role="radio"
+                        aria-checked={selected}
+                        onClick={() => setOpts((cur) => ({ ...cur, [t.key]: o.id }))}
+                        className={cn(
+                          'rounded-[9px] px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
+                          selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
+                        )}
+                      >
+                        {o.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
 
       <button
         type="button"
-        aria-label="Heading font settings"
+        aria-label="Test settings: heading font, hero layout and Trustpilot stars"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((o) => !o)}

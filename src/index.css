@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Test options from the settings cog, set as attributes on <html> (see FontSwitcher and the pre-paint script). */
+@custom-variant hero-centered (&:where(html[data-hero='centered'] *));
+@custom-variant tp-brand (&:where(html[data-tp='brand'] *));
+
 /*
  * Brand tokens from CF247 Guidelines (2026 draft).
  * Lime is still being decided, so every lime usage reads from --color-lime.

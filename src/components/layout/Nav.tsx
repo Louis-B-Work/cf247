@@ -84,7 +84,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
 
           <div className="ml-auto flex items-center gap-1 sm:gap-4">
             {!minimal && <SignInLink />}
-            <Button href={quoteHref} variant="outline-light" size="md">
+            <Button href={quoteHref} variant="reverse" size="md">
               Get my quote
             </Button>
             {!minimal && (
