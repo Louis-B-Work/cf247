@@ -12,14 +12,14 @@ const u = (id: string, w: number) => `https://images.unsplash.com/photo-${id}?au
 /** Free-licence photos from the Unsplash "car lifestyle" search, chosen against the imagery guidance (pp. 27 to 32). */
 export const images = {
   heroBleed: {
-    src: u('1449965408869-eaa3f722e40d', 2400),
-    alt: 'Car driving along a winding mountain road at dusk',
+    src: u('1627676200450-a89dcfb0e6e9', 2400),
+    alt: 'Car parked on an open road',
     credit: {
       name: 'Unsplash',
       profileUrl: 'https://unsplash.com',
-      photoUrl: 'https://unsplash.com/photos/1449965408869-eaa3f722e40d',
+      photoUrl: 'https://unsplash.com/photos/1627676200450-a89dcfb0e6e9',
     },
-    objectPosition: '50% 55%',
+    objectPosition: '62% 55%',
     quietZone: 'left',
   },
   lifestyleBand: {

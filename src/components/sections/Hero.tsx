@@ -63,8 +63,8 @@ export function Hero() {
             style={{ objectPosition: images.heroBleed.objectPosition }}
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 mix-blend-multiply bg-[linear-gradient(to_right,rgba(105,5,242,0.95)_0%,rgba(105,5,242,0.75)_45%,rgba(105,5,242,0.35)_80%,rgba(105,5,242,0.25)_100%)] max-lg:bg-[linear-gradient(to_bottom,rgba(105,5,242,0.9)_0%,rgba(105,5,242,0.75)_60%,rgba(105,5,242,0.5)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(105,5,242,0.55)_0%,rgba(105,5,242,0.25)_45%,rgba(105,5,242,0)_75%)] max-lg:bg-purple/35" />
+          <div className="absolute inset-0 mix-blend-multiply bg-[linear-gradient(to_right,rgba(105,5,242,0.8)_0%,rgba(105,5,242,0.55)_40%,rgba(105,5,242,0.15)_75%,rgba(105,5,242,0.05)_100%)] max-lg:bg-[linear-gradient(to_bottom,rgba(105,5,242,0.75)_0%,rgba(105,5,242,0.6)_60%,rgba(105,5,242,0.35)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(22,1,50,0.45)_0%,rgba(22,1,50,0.2)_40%,rgba(22,1,50,0)_65%)] max-lg:bg-blackcurrant/30" />
         </div>
       </div>
 
