@@ -12,7 +12,7 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 function Line({ children, delay }: { children: ReactNode; delay: number }) {
   return (
-    <span className="-mb-[0.22em] block overflow-hidden pr-[0.4em] pb-[0.34em] whitespace-nowrap hero-centered:px-[0.2em]">
+    <span className="-mb-[0.22em] block overflow-hidden pr-[0.4em] pb-[0.34em] whitespace-nowrap">
       <motion.span className="block" initial={{ y: '105%' }} animate={{ y: 0 }} transition={{ duration: 0.9, ease, delay }}>
         {children}
       </motion.span>
@@ -40,7 +40,7 @@ function RegForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex w-full flex-col gap-3 sm:w-[380px] hero-centered:mx-auto">
+    <form onSubmit={onSubmit} className="flex w-full flex-col gap-3 sm:w-[380px]">
       <label htmlFor={id} className="sr-only">
         Your car registration (optional)
       </label>
@@ -67,19 +67,17 @@ export function RefinanceHero() {
   return (
     <section id="top" className="on-dark relative isolate overflow-hidden bg-purple">
       {/* Photo on the right on desktop; on phones it sits beneath the copy as a framed image. */}
-      <div aria-hidden className="absolute inset-y-0 right-0 -z-10 hidden w-[46%] lg:block hero-centered:lg:hidden">
+      <div aria-hidden className="absolute inset-y-0 right-0 -z-10 hidden w-[46%] lg:block">
         <img src={img.src} alt="" className="h-full w-full object-cover object-[35%_50%]" fetchPriority="high" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-purple)_0%,rgba(105,5,242,0.55)_18%,rgba(105,5,242,0)_45%)]" />
       </div>
 
       {/* No nav on the landing page: just the logo, which is not a link so the page keeps one goal. */}
-      <div className="container-wide relative pt-6 sm:pt-8 hero-centered:flex hero-centered:justify-center">
+      <div className="container-wide relative pt-6 sm:pt-8">
         <Logo title="Car Finance 247" className="h-[46px] w-auto text-white sm:h-14" />
       </div>
 
       <div className="container-wide relative grid grid-cols-1 gap-10 pt-[clamp(24px,4svh,40px)] pb-14 lg:grid-cols-12 lg:pt-12 lg:pb-20">
-        {/* Test option "Centred, no car": no photo, everything centred. */}
-        <div className="lg:col-span-7 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-4xl hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
+        <div className="lg:col-span-7">
           <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em] sm:text-[clamp(3.5rem,5.6vw,5.5rem)]">
             <Line delay={0.1}>Refinance</Line>
             <Line delay={0.22}>
@@ -91,7 +89,7 @@ export function RefinanceHero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.45 }}
-            className="mt-6 flex flex-col gap-2.5 text-[17px] sm:mt-7 sm:flex-row sm:flex-wrap sm:gap-x-6 md:text-lg hero-centered:items-center hero-centered:sm:justify-center"
+            className="mt-6 flex flex-col gap-2.5 text-[17px] sm:mt-7 sm:flex-row sm:flex-wrap sm:gap-x-6 md:text-lg"
           >
             {heroBullets.map((b) => (
               <li key={b} className="flex items-center gap-2.5">
@@ -120,7 +118,7 @@ export function RefinanceHero() {
             transition={{ duration: 0.8, delay: 0.85 }}
             className="mt-7"
           >
-            <a href={trustpilot.url} className="group flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px] hero-centered:justify-center">
+            <a href={trustpilot.url} className="group flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
               <strong className="font-display">Excellent</strong>
               <TrustpilotStars tone="light" boxClassName="size-[22px]" />
               <span className="text-white/75 transition-colors group-hover:text-white">{trustpilot.reviews} reviews on</span>
@@ -128,8 +126,8 @@ export function RefinanceHero() {
             </a>
           </motion.div>
 
-          <div className="mt-6 max-w-xl space-y-1.5 text-[13px] leading-relaxed text-white/75 hero-centered:mx-auto">
-            <p className="flex gap-2 hero-centered:justify-center">
+          <div className="mt-6 max-w-xl space-y-1.5 text-[13px] leading-relaxed text-white/75">
+            <p className="flex gap-2">
               <Icon name="shield" className="mt-0.5 size-4 shrink-0 text-lime" />
               <span>{softSearchNote}</span>
             </p>
@@ -138,7 +136,7 @@ export function RefinanceHero() {
         </div>
 
         {/* Phones and tablets: the photo as a framed image under the copy. */}
-        <div className="overflow-hidden rounded-brand lg:hidden hero-centered:hidden">
+        <div className="overflow-hidden rounded-brand lg:hidden">
           <img src={img.src} alt={img.alt} loading="lazy" className="aspect-[16/10] w-full object-cover object-[40%_50%]" />
         </div>
       </div>

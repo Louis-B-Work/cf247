@@ -32,7 +32,7 @@ export default function App() {
         <RefinanceFinalCta />
       </main>
       <Footer variant="compact" notes={footerNotes} />
-      <FontSwitcher />
+      <FontSwitcher page="landing" />
     </MotionConfig>
   )
 }

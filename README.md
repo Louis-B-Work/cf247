@@ -25,9 +25,9 @@ The CSS families must be `neulis-neue` and `neulis-cursive` (the Adobe defaults)
 
 A settings cog in the bottom-left corner opens a menu that switches headings between **General Sans**, **Manrope** and **Satoshi** (all free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`). The choice is saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]`; remove `<FontSwitcher />` from `App.tsx` once a font is chosen.
 
-The same cog has three test options, saved in the browser and applied on both pages:
+The same cog has test options, saved in the browser. Each page's cog only lists the options that apply to it:
 
-- **Hero layout**: *Cycling cars* (default, the homepage car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car or landing page photo and centres the headline, actions and trust line) or *Photo* (homepage hero becomes a full-bleed lifestyle photo under a purple wash, darkest behind the copy).
+- **Hero layout** (homepage only): *Cycling cars* (default, the car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car and centres the headline, actions and trust line) or *Photo* (a full-bleed lifestyle photo under a purple wash, darkest behind the copy, with the nav clear until you scroll).
 - **Trustpilot stars**: *Brand purple* (default) or *Trustpilot green*, which restores Trustpilot's green boxes with white stars and the green logo star.
 - **Button styles**: *All white* (default) or *Mixed (original)*, which restores the earlier mix: solid purple buttons on white and tint sections and an outlined nav button. Buttons on purple and photos stay white in both.
 
@@ -74,4 +74,4 @@ A second page, `landing-page/`, redesigns the paid landing page at [carfinance24
 - Hero with a plain reg box and the Get my quote button directly beneath it at the same size; the reg is passed to the quote journey as `?reg=`. Every quote button on the page uses the same `xl` size.
 - Illustrative refinance calculator (`src/lib/finance.ts`) at the representative 15.5% APR, with clear warnings.
 - Explainer, pros and cons, why Car Finance 247, reviews (`showVideos={false}`), partners, refinance FAQs (`Faq categories=...`, tabs hide with one set), final call to action and `Footer variant="compact"`.
-- Copy and links live in `src/data/refinance.ts`. The heading font cog works here too.
+- Copy and links live in `src/data/refinance.ts`. The cog here offers the heading font, Trustpilot stars and button styles (the hero layout options are homepage only).

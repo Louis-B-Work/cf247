@@ -19,13 +19,14 @@ function initialFont(): FontId {
 
 /**
  * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered` and `tp-brand`
- * Tailwind variants in index.css) and is saved, so it survives reloads and applies on both pages.
+ * Tailwind variants in index.css) and is saved, so it survives reloads. `pages` lists where each option applies.
  */
 const toggles = [
   {
     key: 'cf247-hero',
     attr: 'hero',
     label: 'Hero layout',
+    pages: ['home'],
     options: [
       { id: 'car', label: 'Cycling cars' },
       { id: 'centered', label: 'Centred, no car' },
@@ -36,6 +37,7 @@ const toggles = [
     key: 'cf247-tp',
     attr: 'tp',
     label: 'Trustpilot stars',
+    pages: ['home', 'landing'],
     options: [
       { id: 'purple', label: 'Brand purple' },
       { id: 'brand', label: 'Trustpilot green' },
@@ -45,6 +47,7 @@ const toggles = [
     key: 'cf247-btn',
     attr: 'btn',
     label: 'Button styles',
+    pages: ['home', 'landing'],
     options: [
       { id: 'unified', label: 'All white' },
       { id: 'mixed', label: 'Mixed (original)' },
@@ -53,6 +56,9 @@ const toggles = [
 ] as const
 
 type ToggleKey = (typeof toggles)[number]['key']
+type Page = 'home' | 'landing'
+
+const togglesFor = (page: Page) => toggles.filter((t) => (t.pages as readonly Page[]).includes(page))
 
 function initialToggles(): Record<ToggleKey, string> {
   return Object.fromEntries(
@@ -63,7 +69,7 @@ function initialToggles(): Record<ToggleKey, string> {
   ) as Record<ToggleKey, string>
 }
 /** Settings cog in the bottom-left corner for testing heading fonts, hero layout and Trustpilot styling. Mockup tooling only. */
-export function FontSwitcher() {
+export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   const [font, setFont] = useState<FontId>(initialFont)
   const [opts, setOpts] = useState(initialToggles)
   const [open, setOpen] = useState(false)
@@ -76,11 +82,11 @@ export function FontSwitcher() {
   }, [font])
 
   useEffect(() => {
-    for (const t of toggles) {
+    for (const t of togglesFor(page)) {
       document.documentElement.dataset[t.attr] = opts[t.key]
       localStorage.setItem(t.key, opts[t.key])
     }
-  }, [opts])
+  }, [opts, page])
   // Fetch every option up front so switching is instant and the labels never show a fallback.
   useEffect(() => {
     for (const f of fonts) {
@@ -148,7 +154,7 @@ export function FontSwitcher() {
               })}
             </div>
 
-            {toggles.map((t) => (
+            {togglesFor(page).map((t) => (
               <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
                 <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
                 <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-[12px] bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
@@ -179,7 +185,7 @@ export function FontSwitcher() {
 
       <button
         type="button"
-        aria-label="Test settings: heading font, hero layout, Trustpilot stars and button styles"
+        aria-label={`Test settings: heading font, ${togglesFor(page).map((t) => t.label.toLowerCase()).join(", ")}`}
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((o) => !o)}
