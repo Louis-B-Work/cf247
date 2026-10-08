@@ -2,6 +2,7 @@
 
 /* Test options from the settings cog, set as attributes on <html> (see FontSwitcher and the pre-paint script). */
 @custom-variant hero-centered (&:where(html[data-hero='centered'] *));
+@custom-variant hero-bleed (&:where(html[data-hero='bleed'] *));
 @custom-variant tp-brand (&:where(html[data-tp='brand'] *));
 
 /*

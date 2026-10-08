@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { heroCar } from '../../data/assets'
 import { heroCycle } from '../../data/cars'
+import { images } from '../../data/images'
 import { quoteUrl } from '../../data/nav'
 import { trustpilot } from '../../data/reviews'
 import { Button } from '../ui/Button'
@@ -52,10 +53,22 @@ export function Hero() {
   return (
     <section id="top" className="on-dark relative isolate z-10 flex flex-col overflow-x-clip bg-purple pt-[var(--nav-height)] max-sm:min-h-[80svh]">
       <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -right-[20vw] bottom-[-40vh] aspect-square w-[70vw] rounded-full bg-[radial-gradient(closest-side,rgba(165,105,247,0.45),rgba(105,5,242,0))]" />
+        <div className="absolute -right-[20vw] bottom-[-40vh] aspect-square w-[70vw] rounded-full bg-[radial-gradient(closest-side,rgba(165,105,247,0.45),rgba(105,5,242,0))] hero-bleed:hidden" />
+        {/* Test option "Photo": a full-bleed lifestyle photo under a purple wash, strongest behind the copy. */}
+        <div className="hidden hero-bleed:block">
+          <img
+            src={images.heroBleed.src}
+            alt=""
+            fetchPriority="high"
+            style={{ objectPosition: images.heroBleed.objectPosition }}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 mix-blend-multiply bg-[linear-gradient(to_right,rgba(105,5,242,0.95)_0%,rgba(105,5,242,0.75)_45%,rgba(105,5,242,0.35)_80%,rgba(105,5,242,0.25)_100%)] max-lg:bg-[linear-gradient(to_bottom,rgba(105,5,242,0.9)_0%,rgba(105,5,242,0.75)_60%,rgba(105,5,242,0.5)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(105,5,242,0.55)_0%,rgba(105,5,242,0.25)_45%,rgba(105,5,242,0)_75%)] max-lg:bg-purple/35" />
+        </div>
       </div>
 
-      <div className="container-wide relative flex flex-1 flex-col pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:md:pt-20 hero-centered:md:pb-24 hero-centered:lg:min-h-[min(calc(100svh-var(--nav-height)-72px),820px)] hero-centered:lg:pt-24 hero-centered:lg:pb-28">
+      <div className="container-wide relative flex flex-1 flex-col pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:md:pt-20 hero-centered:md:pb-24 hero-centered:lg:min-h-[min(calc(100svh-var(--nav-height)-72px),820px)] hero-centered:lg:pt-24 hero-centered:lg:pb-28 hero-bleed:pb-16 hero-bleed:md:pt-20 hero-bleed:md:pb-24 hero-bleed:lg:min-h-[min(calc(100svh-var(--nav-height)-72px),820px)] hero-bleed:lg:pt-24 hero-bleed:lg:pb-28">
         {/* Test option "Centred, no car": the copy and actions centre across the full width and the car is hidden. */}
         <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-none hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
           <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] hero-centered:md:text-[min(6.3vw,7.25rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">
@@ -137,7 +150,7 @@ export function Hero() {
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.1, ease, delay: 0.35 }}
-          className="relative mt-auto pt-[clamp(24px,4.5svh,40px)] sm:mt-6 sm:pt-0 hero-centered:hidden lg:absolute lg:mt-0 lg:right-[var(--wide-right)] lg:bottom-0 lg:w-[32vw] xl:w-[min(32vw,600px)]"
+          className="relative mt-auto pt-[clamp(24px,4.5svh,40px)] sm:mt-6 sm:pt-0 hero-centered:hidden hero-bleed:hidden lg:absolute lg:mt-0 lg:right-[var(--wide-right)] lg:bottom-0 lg:w-[32vw] xl:w-[min(32vw,600px)]"
         >
           {/* Each new car drives in from the right as the previous one drives off to the left. */}
           <AnimatePresence mode="wait" initial={false}>

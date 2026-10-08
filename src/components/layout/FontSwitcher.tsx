@@ -30,6 +30,7 @@ const toggles = [
       { id: 'car', label: 'With car' },
       { id: 'centered', label: 'Centred, no car' },
       { id: 'cycle', label: 'Cycling cars' },
+      { id: 'bleed', label: 'Photo' },
     ],
   },
   {
@@ -142,7 +143,7 @@ export function FontSwitcher() {
             {toggles.map((t) => (
               <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
                 <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-[12px] bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${t.options.length}, minmax(0, 1fr))` }}>
+                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-[12px] bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
                   {t.options.map((o) => {
                     const selected = opts[t.key] === o.id
                     return (
