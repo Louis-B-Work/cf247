@@ -115,7 +115,7 @@ export function RefinanceCalculator() {
             </p>
 
             <div className="mt-auto pt-6">
-              <Button href={refinanceQuoteUrl} variant="reverse" size="lg">
+              <Button href={refinanceQuoteUrl} variant="reverse" size="xl">
                 Get my quote
               </Button>
             </div>

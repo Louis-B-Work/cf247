@@ -1,7 +1,6 @@
 import { MotionConfig } from 'motion/react'
 import { FontSwitcher } from '../src/components/layout/FontSwitcher'
 import { Footer } from '../src/components/layout/Footer'
-import { Nav } from '../src/components/layout/Nav'
 import { Faq } from '../src/components/sections/Faq'
 import { Partners } from '../src/components/sections/Partners'
 import { Reviews } from '../src/components/sections/Reviews'
@@ -11,7 +10,7 @@ import { RefinanceCalculator } from './sections/RefinanceCalculator'
 import { RefinanceFinalCta } from './sections/RefinanceFinalCta'
 import { RefinanceHero } from './sections/RefinanceHero'
 
-/** Refinance paid landing page: one goal (get a quote), no site navigation, built from the homepage design system. */
+/** Refinance paid landing page: one goal (get a quote). Like the live page there is no nav, just the logo in the hero. */
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
@@ -21,14 +20,13 @@ export default function App() {
       >
         Skip to content
       </a>
-      <Nav variant="minimal" quoteHref={refinanceQuoteUrl} />
       <main id="main">
         <RefinanceHero />
         <RefinanceCalculator />
         <Explainer />
         <ProsCons />
         <WhyUs />
-        <Reviews showVideos={false} quoteHref={refinanceQuoteUrl} />
+        <Reviews showVideos={false} quoteHref={refinanceQuoteUrl} ctaSize="xl" />
         <Partners />
         <Faq categories={refinanceFaqs} />
         <RefinanceFinalCta />

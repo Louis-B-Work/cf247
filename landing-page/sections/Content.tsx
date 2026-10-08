@@ -172,7 +172,7 @@ export function WhyUs() {
             ))}
           </ul>
           <div className="mt-8">
-            <Button href={refinanceQuoteUrl} variant="light" size="lg">
+            <Button href={refinanceQuoteUrl} variant="light" size="xl">
               Get my quote
             </Button>
           </div>

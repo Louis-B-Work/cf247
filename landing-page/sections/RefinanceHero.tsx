@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { useId, useState, type FormEvent, type ReactNode } from 'react'
 import { trustpilot } from '../../src/data/reviews'
 import { heroBullets, refinanceApr, refinanceImages, refinanceQuoteUrl, softSearchNote } from '../../src/data/refinance'
+import { Logo } from '../../src/components/brand/Logo'
 import { Button } from '../../src/components/ui/Button'
 import { Icon } from '../../src/components/ui/Icon'
 import { Accent, EndSmile } from '../../src/components/ui/Smile'
@@ -25,7 +26,7 @@ function formatReg(value: string) {
   return raw.length > 4 ? `${raw.slice(0, raw.length - 3)} ${raw.slice(-3)}` : raw
 }
 
-/** UK number plate input with the quote button. The reg is passed to the quote journey when entered. */
+/** A plain reg box with the quote button directly beneath at the same size, as on the live page. The reg is passed to the quote journey when entered. */
 function RegForm() {
   const [reg, setReg] = useState('')
   const id = useId()
@@ -39,28 +40,22 @@ function RegForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex w-full max-w-[640px] flex-col gap-3 sm:flex-row sm:items-stretch hero-centered:mx-auto">
+    <form onSubmit={onSubmit} className="flex w-full flex-col gap-3 sm:w-[380px] hero-centered:mx-auto">
       <label htmlFor={id} className="sr-only">
         Your car registration (optional)
       </label>
-      <div className="flex h-[60px] w-full shrink-0 overflow-hidden rounded-brand sm:w-auto sm:flex-1 bg-[#FFD500] shadow-[0_18px_40px_-18px_rgba(22,1,50,0.6)] ring-2 ring-blackcurrant/80 focus-within:ring-4 focus-within:ring-lime sm:h-16">
-        {/* The blue UK identifier strip found on the left of a real plate. */}
-        <span aria-hidden className="flex w-11 shrink-0 flex-col items-center justify-end bg-[#0B4EA2] pb-2 text-[11px] font-bold tracking-wide text-white sm:w-12">
-          UK
-        </span>
-        <input
-          id={id}
-          value={reg}
-          onChange={(e) => setReg(formatReg(e.target.value))}
-          placeholder="ENTER REG"
-          autoComplete="off"
-          autoCapitalize="characters"
-          spellCheck={false}
-          inputMode="text"
-          className="h-full min-w-0 flex-1 bg-transparent px-4 text-center font-display text-[26px] font-bold tracking-[0.08em] text-blackcurrant uppercase outline-none placeholder:text-blackcurrant/40 sm:text-[30px] [&:focus-visible]:outline-none"
-        />
-      </div>
-      <Button type="submit" variant="reverse" size="xl">
+      <input
+        id={id}
+        value={reg}
+        onChange={(e) => setReg(formatReg(e.target.value))}
+        placeholder="Enter reg"
+        autoComplete="off"
+        autoCapitalize="characters"
+        spellCheck={false}
+        inputMode="text"
+        className="h-[52px] w-full min-w-0 rounded-brand bg-white px-4 text-center font-display text-2xl font-bold tracking-[0.06em] text-blackcurrant uppercase outline-none placeholder:tracking-normal placeholder:text-blackcurrant/45 placeholder:normal-case focus-visible:ring-4 focus-visible:ring-lime sm:h-14"
+      />
+      <Button type="submit" variant="reverse" size="xl" fullWidth>
         Get my quote
       </Button>
     </form>
@@ -70,14 +65,19 @@ function RegForm() {
 export function RefinanceHero() {
   const img = refinanceImages.hero
   return (
-    <section id="top" className="on-dark relative isolate overflow-hidden bg-purple pt-[var(--nav-height)]">
+    <section id="top" className="on-dark relative isolate overflow-hidden bg-purple">
       {/* Photo on the right on desktop; on phones it sits beneath the copy as a framed image. */}
       <div aria-hidden className="absolute inset-y-0 right-0 -z-10 hidden w-[46%] lg:block hero-centered:lg:hidden">
         <img src={img.src} alt="" className="h-full w-full object-cover object-[35%_50%]" fetchPriority="high" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-purple)_0%,rgba(105,5,242,0.55)_18%,rgba(105,5,242,0)_45%)]" />
       </div>
 
-      <div className="container-wide relative grid grid-cols-1 gap-10 pt-[clamp(28px,5svh,48px)] pb-14 lg:grid-cols-12 lg:pt-16 lg:pb-20">
+      {/* No nav on the landing page: just the logo, which is not a link so the page keeps one goal. */}
+      <div className="container-wide relative pt-6 sm:pt-8 hero-centered:flex hero-centered:justify-center">
+        <Logo title="Car Finance 247" className="h-[46px] w-auto text-white sm:h-14" />
+      </div>
+
+      <div className="container-wide relative grid grid-cols-1 gap-10 pt-[clamp(24px,4svh,40px)] pb-14 lg:grid-cols-12 lg:pt-12 lg:pb-20">
         {/* Test option "Centred, no car": no photo, everything centred. */}
         <div className="lg:col-span-7 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-4xl hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
           <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em] sm:text-[clamp(3.5rem,5.6vw,5.5rem)]">
@@ -111,7 +111,6 @@ export function RefinanceHero() {
             transition={{ duration: 0.7, ease, delay: 0.6 }}
             className="mt-8 md:mt-10"
           >
-            <p className="mb-3 font-display text-base font-semibold text-white/90">Enter your reg to get started</p>
             <RegForm />
           </motion.div>
 

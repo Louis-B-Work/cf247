@@ -70,8 +70,8 @@ Lime is still being decided, so every use reads from `--color-lime` and can be r
 
 A second page, `landing-page/`, redesigns the paid landing page at [carfinance247.co.uk/refinance](https://www.carfinance247.co.uk/refinance) with the same design system. With the dev server running, open `/landing-page/` (for example `http://localhost:5173/landing-page/`). `npm run build` outputs both pages (`dist/index.html` and `dist/landing-page/index.html`).
 
-- One goal, no site navigation: `Nav variant="minimal"` shows only the logo and Get my quote.
-- Hero with a UK number-plate reg input; the reg is passed to the quote journey as `?reg=`.
+- One goal and, like the live page, no nav: just the logo (not a link) at the top of the hero.
+- Hero with a plain reg box and the Get my quote button directly beneath it at the same size; the reg is passed to the quote journey as `?reg=`. Every quote button on the page uses the same `xl` size.
 - Illustrative refinance calculator (`src/lib/finance.ts`) at the representative 15.5% APR, with clear warnings.
 - Explainer, pros and cons, why Car Finance 247, reviews (`showVideos={false}`), partners, refinance FAQs (`Faq categories=...`, tabs hide with one set), final call to action and `Footer variant="compact"`.
 - Copy and links live in `src/data/refinance.ts`. The heading font cog works here too.

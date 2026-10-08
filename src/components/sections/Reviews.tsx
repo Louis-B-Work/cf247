@@ -145,9 +145,11 @@ type ReviewsProps = {
   /** Show the three customer video stories above the review row. */
   showVideos?: boolean
   quoteHref?: string
+  /** The landing page uses its larger quote button size throughout. */
+  ctaSize?: 'lg' | 'xl'
 }
 
-export function Reviews({ showVideos = true, quoteHref = quoteUrl }: ReviewsProps = {}) {
+export function Reviews({ showVideos = true, quoteHref = quoteUrl, ctaSize = 'lg' }: ReviewsProps = {}) {
   const rowRef = useRef<HTMLDivElement>(null)
   useVerticalWheelPassthrough(rowRef)
 
@@ -222,7 +224,7 @@ export function Reviews({ showVideos = true, quoteHref = quoteUrl }: ReviewsProp
 
       <div className="container-cf mt-5 flex flex-wrap items-center justify-end gap-x-5 gap-y-3 text-right md:mt-8">
         <p className="font-display text-lg font-semibold md:text-xl">Join them with a quote in minutes</p>
-        <Button href={quoteHref} variant="light" size="lg">
+        <Button href={quoteHref} variant="light" size={ctaSize}>
           Get my quote
         </Button>
       </div>
