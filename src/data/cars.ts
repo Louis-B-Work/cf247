@@ -10,7 +10,7 @@ export const valueCars = {
   mini: { src: carSrc('mini', 'hatch', 2022), alt: 'White MINI hatch' },
 }
 
-/** Hero test option "Cycling cars": the Fiesta, then the three value card models at hero resolution. */
+/** The hero car rotation: the Fiesta, then the three value card models at hero resolution. */
 export const heroCycle = [
   heroCar,
   { src: carSrc('volvo', 'xc40', 2022, 1800), alt: valueCars.volvo.alt },

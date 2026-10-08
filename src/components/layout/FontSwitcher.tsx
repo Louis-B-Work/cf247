@@ -27,9 +27,8 @@ const toggles = [
     attr: 'hero',
     label: 'Hero layout',
     options: [
-      { id: 'car', label: 'With car' },
+      { id: 'car', label: 'Cycling cars' },
       { id: 'centered', label: 'Centred, no car' },
-      { id: 'cycle', label: 'Cycling cars' },
       { id: 'bleed', label: 'Photo' },
     ],
   },

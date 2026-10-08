@@ -55,7 +55,7 @@ function QuickLinkCard({ link }: { link: QuickLink }) {
 
 export function QuickLinks() {
   return (
-    <section aria-label="Quick links" className="relative bg-white pt-[var(--car-overhang)] pb-14 [--car-overhang:calc(33vw+24px)] sm:[--car-overhang:calc(min(48vw,360px)*0.42+28px)] md:pb-20 lg:[--car-overhang:calc(min(6.8vw,128px)+24px)] hero-centered:[--car-overhang:56px] hero-centered:sm:[--car-overhang:56px] hero-centered:md:[--car-overhang:80px] hero-centered:lg:[--car-overhang:80px] hero-bleed:[--car-overhang:56px] hero-bleed:sm:[--car-overhang:56px] hero-bleed:md:[--car-overhang:80px] hero-bleed:lg:[--car-overhang:80px]">
+    <section aria-label="Quick links" className="relative bg-white pt-[var(--car-overhang)] pb-14 [--car-overhang:calc(33vw+24px)] sm:[--car-overhang:calc(min(48vw,360px)*0.42+28px)] md:pb-20 lg:[--car-overhang:calc(min(6.8vw,128px)+24px)] hero-centered:[--car-overhang:56px] hero-centered:sm:[--car-overhang:56px] hero-centered:md:[--car-overhang:80px] hero-centered:lg:[--car-overhang:calc(min(6.8vw,128px)+24px)] hero-bleed:[--car-overhang:56px] hero-bleed:sm:[--car-overhang:56px] hero-bleed:md:[--car-overhang:80px] hero-bleed:lg:[--car-overhang:calc(min(6.8vw,128px)+24px)]">
       <div className="container-wide">
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {links.map((link, i) => (

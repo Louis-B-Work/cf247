@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, type ReactNode } from 'react'
-import { heroCar } from '../../data/assets'
 import { heroCycle } from '../../data/cars'
 import { images } from '../../data/images'
 import { quoteUrl } from '../../data/nav'
@@ -31,9 +30,9 @@ function Line({ children, delay, className }: { children: ReactNode; delay: numb
 
 const CYCLE_MS = 4000
 
-/** The hero car. In the "Cycling cars" test option it rotates through the Fiesta and the three value card models. */
+/** The hero car rotates through the Fiesta and the three value card models. It only runs while the car is shown. */
 function useHeroCar() {
-  const cycling = useTestOption('hero') === 'cycle'
+  const cycling = useTestOption('hero') === 'car'
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -44,7 +43,7 @@ function useHeroCar() {
     return () => window.clearInterval(t)
   }, [cycling])
 
-  return cycling ? heroCycle[index] : heroCar
+  return heroCycle[index]
 }
 
 export function Hero() {
@@ -68,7 +67,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="container-wide relative flex flex-1 flex-col lg:[--wide-left:max(var(--nav-pad),calc((100vw-1480px)/2))] lg:[--wide-right:max(var(--nav-pad),calc((100vw-1480px)/2))] pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 lg:min-h-[min(calc(100svh-var(--nav-height)-min(6.8vw,128px)-24px-56px),1240px)] xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:md:pt-20 hero-centered:md:pb-24 hero-centered:lg:min-h-[min(calc(100svh-var(--nav-height)-72px),820px)] hero-centered:lg:pt-24 hero-centered:lg:pb-28 hero-bleed:pb-16 hero-bleed:md:pt-20 hero-bleed:md:pb-24 hero-bleed:lg:min-h-[min(calc(100svh-var(--nav-height)-72px),820px)] hero-bleed:lg:pt-24 hero-bleed:lg:pb-28">
+      <div className="container-wide relative flex flex-1 flex-col lg:[--wide-left:max(var(--nav-pad),calc((100vw-1480px)/2))] lg:[--wide-right:max(var(--nav-pad),calc((100vw-1480px)/2))] pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 lg:min-h-[clamp(592px,calc(100svh-var(--nav-height)-min(6.8vw,128px)-24px-56px),1240px)] xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:md:pt-20 hero-centered:md:pb-24 hero-centered:lg:pt-12 hero-centered:lg:pb-16 hero-bleed:pb-16 hero-bleed:md:pt-20 hero-bleed:md:pb-24 hero-bleed:lg:pt-12 hero-bleed:lg:pb-16">
         {/* Test option "Centred, no car": the copy and actions centre across the full width and the car is hidden. */}
         <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-none hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
           <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] hero-centered:md:text-[min(6.3vw,7.25rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">

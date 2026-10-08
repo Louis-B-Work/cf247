@@ -27,7 +27,7 @@ A settings cog in the bottom-left corner opens a menu that switches headings bet
 
 The same cog has three test options, saved in the browser and applied on both pages:
 
-- **Hero layout**: *With car* (default), *Centred, no car* (hides the car or landing page photo and centres the headline, actions and trust line) *Cycling cars* (the homepage car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI) or *Photo* (homepage hero becomes a full-bleed lifestyle photo under a purple wash, darkest behind the copy).
+- **Hero layout**: *Cycling cars* (default, the homepage car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car or landing page photo and centres the headline, actions and trust line) or *Photo* (homepage hero becomes a full-bleed lifestyle photo under a purple wash, darkest behind the copy).
 - **Trustpilot stars**: *Brand purple* (default) or *Trustpilot green*, which restores Trustpilot's green boxes with white stars and the green logo star.
 - **Button styles**: *All white* (default) or *Mixed (original)*, which restores the earlier mix: solid purple buttons on white and tint sections and an outlined nav button. Buttons on purple and photos stay white in both.
 
