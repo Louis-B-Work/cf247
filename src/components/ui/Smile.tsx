@@ -7,6 +7,9 @@ const ease = [0.22, 1, 0.36, 1] as const
 /** Smile cut into the logo mark, in a 100 x 100 box. */
 const MARK_SMILE = 'M24 54A26 26 0 0 0 76 54'
 
+/** The smile in the official logo is tilted anticlockwise (right end higher), measured from the logo artwork. */
+const MARK_TILT = 'rotate(-12 50 50)'
+
 /** Official logo colourways: purple or blackcurrant on light backgrounds, white on purple, dark or photos. */
 const markTones = {
   purple: 'var(--color-purple)',
@@ -46,6 +49,7 @@ export function SmileMark({ tone = 'purple', size = 0.5, delay = 0.2, scroll, cl
         <rect width={100} height={100} fill="white" />
         <motion.path
           d={MARK_SMILE}
+          transform={MARK_TILT}
           fill="none"
           stroke="black"
           strokeWidth={12}

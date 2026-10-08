@@ -7,14 +7,15 @@ import { trustpilot } from '../../data/reviews'
 import { Button } from '../ui/Button'
 import { Accent, EndSmile } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
+import { cn } from '../../lib/utils'
 import { useTestOption } from '../../lib/useTestOption'
 import { HeroSearch } from './HeroSearch'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-function Line({ children, delay }: { children: ReactNode; delay: number }) {
+function Line({ children, delay, className }: { children: ReactNode; delay: number; className?: string }) {
   return (
-    <span className="-mb-[0.22em] block overflow-hidden pr-[0.4em] pb-[0.34em] whitespace-nowrap hero-centered:px-[0.2em] hero-centered:md:inline-block hero-centered:md:align-top hero-centered:md:not-first:-ml-[0.15em]">
+    <span className={cn('-mb-[0.22em] block overflow-hidden pr-[0.4em] pb-[0.34em] whitespace-nowrap hero-centered:md:inline-block hero-centered:md:align-top', className)}>
       <motion.span
         className="block"
         initial={{ y: '105%' }}
@@ -54,12 +55,14 @@ export function Hero() {
         <div className="absolute -right-[20vw] bottom-[-40vh] aspect-square w-[70vw] rounded-full bg-[radial-gradient(closest-side,rgba(165,105,247,0.45),rgba(105,5,242,0))]" />
       </div>
 
-      <div className="container-wide relative flex flex-1 flex-col pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:lg:pt-20 hero-centered:lg:pb-24">
+      <div className="container-wide relative flex flex-1 flex-col pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:md:pt-20 hero-centered:md:pb-24 hero-centered:lg:min-h-[min(calc(100svh-var(--nav-height)-72px),820px)] hero-centered:lg:pt-24 hero-centered:lg:pb-28">
         {/* Test option "Centred, no car": the copy and actions centre across the full width and the car is hidden. */}
-        <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-6xl hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
-          <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">
-            <Line delay={0.1}>Car finance</Line>
-            <Line delay={0.22}>
+        <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-none hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
+          <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] hero-centered:md:text-[min(6.3vw,7.25rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">
+            <Line delay={0.1} className="hero-centered:md:pr-0 hero-centered:md:pl-[0.2em]">
+              Car finance
+            </Line>{' '}
+            <Line delay={0.22} className="hero-centered:md:pl-0 hero-centered:md:pr-[0.2em]">
               made <EndSmile tone="white" size={0.62} delay={1}><Accent>easy</Accent></EndSmile>
             </Line>
           </h1>
