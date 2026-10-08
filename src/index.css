@@ -4,6 +4,7 @@
 @custom-variant hero-centered (&:where(html[data-hero='centered'] *));
 @custom-variant hero-bleed (&:where(html[data-hero='bleed'] *));
 @custom-variant tp-brand (&:where(html[data-tp='brand'] *));
+@custom-variant btn-mixed (&:where(html[data-btn='mixed'] *));
 
 /*
  * Brand tokens from CF247 Guidelines (2026 draft).

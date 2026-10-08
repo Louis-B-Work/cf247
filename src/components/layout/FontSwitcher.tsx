@@ -42,6 +42,15 @@ const toggles = [
       { id: 'brand', label: 'Trustpilot green' },
     ],
   },
+  {
+    key: 'cf247-btn',
+    attr: 'btn',
+    label: 'Button styles',
+    options: [
+      { id: 'unified', label: 'All white' },
+      { id: 'mixed', label: 'Mixed (original)' },
+    ],
+  },
 ] as const
 
 type ToggleKey = (typeof toggles)[number]['key']
@@ -171,7 +180,7 @@ export function FontSwitcher() {
 
       <button
         type="button"
-        aria-label="Test settings: heading font, hero layout and Trustpilot stars"
+        aria-label="Test settings: heading font, hero layout, Trustpilot stars and button styles"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((o) => !o)}

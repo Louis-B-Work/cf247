@@ -14,6 +14,7 @@
         var hero = localStorage.getItem('cf247-hero')
         document.documentElement.dataset.hero = ['centered', 'cycle', 'bleed'].indexOf(hero) > -1 ? hero : 'car'
         document.documentElement.dataset.tp = localStorage.getItem('cf247-tp') === 'brand' ? 'brand' : 'purple'
+        document.documentElement.dataset.btn = localStorage.getItem('cf247-btn') === 'mixed' ? 'mixed' : 'unified'
       } catch (e) {}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

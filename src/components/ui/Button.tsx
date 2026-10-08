@@ -27,7 +27,9 @@ const variantStyles: Record<Variant, string> = {
   primary: 'bg-purple text-white',
   reverse: 'bg-white text-purple',
   // The white button for white or tint backgrounds: a fine purple-tint outline and soft shadow keep its edge visible.
-  light: 'bg-white text-purple ring-1 ring-inset ring-purple-30 shadow-[0_10px_24px_-14px_rgba(105,5,242,0.45)]',
+  // Test option "Mixed" (settings cog) restores the original solid purple button on light backgrounds.
+  light:
+    'bg-white text-purple ring-1 ring-inset ring-purple-30 shadow-[0_10px_24px_-14px_rgba(105,5,242,0.45)] btn-mixed:bg-purple btn-mixed:text-white btn-mixed:shadow-none btn-mixed:ring-0',
   'outline-light': 'bg-transparent text-white ring-2 ring-inset ring-white/80',
   'outline-dark': 'bg-transparent text-purple ring-2 ring-inset ring-purple',
 }
