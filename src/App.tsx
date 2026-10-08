@@ -1,0 +1,48 @@
+﻿import { MotionConfig } from 'motion/react'
+import { FontSwitcher } from './components/layout/FontSwitcher'
+import { Footer } from './components/layout/Footer'
+import { Nav } from './components/layout/Nav'
+import { Faq } from './components/sections/Faq'
+import { FinalCta } from './components/sections/FinalCta'
+import { Founders } from './components/sections/Founders'
+import { Guides } from './components/sections/Guides'
+import { Hero } from './components/sections/Hero'
+import { LifestyleBand } from './components/sections/LifestyleBand'
+import { Partners } from './components/sections/Partners'
+import { QuickLinks } from './components/sections/QuickLinks'
+import { Reviews } from './components/sections/Reviews'
+import { Situations } from './components/sections/Situations'
+import { Statement } from './components/sections/Statement'
+import { Steps } from './components/sections/Steps'
+import { Values } from './components/sections/Values'
+
+export default function App() {
+  return (
+    <MotionConfig reducedMotion="user">
+      <a
+        href="#main"
+        className="sr-only z-[70] rounded-brand bg-white px-4 py-3 font-bold text-purple focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+      <Nav />
+      <main id="main">
+        <Hero />
+        <QuickLinks />
+        <Steps />
+        <LifestyleBand />
+        <Statement />
+        <Values />
+        <Reviews />
+        <Partners />
+        <Situations />
+        <Founders />
+        <Guides />
+        <Faq />
+        <FinalCta />
+      </main>
+      <Footer />
+      <FontSwitcher />
+    </MotionConfig>
+  )
+}

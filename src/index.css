@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+
+/*
+ * Brand tokens from CF247 Guidelines (2026 draft).
+ * Lime is still being decided, so every lime usage reads from --color-lime.
+ */
+@theme {
+  --color-purple: #6905f2;
+  --color-purple-80: #8737f5;
+  --color-purple-60: #a569f7;
+  --color-purple-40: #c39bfa;
+  --color-purple-30: #d2b4fb;
+  --color-purple-10: #f0e6fe;
+  --color-blackcurrant: #160132;
+  --color-lime: #8ef205;
+  --color-progress: var(--color-lime);
+
+  --font-display: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+  --font-accent: 'neulis-cursive', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+  /* Body copy is always Helvetica Neue (Arial is the approved substitute, guidelines p.19). */
+  --font-body: 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
+
+  --radius-brand: 16px;
+
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Wide container: both edges inset to the shared page edge (the nav's logo), so the sides stay even. */
+@utility container-wide {
+  width: 100%;
+  padding-left: var(--wide-left);
+  padding-right: var(--wide-right);
+}
+
+/* Standard page container. Shares the wide insets so every section lines up with the hero and the nav. */
+@utility container-cf {
+  width: 100%;
+  padding-left: var(--wide-left);
+  padding-right: var(--wide-right);
+}
+
+/* Accent words inherit the weight of the line they sit in (titles Medium, subtitles Semibold). */
+@utility font-accent {
+  font-family: var(--font-accent);
+  font-style: var(--accent-style, italic);
+}
+
+@utility on-dark {
+  --focus-ring: var(--color-lime);
+  color: white;
+}
+
+@layer base {
+  :root {
+    --focus-ring: var(--color-purple);
+    --nav-height: 76px;
+    /*
+     * Title line spacing: tight, but always clear of collisions between descenders (g, j, p, y)
+     * and ascenders (h, d, l, f) on the next line. Each font gets its own value below.
+     */
+    --leading-title: 1.1;
+    /*
+     * One page edge shared by the nav and every section, so the logo and all content line up on both sides.
+     * Very wide screens cap the content at 1680px, centred.
+     */
+    --nav-pad: max(clamp(20px, 4vw, 48px), calc((100vw - 1680px) / 2));
+    --wide-left: var(--nav-pad);
+    --wide-right: var(--nav-pad);
+  }
+  html.has-neulis {
+    --accent-style: normal;
+  }
+
+  /* Heading font experiment, set by the floating switcher. Accent words use the same family in italic. */
+  html[data-heading-font='general-sans'] {
+    --font-display: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: italic;
+    --leading-title: 1.02;
+  }
+
+  html[data-heading-font='manrope'] {
+    --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: italic;
+    --leading-title: 1.1;
+  }
+
+  html[data-heading-font='satoshi'] {
+    --font-display: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: italic;
+    --leading-title: 1.08;
+  }
+
+  html {
+    scroll-padding-top: calc(var(--nav-height) + 16px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-blackcurrant);
+    background: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: var(--color-purple);
+    color: white;
+  }
+}
