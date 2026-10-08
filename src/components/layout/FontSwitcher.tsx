@@ -41,6 +41,7 @@ const toggles = [
     options: [
       { id: 'purple', label: 'Brand purple' },
       { id: 'brand', label: 'Trustpilot green' },
+      { id: 'lime', label: 'CF247 green' },
     ],
   },
   {

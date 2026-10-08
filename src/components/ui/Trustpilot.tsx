@@ -18,11 +18,12 @@ export function TrustpilotStars({
   tone?: Tone
 }) {
   return (
-    <span className={cn('inline-flex gap-[1px] tp-brand:gap-[2px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
+    <span className={cn('inline-flex gap-[1px] tp-brand:gap-[2px] tp-lime:gap-[2px]', className)} role="img" aria-label="Rated 5 out of 5 on Trustpilot">
       {Array.from({ length: 5 }, (_, i) => (
-        // Test option "Trustpilot green" turns each star into Trustpilot's green box with a white star.
-        <span key={i} className={cn('grid place-items-center tp-brand:bg-[#00B67A]', boxClassName)}>
-          <svg viewBox="0 0 48 48" aria-hidden className={cn('size-full tp-brand:size-[78%] tp-brand:fill-white', starFill(tone))}>
+        // Test options: "Trustpilot green" boxes each star in Trustpilot's green with a white star; "CF247 green"
+        // uses the brand lime box with a blackcurrant star, as white on lime would be too faint.
+        <span key={i} className={cn('grid place-items-center tp-brand:bg-[#00B67A] tp-lime:bg-lime', boxClassName)}>
+          <svg viewBox="0 0 48 48" aria-hidden className={cn('size-full tp-brand:size-[78%] tp-brand:fill-white tp-lime:size-[78%] tp-lime:fill-blackcurrant', starFill(tone))}>
             <path d={STAR} />
           </svg>
         </span>
@@ -41,7 +42,8 @@ export function TrustpilotLogo({ tone = 'dark', className }: { tone?: Tone; clas
         className,
       )}
     >
-      <svg viewBox="0 0 48 48" aria-hidden className={cn('size-[1.15em] -translate-y-[0.06em] tp-brand:fill-[#00B67A]', starFill(tone))}>
+      {/* "CF247 green" turns the logo star lime on dark backgrounds only; lime on white is too faint. */}
+      <svg viewBox="0 0 48 48" aria-hidden className={cn('size-[1.15em] -translate-y-[0.06em] tp-brand:fill-[#00B67A]', starFill(tone), tone === 'light' && 'tp-lime:fill-lime')}>
         <path d={STAR} />
       </svg>
       Trustpilot

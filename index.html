@@ -13,7 +13,8 @@
         document.documentElement.dataset.headingFont = ['general-sans', 'manrope', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
         var hero = localStorage.getItem('cf247-hero')
         document.documentElement.dataset.hero = ['centered', 'bleed'].indexOf(hero) > -1 ? hero : 'car'
-        document.documentElement.dataset.tp = localStorage.getItem('cf247-tp') === 'brand' ? 'brand' : 'purple'
+        var tp = localStorage.getItem('cf247-tp')
+        document.documentElement.dataset.tp = ['brand', 'lime'].indexOf(tp) > -1 ? tp : 'purple'
         document.documentElement.dataset.btn = localStorage.getItem('cf247-btn') === 'mixed' ? 'mixed' : 'unified'
       } catch (e) {}
     </script>
