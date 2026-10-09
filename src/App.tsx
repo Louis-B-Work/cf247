@@ -2,6 +2,8 @@ import { MotionConfig } from 'motion/react'
 import { FontSwitcher } from './components/layout/FontSwitcher'
 import { Footer } from './components/layout/Footer'
 import { Nav } from './components/layout/Nav'
+import { StickySearch } from './components/layout/StickySearch'
+import { ModernHome } from './components/modern/ModernHome'
 import { Faq } from './components/sections/Faq'
 import { FinalCta } from './components/sections/FinalCta'
 import { Founders } from './components/sections/Founders'
@@ -14,8 +16,12 @@ import { Situations } from './components/sections/Situations'
 import { Statement } from './components/sections/Statement'
 import { Steps } from './components/sections/Steps'
 import { Values } from './components/sections/Values'
+import { useTestOption } from './lib/useTestOption'
 
 export default function App() {
+  const showStickySearch = !window.location.pathname.startsWith('/landing-page')
+  const modern = useTestOption('design') === 'modern'
+
   return (
     <MotionConfig reducedMotion="user">
       <a
@@ -26,20 +32,27 @@ export default function App() {
       </a>
       <Nav />
       <main id="main">
-        <Hero />
-        <QuickLinks />
-        <Steps />
-        <Statement />
-        <Values />
-        <Reviews />
-        <Partners />
-        <Situations />
-        <Founders />
-        <Guides />
-        <Faq />
-        <FinalCta />
+        {modern ? (
+          <ModernHome />
+        ) : (
+          <>
+            <Hero />
+            <QuickLinks />
+            <Steps />
+            <Statement />
+            <Values />
+            <Reviews />
+            <Partners />
+            <Situations />
+            <Founders />
+            <Guides />
+            <Faq />
+            <FinalCta />
+          </>
+        )}
       </main>
       <Footer />
+      {showStickySearch && <StickySearch />}
       <FontSwitcher />
     </MotionConfig>
   )

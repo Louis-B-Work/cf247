@@ -40,14 +40,14 @@ export function Steps() {
                 href={quoteUrl}
                 className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 ring-1 ring-transparent transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:-translate-y-1.5 hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3"
               >
-                <div className="relative size-20 shrink-0 overflow-hidden rounded-[12px] bg-purple-30 sm:size-28 lg:size-auto">
+                <div className="relative size-20 shrink-0 overflow-hidden rounded-inner bg-purple-30 sm:size-28 lg:size-auto">
                   <img
                     src={step.image}
                     alt={step.alt}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05] lg:aspect-[4/3.6] lg:h-auto"
                   />
-                  <span className="absolute top-2 left-2 grid size-8 place-items-center rounded-[10px] bg-purple font-display text-base font-semibold text-white transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant lg:top-4 lg:left-4 lg:size-12 lg:rounded-[12px] lg:text-xl">
+                  <span className="absolute top-2 left-2 grid size-8 place-items-center rounded-inner bg-purple font-display text-base font-semibold text-white transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant lg:top-4 lg:left-4 lg:size-12 lg:text-xl">
                     {i + 1}
                   </span>
                 </div>
@@ -62,7 +62,7 @@ export function Steps() {
                   </div>
                   <span
                     aria-hidden
-                    className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-white text-purple ring-1 ring-purple-10 transition-[background-color,color] duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-hover:ring-lime group-active:bg-lime lg:size-12 lg:self-end lg:rounded-[12px]"
+                    className="grid size-9 shrink-0 place-items-center rounded-inner bg-white text-purple ring-1 ring-purple-10 transition-[background-color,color] duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-hover:ring-lime group-active:bg-lime lg:size-12 lg:self-end"
                   >
                     <Icon
                       name="arrow"

@@ -202,7 +202,7 @@ export function Reviews({ showVideos = true, quoteHref = quoteUrl, ctaSize = 'lg
               />
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blackcurrant/85 via-blackcurrant/10 to-transparent" />
               {/* Faint frosted play button centred on the poster, like a video thumbnail; firms up to lime on hover. */}
-              <span className="absolute top-[42%] left-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[16px] bg-white/20 text-white ring-1 ring-white/35 backdrop-blur-md transition-[background-color,color,transform,box-shadow] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant group-hover:ring-lime group-active:bg-lime group-active:text-blackcurrant sm:size-[72px] sm:rounded-[18px]">
+              <span className="absolute top-[42%] left-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-brand bg-white/20 text-white ring-1 ring-white/35 backdrop-blur-md transition-[background-color,color,transform,box-shadow] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant group-hover:ring-lime group-active:bg-lime group-active:text-blackcurrant sm:size-[72px]">
                 <Icon name="play" className="ml-1 size-7" />
               </span>
               <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">

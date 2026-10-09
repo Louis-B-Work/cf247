@@ -27,11 +27,12 @@ A settings cog in the bottom-left corner opens a menu that switches headings bet
 
 The same cog has test options, saved in the browser. Each page's cog only lists the options that apply to it:
 
-- **Hero layout** (homepage only): *Cycling cars* (default, the car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car and centres the headline, actions and trust line) or *Photo* (a full-bleed lifestyle photo under a purple wash, darkest behind the copy, with the nav clear until you scroll).
+- **Site design** (homepage only): *Classic* (default, the page as built so far) or *Modern (new)*, a rebuild of the whole homepage inspired by Weav (godly.design). It has a purple hero with an oversized headline and a phone stepping through the real apply form (apply.carfinance247.co.uk/?option=monthly): vehicle type, found a vehicle, how much to borrow, contact details and the thank-you screen, using the form's own wording, with a scalloped edge of smile marks leading into large white and purple panels on alternating lilac, white and blackcurrant backgrounds: trust, how it works, stats, situations, reviews, the founders (Reg and Louis, from the Classic page), guides, FAQs and a final call to action. It lives in `src/components/modern`, and the hero layout option doesn't apply to it.
+- **Hero layout** (homepage only): *Cycling cars* (default, the car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car and centres the headline, actions and trust line), *Photo* (a full-bleed lifestyle photo under a purple wash, darkest behind the copy, with the nav clear until you scroll) or *Big headline* (the Cycling cars layout with a much larger "Car finance made easy" headline, inspired by zilch.com).
 - **Trustpilot stars**: *Brand purple* (default), *Trustpilot green*, which restores Trustpilot's green boxes with white stars and the green logo star, or *CF247 green*: brand lime boxes with white stars, and a lime logo star on dark backgrounds.
-- **Button styles**: *All white* (default) or *Mixed (original)*, which restores the earlier mix: solid purple buttons on white and tint sections and an outlined nav button. Buttons on purple and photos stay white in both.
+- **Buttons**: *Sliding arrow* (default, after the 21st.dev ShadcnSpace "Button with icon": the square arrow chip slides from the right edge to the left and turns from ↗ to → while the label shifts right and the lime fill sweeps in), *Fixed arrow* (the chip stays on the right) or *No arrow* (text only, centred with even padding). All keep the lime fill on hover.
 
-They work by setting data-hero and data-tp on <html>, read by the hero-centered: and 	p-brand: Tailwind variants in src/index.css.
+They work by setting data-design, data-hero, data-tp and data-btn on <html>, read by the design-modern:, hero-centered:, hero-bleed:, hero-big:, tp-brand: and tp-lime: Tailwind variants and the `html[data-btn]` button rules in src/index.css.
 
 ## Design tokens
 
@@ -44,7 +45,8 @@ All tokens live in [`src/index.css`](src/index.css):
 | `--color-blackcurrant` | `#160132` | Text, dark bands, footer |
 | `--color-lime` | `#8EF205` | Accent only: hover fills, smile arc, progress bar, stars |
 | `--color-progress` | lime | Scroll progress bar; set to `white` for the white variant |
-| `--radius-brand` | `16px` | Every card, button, input and image |
+| `--radius-brand` | `16px` | Every card, panel, button, input and image |
+| `--radius-inner` | `10px` | Small icon tiles, chips and arrow boxes nested inside a card or button |
 
 Lime is still being decided, so every use reads from `--color-lime` and can be retuned in one place. Lime is never used as body text on white.
 
@@ -53,7 +55,7 @@ Lime is still being decided, so every use reads from `--color-lime` and can be r
 - `src/components/brand/Logo.tsx`: brand logo built from the official glyphs, with a `stacked` (three line) and `inline` (one line, used in the nav from tablet up) variant
 - `src/components/layout`: sticky nav with hover mega menus, scroll progress bar, branching mobile menu, footer (with app badges and social links)
 - `src/components/sections`: one file per homepage section
-- `src/components/ui`: `Button` (a lime knob holding an arrow stretches across the button on hover, modelled on the 21st.dev Motion Button; nav items use a lime underline instead), `Accent` (cursive word) and `EndSmile` (the logo smiley mark at the end of headings, with a `tone` and `size` per heading), `MagicText` (scroll-linked word reveal), `PullOut` (smile hooked under key words, per guidelines p.24), `Reveal`, brand `Icon` set, `TrustpilotStars` / `TrustpilotLogo` (official green star boxes and wordmark), `BrandIcon` (social and app store marks from Simple Icons)
+- `src/components/ui`: `Button` (a solid rounded-square button with a medium-weight left label and a square arrow chip on the right; the whole button floods lime on hover or press; nav items use a lime underline instead), `Accent` (cursive word) and `EndSmile` (the logo smiley mark at the end of headings, with a `tone` and `size` per heading), `MagicText` (scroll-linked word reveal), `PullOut` (smile hooked under key words, per guidelines p.24), `Reveal`, brand `Icon` set, `TrustpilotStars` / `TrustpilotLogo` (official green star boxes and wordmark), `BrandIcon` (social and app store marks from Simple Icons)
 - `src/data`: nav, FAQs, Trustpilot reviews, search index, image choices and credits
 
 ## Content and imagery notes
@@ -61,7 +63,7 @@ Lime is still being decided, so every use reads from `--color-lime` and can be r
 - Reviews are taken from the public Trustpilot page and the current homepage, lightly trimmed.
 - Lifestyle photos are free Unsplash images chosen against the imagery guidance (pages 27 to 32): candid, warm, no eye contact, with a quiet zone for text. Photographer details are kept in `src/data/images.ts`. Alternates are listed for each slot.
 - Step images, guide images, partner logos, the founders photo and the hero car are loaded from the live site for the mockup.
-- Search uses a static index of nav pages, guides and FAQs, with no backend. Searches that suggest intent to apply (quote, apply, eligible, borrow, finance and similar) offer "Get my quote", and a search with no matches falls back to it, so search never ends in a dead end.
+- Search uses a static index of nav pages, guides and FAQs, with no backend. It now lives behind a bare lime magnifier in the bottom-right corner (no box, on every screen size) that shows from page load and hides near the final CTA and footer. Hovering it (or focusing, or tapping on touch screens) slides a frosted-glass search bar out to the left from the icon, which stays at the bar's right end. Searches that suggest intent to apply (quote, apply, eligible, borrow, finance and similar) offer "Get my quote", and a search with no matches falls back to it, so search never ends in a dead end.
 - Guide read times are estimates for the mockup.
 - There is no direct link to the members area: search and quote calls to action go to the quote form.
 - Copy avoids taglines and em dashes.
@@ -74,4 +76,4 @@ A second page, `landing-page/`, redesigns the paid landing page at [carfinance24
 - Hero with a plain reg box and the Get my quote button directly beneath it at the same size; the reg is passed to the quote journey as `?reg=`. Every quote button on the page uses the same `xl` size.
 - Illustrative refinance calculator (`src/lib/finance.ts`) at the representative 15.5% APR, with clear warnings.
 - Explainer, pros and cons, why Car Finance 247, reviews (`showVideos={false}`), partners, refinance FAQs (`Faq categories=...`, tabs hide with one set), final call to action and `Footer variant="compact"`.
-- Copy and links live in `src/data/refinance.ts`. The cog here offers the heading font, Trustpilot stars and button styles (the hero layout options are homepage only).
+- Copy and links live in `src/data/refinance.ts`. The cog here offers the heading font, Trustpilot stars and button style (the hero layout options are homepage only).

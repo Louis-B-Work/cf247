@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'motion/react'
 import { valueCars } from '../../data/cars'
 import { quoteUrl } from '../../data/nav'
 import { cn } from '../../lib/utils'
-import { Logo } from '../brand/Logo'
 import { Button } from '../ui/Button'
 import { useVerticalWheelPassthrough } from '../../lib/useVerticalWheelPassthrough'
 
@@ -35,7 +34,7 @@ const values: Value[] = [
   },
   {
     title: 'Personal',
-    before: 'A dedicated account manager',
+    before: 'Real people',
     accent: 'with you',
     after: 'from quote to keys',
     car: valueCars.mini,
@@ -88,9 +87,8 @@ function ValueCard({ value, index }: { value: Value; index: number }) {
         {value.before} <LimeAccent delay={0.5 + index * 0.12}>{value.accent}</LimeAccent> {value.after}
       </p>
 
-      {/* Bottom row: the logo, plus a visible cue that the whole card starts a quote. */}
-      <div className="order-2 mt-auto flex items-end justify-between gap-4 max-sm:-mt-3">
-        <Logo className="h-14 w-auto shrink-0 text-white lg:max-xl:h-12 xl:h-16" />
+      {/* Bottom row: a visible cue that the whole card starts a quote. */}
+      <div className="order-2 mt-auto flex items-end justify-start gap-4 max-sm:-mt-3">
         <Button asSpan variant="reverse" size="md">
           Get my quote
         </Button>
@@ -108,7 +106,7 @@ function ValueCard({ value, index }: { value: Value; index: number }) {
   )
 }
 
-/** Brand value cards modelled on the CF247 ad layout: one word, one line with a lime pull-out, a car and the logo. */
+/** Brand value cards modelled on the CF247 ad layout: one word, one line with a lime pull-out and a car. */
 export function Values() {
   const rowRef = useRef<HTMLDivElement>(null)
   useVerticalWheelPassthrough(rowRef)

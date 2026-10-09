@@ -18,10 +18,21 @@ function initialFont(): FontId {
 }
 
 /**
- * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered` and `tp-brand`
- * Tailwind variants in index.css) and is saved, so it survives reloads. `pages` lists where each option applies.
+ * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered`, `hero-bleed`,
+ * `hero-big`, `tp-brand` and `tp-lime` Tailwind variants, and `html[data-btn]` button rules, in index.css) and is saved, so it survives reloads.
+ * `pages` lists where each option applies.
  */
 const toggles = [
+  {
+    key: 'cf247-design',
+    attr: 'design',
+    label: 'Site design',
+    pages: ['home'],
+    options: [
+      { id: 'classic', label: 'Classic' },
+      { id: 'modern', label: 'Modern (new)' },
+    ],
+  },
   {
     key: 'cf247-hero',
     attr: 'hero',
@@ -31,6 +42,7 @@ const toggles = [
       { id: 'car', label: 'Cycling cars' },
       { id: 'centered', label: 'Centred, no car' },
       { id: 'bleed', label: 'Photo' },
+      { id: 'big', label: 'Big headline' },
     ],
   },
   {
@@ -47,11 +59,12 @@ const toggles = [
   {
     key: 'cf247-btn',
     attr: 'btn',
-    label: 'Button styles',
+    label: 'Buttons',
     pages: ['home', 'landing'],
     options: [
-      { id: 'unified', label: 'All white' },
-      { id: 'mixed', label: 'Mixed (original)' },
+      { id: 'slide', label: 'Sliding arrow' },
+      { id: 'static', label: 'Fixed arrow' },
+      { id: 'plain', label: 'No arrow' },
     ],
   },
 ] as const
@@ -137,7 +150,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
                     onClick={() => setFont(f.id)}
                     style={{ fontFamily: f.family }}
                     className={cn(
-                      'relative flex items-center justify-between rounded-[12px] px-3 py-2.5 text-left text-[16px] font-semibold transition-colors',
+                      'relative flex items-center justify-between rounded-inner px-3 py-2.5 text-left text-[16px] font-semibold transition-colors',
                       selected ? 'text-blackcurrant' : 'text-white/85 hover:bg-white/10 hover:text-white',
                     )}
                   >
@@ -145,7 +158,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
                       <motion.span
                         layoutId="font-switcher-pill"
                         transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                        className="absolute inset-0 rounded-[12px] bg-lime"
+                        className="absolute inset-0 rounded-inner bg-lime"
                       />
                     )}
                     <span className="relative">{f.label}</span>
@@ -155,10 +168,13 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
               })}
             </div>
 
-            {togglesFor(page).map((t) => (
+            {/* Hero layouts only apply to the Classic design. */}
+            {togglesFor(page)
+              .filter((t) => !(t.attr === 'hero' && opts['cf247-design'] === 'modern'))
+              .map((t) => (
               <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
                 <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-[12px] bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
+                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-inner bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
                   {t.options.map((o) => {
                     const selected = opts[t.key] === o.id
                     return (
@@ -169,7 +185,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
                         aria-checked={selected}
                         onClick={() => setOpts((cur) => ({ ...cur, [t.key]: o.id }))}
                         className={cn(
-                          'rounded-[9px] px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
+                          'rounded-inner px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
                           selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
                         )}
                       >

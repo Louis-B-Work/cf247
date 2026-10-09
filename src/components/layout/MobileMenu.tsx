@@ -100,7 +100,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                       setExpanded(isOpen ? null : item.id)
                       setGroup(null)
                     }}
-                    className="flex w-full items-center justify-between rounded-[12px] px-2 py-3.5 text-left font-display text-2xl font-semibold [--focus-ring:var(--color-lime)] focus-visible:outline-offset-[-3px]"
+                    className="flex w-full items-center justify-between rounded-inner px-2 py-3.5 text-left font-display text-2xl font-semibold [--focus-ring:var(--color-lime)] focus-visible:outline-offset-[-3px]"
                   >
                     <span className={cn('transition-colors', isOpen && 'text-lime')}>{item.label}</span>
                     <Icon name="chevron" className={cn('size-6 transition-transform duration-300', isOpen && 'rotate-180')} />
@@ -124,7 +124,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                                   type="button"
                                   aria-expanded={groupOpen}
                                   onClick={() => setGroup(groupOpen ? null : key)}
-                                  className="flex w-full items-center justify-between rounded-[10px] py-2.5 pr-2 pl-1 text-left font-display text-lg font-semibold [--focus-ring:var(--color-lime)] focus-visible:outline-offset-[-2px]"
+                                  className="flex w-full items-center justify-between rounded-inner py-2.5 pr-2 pl-1 text-left font-display text-lg font-semibold [--focus-ring:var(--color-lime)] focus-visible:outline-offset-[-2px]"
                                 >
                                   <span className={cn('transition-colors', groupOpen ? 'text-lime' : 'text-white')}>{col.title}</span>
                                   <Icon
@@ -146,7 +146,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                                           <BranchItem key={link.label} small>
                                             <a
                                               href={link.href}
-                                              className="block rounded-[8px] py-2 pr-2 pl-1 text-[15px] text-white/85 transition-colors [--focus-ring:var(--color-lime)] hover:text-lime active:text-lime focus-visible:outline-offset-[-2px]"
+                                              className="block rounded-inner py-2 pr-2 pl-1 text-[15px] text-white/85 transition-colors [--focus-ring:var(--color-lime)] hover:text-lime active:text-lime focus-visible:outline-offset-[-2px]"
                                             >
                                               {link.label}
                                             </a>

@@ -66,7 +66,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
           aria-label="Main"
           className="flex h-[var(--nav-height)] items-center gap-6 px-[var(--nav-pad)] lg:max-xl:gap-4"
         >
-          <a href="#top" className="shrink-0 rounded-md" aria-label="Car Finance 247 home">
+          <a href="#top" className="shrink-0 rounded-inner" aria-label="Car Finance 247 home">
             <Logo className="h-[46px] w-auto text-white sm:hidden" />
             <Logo variant="inline" className="hidden h-[26px] w-auto text-white sm:block lg:max-xl:h-[22px] xl:h-[28px]" />
           </a>
@@ -88,7 +88,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
 
           <div className="ml-auto flex items-center gap-1 sm:gap-4">
             {!minimal && <SignInLink />}
-            <Button href={quoteHref} variant="reverse" size="md" className="btn-mixed:bg-transparent btn-mixed:text-white btn-mixed:ring-2 btn-mixed:ring-white/80 btn-mixed:ring-inset">
+            <Button href={quoteHref} variant="reverse" size="md">
               Get my quote
             </Button>
             {!minimal && (
@@ -218,7 +218,7 @@ function MegaPanel({ item }: { item: NavItem }) {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="group/link -mx-2 flex items-center rounded-[10px] px-2 py-1.5 text-[15px] text-blackcurrant/75 transition-colors duration-200 hover:bg-purple-10 hover:text-purple"
+                      className="group/link -mx-2 flex items-center rounded-inner px-2 py-1.5 text-[15px] text-blackcurrant/75 transition-colors duration-200 hover:bg-purple-10 hover:text-purple"
                     >
                       <span className="h-[3px] w-0 shrink-0 rounded-full bg-lime transition-all duration-300 ease-[var(--ease-brand)] group-hover/link:mr-2 group-hover/link:w-3" />
                       {link.label}
@@ -248,7 +248,7 @@ function MegaPanel({ item }: { item: NavItem }) {
             <p className="mt-2 text-[15px] leading-relaxed text-white/80">{item.feature.body}</p>
             <span className="mt-6 inline-flex items-center gap-3 font-display font-semibold">
               {item.feature.cta}
-              <span className="grid size-9 place-items-center rounded-[10px] bg-white text-purple transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant">
+              <span className="grid size-9 place-items-center rounded-inner bg-white text-purple transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant">
                 <Icon name="arrow" className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </span>
             </span>

@@ -15,7 +15,7 @@ const stats = [
 export function Founders() {
   return (
     // Inset within the page container so the founders photo sits as a framed image rather than a full-bleed half.
-    <section aria-labelledby="founders-title" className="bg-blackcurrant py-14 md:py-20">
+    <section aria-labelledby="founders-title" className="bg-blackcurrant py-14 md:py-20 design-modern:py-16 design-modern:md:py-24 design-modern:lg:py-28">
       <div className="container-cf grid grid-cols-1 items-center gap-7 lg:grid-cols-12 lg:items-stretch lg:gap-12 xl:gap-16">
         <div className="relative aspect-[16/10] overflow-hidden rounded-brand lg:col-span-6 lg:aspect-auto lg:min-h-[440px]">
           <motion.img

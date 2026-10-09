@@ -150,7 +150,7 @@ export const navItems: NavItem[] = [
     ],
     feature: {
       title: 'Talk it through',
-      body: 'Every customer gets a dedicated account manager by phone, email or WhatsApp.',
+      body: 'Got a question about your quote or car finance? Get in touch and our team will be happy to help.',
       cta: 'Contact us',
       href: siteUrl('/contact-us'),
       icon: 'people',
@@ -158,7 +158,7 @@ export const navItems: NavItem[] = [
   },
   {
     id: 'life',
-    label: 'Life @ CF247',
+    label: 'Team247',
     all: l('Meet the team behind Car Finance 247', '/about'),
     columns: [
       {
@@ -185,4 +185,7 @@ export const navItems: NavItem[] = [
 ]
 
 export const signInUrl = 'https://my.carfinance247.co.uk/'
-export const quoteUrl = 'https://apply.carfinance247.co.uk/'
+export const quoteUrl = 'https://apply.carfinance247.co.uk/?option=monthly'
+
+/** The apply form pre-fills its loan amount from `monthlyBudget` (it borrows budget × 60 months). */
+export const quoteUrlWithBudget = (monthlyBudget: number) => `${quoteUrl}&monthlyBudget=${monthlyBudget}`

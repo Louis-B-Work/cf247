@@ -13,7 +13,8 @@
         document.documentElement.dataset.headingFont = ['general-sans', 'manrope', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
         var tp = localStorage.getItem('cf247-tp')
         document.documentElement.dataset.tp = ['brand', 'lime'].indexOf(tp) > -1 ? tp : 'purple'
-        document.documentElement.dataset.btn = localStorage.getItem('cf247-btn') === 'mixed' ? 'mixed' : 'unified'
+        var btn = localStorage.getItem('cf247-btn')
+        document.documentElement.dataset.btn = ['static', 'plain'].indexOf(btn) > -1 ? btn : 'slide'
       } catch (e) {}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

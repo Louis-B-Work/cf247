@@ -36,28 +36,30 @@ function QuickLinkCard({ link }: { link: QuickLink }) {
   return (
     <a
       href={link.href}
-      className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 transition-colors duration-300 [-webkit-tap-highlight-color:transparent] hover:bg-purple hover:text-white active:bg-purple active:text-white"
+      className="group flex h-full min-h-[132px] touch-manipulation flex-col rounded-brand bg-purple-10 p-3 transition-colors duration-300 [-webkit-tap-highlight-color:transparent] hover:bg-purple hover:text-white active:bg-purple active:text-white sm:min-h-[156px] sm:p-5"
     >
-      <span className="grid size-14 shrink-0 place-items-center rounded-brand bg-white text-purple transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant">
-        <Icon name={link.icon} className="size-7" />
+      <span className="flex items-start justify-between gap-3">
+        <span className="grid size-11 shrink-0 place-items-center rounded-brand bg-white text-purple transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant sm:size-14">
+          <Icon name={link.icon} className="size-6 sm:size-7" />
+        </span>
+        <Icon
+          name="arrow-up-right"
+          className="size-5 shrink-0 text-purple transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-lime group-active:translate-x-0.5 group-active:-translate-y-0.5 group-active:text-lime"
+        />
       </span>
-      <span className="min-w-0 flex-1">
-        <span className="block font-display text-lg leading-tight font-semibold">{link.title}</span>
-        <span className="mt-1 block text-sm opacity-70">{link.body}</span>
+      <span className="mt-4 block min-w-0 sm:mt-5">
+        <span className="block font-display text-base leading-tight font-semibold sm:text-lg">{link.title}</span>
+        <span className="mt-1 block text-xs leading-snug opacity-70 max-[380px]:hidden sm:text-sm">{link.body}</span>
       </span>
-      <Icon
-        name="arrow"
-        className="size-5 shrink-0 text-purple transition-all duration-300 group-hover:translate-x-1 group-hover:text-lime group-active:text-lime"
-      />
     </a>
   )
 }
 
 export function QuickLinks() {
   return (
-    <section aria-label="Quick links" className="relative bg-white pt-[var(--car-overhang)] pb-14 [--car-overhang:calc(33vw+24px)] sm:[--car-overhang:calc(min(48vw,360px)*0.42+28px)] md:pb-20 lg:[--car-overhang:calc(min(6.8vw,128px)+24px)] hero-centered:[--car-overhang:56px] hero-centered:sm:[--car-overhang:56px] hero-centered:md:[--car-overhang:80px] hero-centered:lg:[--car-overhang:calc(min(6.8vw,128px)+24px)] hero-bleed:[--car-overhang:56px] hero-bleed:sm:[--car-overhang:56px] hero-bleed:md:[--car-overhang:80px] hero-bleed:lg:[--car-overhang:calc(min(6.8vw,128px)+24px)]">
+    <section aria-label="Quick links" className="relative bg-white pt-[var(--car-overhang)] pb-14 [--car-overhang:calc(33vw+24px)] sm:[--car-overhang:calc(min(48vw,360px)*0.42+28px)] md:pb-20 lg:[--car-overhang:calc(min(6.8vw,128px)+24px)] hero-centered:[--car-overhang:32px] hero-centered:md:[--car-overhang:40px] hero-bleed:[--car-overhang:32px] hero-bleed:md:[--car-overhang:40px]">
       <div className="container-wide">
-        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <ul className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
           {links.map((link, i) => (
             // Revealed on load, just after the hero headline, as the tops peek above the fold in every hero layout.
             <motion.li
@@ -65,6 +67,7 @@ export function QuickLinks() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.45 + i * 0.08 }}
+              className="h-full"
             >
               <QuickLinkCard link={link} />
             </motion.li>

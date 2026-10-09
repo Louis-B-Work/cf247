@@ -3,7 +3,7 @@ import { cn } from '../../lib/utils'
 import { Icon } from './Icon'
 
 type Variant = 'primary' | 'reverse' | 'light' | 'outline-light' | 'outline-dark'
-type Size = 'md' | 'lg' | 'xl'
+type Size = 'md' | 'lg' | 'xl' | '2xl'
 
 type ButtonProps = {
   children: ReactNode
@@ -17,40 +17,52 @@ type ButtonProps = {
   ariaLabel?: string
   /**
    * Render as a non-interactive span, for when the whole surrounding card is the link.
-   * The fill still plays when the card is hovered or pressed, because the card also carries the \group\ class.
+   * The lime flood still plays when the card is hovered or pressed, because the card also carries the `group` class.
    */
   asSpan?: boolean
   tabIndex?: number
 }
 
 const variantStyles: Record<Variant, string> = {
-  primary: 'bg-purple text-white',
-  reverse: 'bg-white text-purple',
-  // The white button for white or tint backgrounds: a fine purple-tint outline and soft shadow keep its edge visible.
-  // Test option "Mixed" (settings cog) restores the original solid purple button on light backgrounds.
-  light:
-    'bg-white text-purple ring-1 ring-inset ring-purple-30 shadow-[0_10px_24px_-14px_rgba(105,5,242,0.45)] btn-mixed:bg-purple btn-mixed:text-white btn-mixed:shadow-none btn-mixed:ring-0',
-  'outline-light': 'bg-transparent text-white ring-2 ring-inset ring-white/80',
-  'outline-dark': 'bg-transparent text-purple ring-2 ring-inset ring-purple',
+  primary: 'cf-pill-button--primary',
+  reverse: 'cf-pill-button--reverse',
+  light: 'cf-pill-button--light',
+  'outline-light': 'cf-pill-button--outline-light ring-2 ring-inset ring-white/80',
+  'outline-dark': 'cf-pill-button--outline-dark ring-2 ring-inset ring-purple',
 }
 
-/** Button height, the knob that sits inside it (height minus the 4px inset), and label spacing. */
-const sizeStyles: Record<Size, { button: string; knob: string; label: string }> = {
-  // Phones: md and lg drop to a compact 44px rectangle (the minimum comfortable tap height).
-  // xl is the hero's primary call to action: 52px on phones (larger than the rest) and 56px with wider padding from sm up.
-  md: { button: 'h-11 text-[15px] sm:h-12', knob: 'w-9 sm:w-10', label: 'pr-5 pl-[3.25rem] sm:pr-6 sm:pl-[3.6rem]' },
-  lg: { button: 'h-11 text-[15px] sm:h-14 sm:text-base', knob: 'w-9 sm:w-12', label: 'pr-5 pl-[3.25rem] sm:pr-7 sm:pl-[4.1rem]' },
-  xl: { button: 'h-[52px] text-base sm:h-14', knob: 'w-11 sm:w-12', label: 'pr-7 pl-[3.9rem] sm:pr-9 sm:pl-[4.4rem]' },
+/**
+ * Spacing per size, set as CSS variables read by `.cf-pill-button` in index.css:
+ * height, the chip's equal inset from the top, bottom and right, the label's outer padding and its gap to the chip.
+ */
+const sizeStyles: Record<Size, { button: string; icon: string }> = {
+  md: {
+    button: 'text-[15px] [--btn-h:44px] [--chip-inset:4px] [--btn-pad:20px] [--btn-gap:12px] sm:[--btn-h:48px] sm:[--btn-pad:22px] sm:[--btn-gap:14px]',
+    icon: 'size-[18px] sm:size-5',
+  },
+  lg: {
+    button: 'text-[15px] [--btn-h:44px] [--chip-inset:4px] [--btn-pad:20px] [--btn-gap:12px] sm:text-base sm:[--btn-h:56px] sm:[--chip-inset:6px] sm:[--btn-pad:26px] sm:[--btn-gap:16px]',
+    icon: 'size-[18px] sm:size-5',
+  },
+  xl: {
+    button: 'text-base [--btn-h:52px] [--chip-inset:6px] [--btn-pad:24px] [--btn-gap:16px] sm:[--btn-h:56px] sm:[--btn-pad:28px] sm:[--btn-gap:18px]',
+    icon: 'size-5',
+  },
+  '2xl': {
+    button: 'text-base [--btn-h:54px] [--chip-inset:5px] [--btn-pad:22px] [--btn-gap:14px] sm:text-lg sm:[--btn-h:58px] sm:[--chip-inset:6px] sm:[--btn-pad:24px] sm:[--btn-gap:16px]',
+    icon: 'size-5',
+  },
 }
 
 const motion = 'duration-500 group-active:duration-150 ease-[var(--ease-brand)] motion-reduce:transition-none'
 
 /**
- * Brand button modelled on the 21st.dev Motion Button: a lime knob holding an arrow
- * stretches across the whole button on hover while the label switches to blackcurrant.
+ * Solid rounded-square CTA with a medium-weight label on the left and a square arrow chip inset evenly on the right.
+ * Settings cog "Buttons": Sliding arrow (default, the chip slides to the left and turns on hover, after the 21st.dev
+ * ShadcnSpace "Button with icon"), Fixed arrow (the chip stays put) or No arrow (text only with even padding).
+ * Hover, focus and press sweep a lime flood across the button, invert the chip and turn the label blackcurrant.
  *
- * Touch screens have no hover, so the same fill plays while the button is pressed (with a slight
- * press-in). On phones most buttons shrink to compact 44px-high rectangles at their natural width.
+ * Touch screens get the same flood while pressed, plus a slight press-in.
  */
 export function Button({
   children,
@@ -67,7 +79,7 @@ export function Button({
 }: ButtonProps) {
   const s = sizeStyles[size]
   const classes = cn(
-    'group relative isolate inline-flex touch-manipulation items-center overflow-hidden rounded-brand font-display font-semibold whitespace-nowrap select-none [-webkit-tap-highlight-color:transparent] transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100',
+    'cf-pill-button group relative isolate inline-flex touch-manipulation items-center overflow-hidden rounded-brand font-display font-medium whitespace-nowrap select-none [-webkit-tap-highlight-color:transparent] transition-[transform,background-color] duration-150 active:scale-[0.97] motion-reduce:active:scale-100',
     variantStyles[variant],
     s.button,
     fullWidth && 'w-full justify-center',
@@ -79,25 +91,22 @@ export function Button({
       <span
         aria-hidden
         className={cn(
-          'absolute inset-y-1 left-1 -z-10 rounded-[12px] bg-lime transition-[width] group-hover:w-[calc(100%-0.5rem)] group-focus-visible:w-[calc(100%-0.5rem)] group-active:w-[calc(100%-0.5rem)]',
-          s.knob,
+          'cf-pill-button__flood absolute inset-0 z-0 origin-right rounded-brand bg-lime transition-transform',
           motion,
         )}
       />
       <span
         aria-hidden
         className={cn(
-          'absolute inset-y-1 left-1 grid place-items-center text-blackcurrant transition-transform group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 group-active:translate-x-1.5',
-          s.knob,
+          'cf-pill-button__chip absolute z-20 grid aspect-square place-items-center transition-[background-color,color]',
           motion,
         )}
       >
-        <Icon name="arrow" className="size-5" />
+        <Icon name="arrow" className={cn('cf-pill-button__arrow transition-[translate]', s.icon, motion)} />
       </span>
       <span
         className={cn(
-          'transition-colors group-hover:text-blackcurrant group-focus-visible:text-blackcurrant group-active:text-blackcurrant',
-          s.label,
+          'cf-pill-button__label relative z-10 transition-colors',
           motion,
         )}
       >

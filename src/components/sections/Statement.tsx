@@ -1,7 +1,7 @@
 import { MagicText } from '../ui/MagicText'
 
 const copy =
-  'We’ve helped over 500,000 people drive away in a car they *love.* [[One quick application]], a decision in minutes, a [[panel of trusted lenders]] and a dedicated account manager who sorts the paperwork for you.'
+  'We’ve helped over 500,000 people drive away in a car they *love.* [[One quick application]], a decision in minutes and a [[panel of trusted lenders]]. We sort the paperwork, so you just turn up and drive away.'
 
 export function Statement() {
   return (

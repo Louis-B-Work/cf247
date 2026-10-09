@@ -64,7 +64,7 @@ function AppAndSocial() {
                 <a
                   href={app.href}
                   aria-label={`${app.lead} ${app.store}`}
-                  className="group flex h-12 items-center gap-2.5 rounded-[12px] bg-black px-4 ring-1 ring-white/25 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-lime"
+                  className="group flex h-12 items-center gap-2.5 rounded-inner bg-black px-4 ring-1 ring-white/25 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-lime"
                 >
                   <BrandIcon name={app.icon} className="size-6 shrink-0" />
                   <span className="leading-none">
@@ -85,7 +85,7 @@ function AppAndSocial() {
                 <a
                   href={s.href}
                   aria-label={`Car Finance 247 on ${s.name}`}
-                  className="grid size-11 place-items-center rounded-[12px] bg-white/10 text-white transition-[background-color,color,transform] duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-blackcurrant active:bg-lime active:text-blackcurrant"
+                  className="grid size-11 place-items-center rounded-inner bg-white/10 text-white transition-[background-color,color,transform] duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-blackcurrant active:bg-lime active:text-blackcurrant"
                 >
                   <BrandIcon name={s.icon} className="size-5" />
                 </a>

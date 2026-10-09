@@ -10,6 +10,7 @@ export type IconName =
   | 'leaf'
   | 'people'
   | 'arrow'
+  | 'arrow-up-right'
   | 'car'
   | 'chevron'
   | 'close'
@@ -92,6 +93,18 @@ const glyphs: Record<IconName, Glyph> = {
         strokeWidth={5.5}
         strokeLinecap="round"
         strokeLinejoin="miter"
+      />
+    ),
+  },
+  'arrow-up-right': {
+    stroke: (
+      <path
+        d="M14 34L34 14M21 14H34V27"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={5.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     ),
   },

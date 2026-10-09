@@ -3,9 +3,10 @@
 /* Test options from the settings cog, set as attributes on <html> (see FontSwitcher and the pre-paint script). */
 @custom-variant hero-centered (&:where(html[data-hero='centered'] *));
 @custom-variant hero-bleed (&:where(html[data-hero='bleed'] *));
+@custom-variant hero-big (&:where(html[data-hero='big'] *));
+@custom-variant design-modern (&:where(html[data-design='modern'] *));
 @custom-variant tp-brand (&:where(html[data-tp='brand'] *));
 @custom-variant tp-lime (&:where(html[data-tp='lime'] *));
-@custom-variant btn-mixed (&:where(html[data-btn='mixed'] *));
 
 /*
  * Brand tokens from CF247 Guidelines (2026 draft).
@@ -27,9 +28,145 @@
   /* Body copy is always Helvetica Neue (Arial is the approved substitute, guidelines p.19). */
   --font-body: 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
 
+  /* Two corner radii only: brand for every card, panel, image, button and input; inner for small icon tiles and chips nested inside them. */
   --radius-brand: 16px;
+  --radius-inner: 10px;
 
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer components {
+  .cf-pill-button {
+    --btn-flood-scale: 0;
+    --btn-chip-x: 0px;
+    height: var(--btn-h);
+    color: var(--btn-label-color);
+  }
+
+  .cf-pill-button--primary,
+  .cf-pill-button--light {
+    --btn-label-color: white;
+    --btn-chip-bg: white;
+    --btn-chip-text: var(--color-purple);
+    background: var(--color-purple);
+  }
+
+  .cf-pill-button--reverse {
+    --btn-label-color: var(--color-purple);
+    --btn-chip-bg: var(--color-purple);
+    --btn-chip-text: white;
+    background: white;
+  }
+
+  .cf-pill-button--outline-light {
+    --btn-label-color: white;
+    --btn-chip-bg: white;
+    --btn-chip-text: var(--color-purple);
+    background: transparent;
+  }
+
+  .cf-pill-button--outline-dark {
+    --btn-label-color: var(--color-purple);
+    --btn-chip-bg: var(--color-purple);
+    --btn-chip-text: white;
+    background: transparent;
+  }
+
+  .cf-pill-button:is(:hover, :focus-visible, :active),
+  .group:is(:hover, :focus-visible, :active) .cf-pill-button {
+    --btn-flood-scale: 1;
+    --btn-chip-x: 3px;
+    --btn-label-color: var(--color-blackcurrant);
+    --btn-chip-bg: var(--color-blackcurrant);
+    --btn-chip-text: var(--color-lime);
+    /*
+     * The button's own fill turns lime once the flood has swept across. Otherwise the purple or white
+     * underneath shows as a hairline round the rounded corners, where the edge pixels are only part-covered.
+     * Delays match the transform and background-color transitions set on the button.
+     */
+    background-color: var(--color-lime);
+    transition-delay: 0s, 0.4s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cf-pill-button:is(:hover, :focus-visible, :active),
+    .group:is(:hover, :focus-visible, :active) .cf-pill-button {
+      transition-delay: 0s;
+    }
+  }
+
+  .cf-pill-button__flood {
+    transform: scaleX(var(--btn-flood-scale));
+  }
+
+  /* Square chip inset by the same amount on the top, bottom and right, using the shared inner radius. */
+  .cf-pill-button__chip {
+    top: var(--chip-inset);
+    bottom: var(--chip-inset);
+    right: var(--chip-inset);
+    border-radius: var(--radius-inner);
+    color: var(--btn-chip-text);
+    background: var(--btn-chip-bg);
+  }
+
+  .cf-pill-button__arrow {
+    translate: var(--btn-chip-x) 0;
+  }
+
+  /* Outer padding on the left; on the right, clear the chip (its width plus inset) and then the same gap. */
+  .cf-pill-button__label {
+    padding-left: var(--btn-pad);
+    padding-right: calc(var(--btn-h) - var(--chip-inset) + var(--btn-gap));
+    color: var(--btn-label-color);
+  }
+}
+
+/*
+ * Test option "No arrow" from the settings cog: text only, with even padding on both sides.
+ * Unlayered so it beats the chip's `grid` utility.
+ */
+html[data-btn='plain'] .cf-pill-button__chip {
+  display: none;
+}
+html[data-btn='plain'] .cf-pill-button__label {
+  padding-inline: calc(var(--btn-pad) + 4px);
+}
+
+/*
+ * Test option "Sliding arrow" (the default), after the 21st.dev ShadcnSpace "Button with icon":
+ * on hover the arrow chip slides from the right edge to the left and turns from up-right to right,
+ * while the label padding swaps sides so the text shifts right. The button width never changes.
+ */
+html[data-btn='slide'] .cf-pill-button__chip {
+  transition:
+    right 0.5s var(--ease-brand),
+    background-color 0.5s var(--ease-brand),
+    color 0.5s var(--ease-brand);
+}
+html[data-btn='slide'] .cf-pill-button__arrow {
+  translate: 0 0;
+  rotate: -45deg;
+  transition: rotate 0.5s var(--ease-brand);
+}
+html[data-btn='slide'] .cf-pill-button__label {
+  transition:
+    padding 0.5s var(--ease-brand),
+    color 0.5s var(--ease-brand);
+}
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__chip {
+  right: calc(100% - var(--btn-h) + var(--chip-inset));
+}
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__arrow {
+  rotate: 0deg;
+}
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__label {
+  padding-left: calc(var(--btn-h) - var(--chip-inset) + var(--btn-gap));
+  padding-right: var(--btn-pad);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-btn='slide'] :is(.cf-pill-button__chip, .cf-pill-button__arrow, .cf-pill-button__label) {
+    transition: none;
+  }
 }
 
 /* Wide container: both edges inset to the shared page edge (the nav's logo), so the sides stay even. */

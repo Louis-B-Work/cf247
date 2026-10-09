@@ -17,7 +17,7 @@ function ArrowChip({ className, light }: { className?: string; light?: boolean }
     <span
       aria-hidden
       className={cn(
-        'grid shrink-0 place-items-center rounded-[12px] transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:translate-x-1 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant',
+        'grid shrink-0 place-items-center rounded-inner transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:translate-x-1 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant',
         light ? 'bg-white text-purple' : 'bg-purple text-white',
         className,
       )}
@@ -64,7 +64,7 @@ function CompactGuide({ guide }: { guide: Guide }) {
       href={guide.href}
       className="group flex items-center gap-4 rounded-brand bg-purple-10 p-5 transition-[background-color,box-shadow] duration-300 [-webkit-tap-highlight-color:transparent] active:bg-purple-30 sm:gap-5 sm:bg-transparent sm:p-3 sm:hover:bg-purple-10"
     >
-      <div className="size-20 shrink-0 overflow-hidden rounded-[12px] bg-purple-30 sm:h-28 sm:w-36">
+      <div className="size-20 shrink-0 overflow-hidden rounded-inner bg-purple-30 sm:h-28 sm:w-36">
         <img
           src={guide.image}
           alt=""
@@ -86,7 +86,7 @@ function CompactGuide({ guide }: { guide: Guide }) {
 export function Guides() {
   const [featured, ...rest] = guides
   return (
-    <section aria-labelledby="guides-title" className="bg-white py-14 md:py-20">
+    <section aria-labelledby="guides-title" className="bg-white py-14 md:py-20 design-modern:py-12 design-modern:md:py-16">
       <div className="container-cf">
         <SectionHeading
           id="guides-title"

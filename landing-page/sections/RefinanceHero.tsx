@@ -93,7 +93,7 @@ export function RefinanceHero() {
           >
             {heroBullets.map((b) => (
               <li key={b} className="flex items-center gap-2.5">
-                <span className="grid size-6 shrink-0 place-items-center rounded-[7px] bg-lime text-blackcurrant">
+                <span className="grid size-6 shrink-0 place-items-center rounded-inner bg-lime text-blackcurrant">
                   <svg viewBox="0 0 16 16" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3.5 8.5l3 3 6-7" />
                   </svg>

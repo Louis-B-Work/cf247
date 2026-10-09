@@ -58,7 +58,7 @@ export function Explainer() {
                 transition={{ duration: 0.6, ease, delay: i * 0.08 }}
                 className="flex items-center gap-4 rounded-brand bg-white p-5"
               >
-                <span className="grid size-12 shrink-0 place-items-center rounded-[12px] bg-purple text-white">
+                <span className="grid size-12 shrink-0 place-items-center rounded-inner bg-purple text-white">
                   <Icon name={r.icon} className="size-6" />
                 </span>
                 <span className="font-display text-[17px] leading-snug font-semibold">{r.title}</span>
@@ -76,8 +76,8 @@ function Tick({ tone }: { tone: 'pro' | 'con' }) {
     <span
       className={
         tone === 'pro'
-          ? 'grid size-8 shrink-0 place-items-center rounded-[9px] bg-lime text-blackcurrant'
-          : 'grid size-8 shrink-0 place-items-center rounded-[9px] bg-purple-10 text-purple'
+          ? 'grid size-8 shrink-0 place-items-center rounded-inner bg-lime text-blackcurrant'
+          : 'grid size-8 shrink-0 place-items-center rounded-inner bg-purple-10 text-purple'
       }
     >
       <svg viewBox="0 0 16 16" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round">
@@ -161,7 +161,7 @@ export function WhyUs() {
           <ul className="mt-7 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             {whyPoints.map((p) => (
               <li key={p.title} className="flex gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-white text-purple">
+                <span className="grid size-11 shrink-0 place-items-center rounded-inner bg-white text-purple">
                   <Icon name={p.icon} className="size-6" />
                 </span>
                 <div>

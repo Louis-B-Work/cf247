@@ -9,7 +9,6 @@ import { Accent, EndSmile } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
 import { cn } from '../../lib/utils'
 import { useTestOption } from '../../lib/useTestOption'
-import { HeroSearch } from './HeroSearch'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -30,9 +29,9 @@ function Line({ children, delay, className }: { children: ReactNode; delay: numb
 
 const CYCLE_MS = 4000
 
-/** The hero car rotates through the Fiesta and the three value card models. It only runs while the car is shown. */
-function useHeroCar() {
-  const cycling = useTestOption('hero') === 'car'
+/** The hero car rotates through the Fiesta and the three value card models. It only runs while the car is shown (Cycling cars and Big headline). */
+function useHeroCar(layout: string) {
+  const cycling = layout === 'car' || layout === 'big'
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -47,7 +46,9 @@ function useHeroCar() {
 }
 
 export function Hero() {
-  const car = useHeroCar()
+  const layout = useTestOption('hero')
+  const car = useHeroCar(layout)
+
   // z-10 and overflow-x-clip let the car hang over the white section below without causing sideways scroll.
   return (
     <section id="top" className="on-dark relative isolate z-10 flex flex-col overflow-x-clip bg-purple pt-[var(--nav-height)] max-sm:min-h-[80svh]">
@@ -69,10 +70,11 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="container-wide relative flex flex-1 flex-col lg:[--wide-left:max(var(--nav-pad),calc((100vw-1480px)/2))] lg:[--wide-right:max(var(--nav-pad),calc((100vw-1480px)/2))] pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 lg:min-h-[clamp(592px,calc(100svh-var(--nav-height)-min(6.8vw,128px)-24px-56px),1240px)] xl:pt-14 xl:pb-16 hero-centered:pb-14 hero-centered:md:pt-20 hero-centered:md:pb-24 hero-centered:lg:pt-12 hero-centered:lg:pb-16 hero-bleed:pb-16 hero-bleed:md:pt-20 hero-bleed:md:pb-24 hero-bleed:lg:pt-12 hero-bleed:lg:pb-16">
+      <div className="container-wide relative flex flex-1 flex-col lg:[--wide-left:max(var(--nav-pad),calc((100vw-1480px)/2))] lg:[--wide-right:max(var(--nav-pad),calc((100vw-1480px)/2))] pt-[clamp(24px,4svh,40px)] pb-0 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-12 lg:pb-16 lg:min-h-[clamp(592px,calc(100svh-var(--nav-height)-min(6.8vw,128px)-24px-56px),1240px)] xl:pt-14 xl:pb-16 hero-centered:pb-20 hero-centered:md:pt-20 hero-centered:md:pb-28 hero-centered:lg:pt-12 hero-centered:lg:pb-16 hero-centered:lg:min-h-[clamp(592px,calc(100svh-var(--nav-height)-40px-56px),1240px)] hero-bleed:pb-20 hero-bleed:md:pt-20 hero-bleed:md:pb-28 hero-bleed:lg:pt-12 hero-bleed:lg:pb-16 hero-bleed:lg:min-h-[clamp(592px,calc(100svh-var(--nav-height)-40px-56px),1240px)]">
         {/* Test option "Centred, no car": the copy and actions centre across the full width and the car is hidden. */}
         <div className="relative z-10 flex flex-1 flex-col justify-center sm:block sm:flex-none lg:col-span-8 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-none hero-centered:min-w-0 hero-centered:text-center hero-centered:lg:col-span-12">
-          <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] hero-centered:md:text-[min(6.3vw,7.25rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">
+          {/* Test option "Big headline": the Cycling cars layout with an oversized headline. */}
+          <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] sm:text-[clamp(3.5rem,5.6vw,5.75rem)] hero-centered:md:text-[min(6.3vw,7.25rem)] hero-big:text-[clamp(3.5rem,16vw,5rem)] hero-big:sm:text-[clamp(5rem,11vw,7rem)] hero-big:lg:text-[min(9.4vw,10.5rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em]">
             <Line delay={0.1} className="hero-centered:md:pr-0 hero-centered:md:pl-[0.2em]">
               Car finance
             </Line>{' '}
@@ -95,21 +97,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.6 }}
-            className="mt-[clamp(28px,4.5svh,40px)] flex max-w-[820px] flex-col items-center gap-5 hero-centered:mx-auto hero-centered:w-full hero-centered:max-w-[640px] sm:mt-6 sm:flex-row sm:items-stretch sm:gap-3 hero-centered:sm:flex-col hero-centered:sm:items-center hero-centered:sm:gap-4 md:mt-7"
+            className="mt-[clamp(28px,4.5svh,44px)] flex w-full max-w-[520px] justify-center sm:mt-7 sm:w-auto sm:max-w-none sm:justify-start hero-centered:mx-auto hero-centered:justify-center md:mt-8"
           >
-            <div className="w-full flex-1 hero-centered:sm:flex-none">
-              <HeroSearch />
-            </div>
-            {/* Separates the two routes in: search for help, or go straight to a quote. */}
-            <span
-              aria-hidden
-              className="flex w-full items-center gap-3 font-display text-base font-medium text-white/70 sm:w-auto sm:px-1 hero-centered:sm:w-full hero-centered:sm:px-0"
-            >
-              <span className="h-px flex-1 bg-white/20 sm:hidden hero-centered:sm:block" />
-              or
-              <span className="h-px flex-1 bg-white/20 sm:hidden hero-centered:sm:block" />
-            </span>
-            <Button href={quoteUrl} variant="reverse" size="xl">
+            <Button href={quoteUrl} variant="reverse" size="2xl" className="max-sm:w-full max-sm:justify-center">
               Get my quote
             </Button>
           </motion.div>
