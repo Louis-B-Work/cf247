@@ -11,7 +11,7 @@ import { Accent, PullOut } from '../ui/Smile'
 export function Steps({ title }: { title?: ReactNode } = {}) {
   return (
     <section aria-labelledby="steps-title" className="bg-white pb-14 md:pb-20">
-      <div className="container-cf">
+      <div className="container-xl">
         <SectionHeading
           id="steps-title"
           title={
