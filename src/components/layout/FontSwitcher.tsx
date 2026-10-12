@@ -82,10 +82,10 @@ function initialToggles(): Record<ToggleKey, string> {
     }),
   ) as Record<ToggleKey, string>
 }
-/** Settings cog in the bottom-left corner for testing heading fonts, hero layout and Trustpilot styling. Mockup tooling only. */
+/** Settings cog in the bottom-left corner for choosing a heading font. Mockup tooling only. */
 export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   const [font, setFont] = useState<FontId>(initialFont)
-  const [opts, setOpts] = useState(initialToggles)
+  const [opts] = useState(initialToggles)
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const panelId = useId()
@@ -125,19 +125,11 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   }, [open])
 
   return (
-    // The cog fades in only when the pointer is near the bottom-left corner: the outer box is an invisible hover zone.
     <div
       ref={rootRef}
-      className={cn(
-        'group/cog fixed bottom-0 left-0 z-[55] p-4 max-sm:hidden sm:p-6 sm:pt-24 sm:pr-24 [html[data-menu-open]_&]:hidden',
-      )}
+      className="group/cog fixed bottom-0 left-0 z-[55] p-4 sm:p-6 sm:pt-24 sm:pr-24"
     >
-      <div
-        className={cn(
-          'relative transition-opacity duration-300',
-          open ? 'opacity-100' : 'opacity-0 group-hover/cog:opacity-100 has-[:focus-visible]:opacity-100',
-        )}
-      >
+      <div className="relative">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -180,49 +172,13 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
               })}
             </div>
 
-            {/* Hero layouts only apply to the Classic design. */}
-            {togglesFor(page)
-              .filter((t) => !(t.attr === 'hero' && opts['cf247-design'] === 'modern'))
-              .map((t) => (
-              <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
-                <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-inner bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${t.attr === 'green' ? 3 : Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
-                  {t.options.map((o) => {
-                    const selected = opts[t.key] === o.id
-                    return (
-                      <button
-                        key={o.id}
-                        type="button"
-                        role="radio"
-                        aria-checked={selected}
-                        onClick={() => setOpts((cur) => ({ ...cur, [t.key]: o.id }))}
-                        className={cn(
-                          'rounded-inner px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
-                          selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
-                        )}
-                      >
-                        {'swatch' in o ? (
-                          <span className="flex flex-col items-center gap-1">
-                            <span className="size-4 rounded-full ring-1 ring-blackcurrant/25" style={{ backgroundColor: o.swatch }} />
-                            {o.label}
-                            <span className="text-[10px] font-medium uppercase opacity-70">{o.swatch}</span>
-                          </span>
-                        ) : (
-                          o.label
-                        )}
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
           </motion.div>
         )}
       </AnimatePresence>
 
       <button
         type="button"
-        aria-label={`Test settings: heading font, ${togglesFor(page).map((t) => t.label.toLowerCase()).join(", ")}`}
+        aria-label="Choose heading font"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((o) => !o)}
