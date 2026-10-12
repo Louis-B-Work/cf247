@@ -78,8 +78,9 @@
   .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
     --btn-flood-scale: 1;
     --btn-chip-x: 3px;
+    /* Green and white on hover: dark label for legibility, white chip with a green arrow. */
     --btn-label-color: var(--color-blackcurrant);
-    --btn-chip-bg: var(--color-blackcurrant);
+    --btn-chip-bg: white;
     --btn-chip-text: var(--color-lime);
     /*
      * The button's own fill turns lime once the flood has swept across. Otherwise the purple or white
