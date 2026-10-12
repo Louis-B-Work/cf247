@@ -1,6 +1,8 @@
 import { Faq } from '../sections/Faq'
 import { Founders } from '../sections/Founders'
 import { Guides } from '../sections/Guides'
+import { Steps } from '../sections/Steps'
+import { Accent } from '../ui/Smile'
 import { ModernFinalCta } from './ModernFinalCta'
 import { ModernHero } from './ModernHero'
 import { representativeExample } from '../../data/assets'
@@ -28,6 +30,13 @@ export function ModernHome() {
       <ModernReviews />
       <Founders />
       <Guides />
+      <Steps
+        title={
+          <>
+            Quote, buy, <Accent>drive away</Accent>
+          </>
+        }
+      />
       <Faq />
       <ModernFinalCta />
     </div>

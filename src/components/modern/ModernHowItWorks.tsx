@@ -44,7 +44,6 @@ const cars = [
 const checklist = [
   { title: 'Approved in principle', body: 'A lender on our panel agrees in principle to lend to you.' },
   { title: 'Finance agreement signed', body: 'You review and sign your finance agreement.' },
-  { title: 'Dealer paid by the lender', body: 'The lender pays the dealer for your car.' },
   { title: 'Ready to collect', body: 'Collect your car from the dealer and drive away.' },
 ]
 

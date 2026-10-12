@@ -16,7 +16,7 @@ export const steps = [
   },
   {
     title: 'Buy',
-    body: 'Pick your car from any reputable UK dealer and we help you agree the deal.',
+    body: 'Browse 100,000+ cars in our members area and we help you agree the deal.',
     image: dA('c44b635c16/HIW_02_New.png/100vw/webp_q'),
     alt: 'Hand holding a phone showing car search results',
   },

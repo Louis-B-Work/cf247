@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import type { ReactNode } from 'react'
 import { steps } from '../../data/assets'
 import { quoteUrl } from '../../data/nav'
 import { Button } from '../ui/Button'
@@ -6,16 +7,19 @@ import { Icon } from '../ui/Icon'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Accent, PullOut } from '../ui/Smile'
 
-export function Steps() {
+/** `title` replaces the default heading (the Modern design uses "Three steps…" for How it works already). */
+export function Steps({ title }: { title?: ReactNode } = {}) {
   return (
     <section aria-labelledby="steps-title" className="bg-white pb-14 md:pb-20">
       <div className="container-cf">
         <SectionHeading
           id="steps-title"
           title={
-            <>
-              Three steps to <Accent>feel-good</Accent> car finance
-            </>
+            title ?? (
+              <>
+                Three steps to <Accent>feel-good</Accent> car finance
+              </>
+            )
           }
           pullOut={
             <>
@@ -38,7 +42,7 @@ export function Steps() {
             >
               <a
                 href={quoteUrl}
-                className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 ring-1 ring-transparent transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:-translate-y-1.5 hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3"
+                className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 ring-1 ring-transparent transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:-translate-y-1.5 design-modern:hover:translate-y-0 hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3"
               >
                 <div className="relative size-20 shrink-0 overflow-hidden rounded-inner bg-purple-30 sm:size-28 lg:size-auto">
                   <img
