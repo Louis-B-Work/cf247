@@ -29,19 +29,11 @@ Neulis Neue (display) and Neulis Cursive (accent words) are Adobe Fonts. To load
 
 The CSS families must be `neulis-neue` and `neulis-cursive` (the Adobe defaults). Without a kit ID the mockup falls back to Urbanist, with Urbanist italic standing in for the cursive accent. Body copy uses Helvetica Neue with an Arial fallback.
 
-### Heading font switcher
+### Settings cog
 
-A settings cog in the bottom-left corner (hidden until you move the pointer near that corner or tab to it) opens a menu that switches headings between **General Sans**, **Manrope** and **Satoshi** (all free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`). The choice is saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]`; remove `<FontSwitcher />` from `App.tsx` once a font is chosen.
+The always-visible cog in the bottom-left opens a menu to switch headings between **General Sans**, **Manrope** and **Satoshi** (all free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`). The choice is saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]`.
 
-The same cog has test options, saved in the browser. Each page's cog only lists the options that apply to it:
-
-- **Site design** (homepage only): *Classic* (default, the page as built so far) or *Modern (new)*, a rebuild of the whole homepage inspired by Weav (godly.design). It has a purple hero with an oversized headline and a phone stepping through the members area (new-ma.carfinance247.co.uk), recreated from screenshots of the real app: home (approved in principle, browse vehicles in your budget), the vehicle search and a vehicle page with View quotes, using the app's own wording and listings (the customer name is illustrative), with a straight edge leading into large white and purple panels on alternating lilac, white and blackcurrant backgrounds: trust, how it works, situations (with the stats in a card), reviews, the founders (Reg and Louis, from the Classic page), guides, the Quote / Buy / Drive away photo cards (from the Classic page), FAQs and a final call to action. It uses three widths (set in `src/index.css`): the nav runs edge to edge with a small margin (`--pad-nav`); visual sections (hero, situations, reviews, Quote / Buy / Drive away, final call to action, footer) use `container-xl`, capped at 1680px (`--pad-wide`); and text-led sections (partners, statement, how it works, founders, guides, FAQ) use `container-cf`, capped at 1320px (`--nav-pad`). In Classic all three equal the single 1680px page edge. It also has a smaller type scale than Classic, stepping the hero and situation cards up a little on very wide screens (Tailwind `2xl`). It lives in `src/components/modern`, and the hero layout option doesn't apply to it.
-- **Hero layout** (homepage only): *Cycling cars* (default, the car rotates every 4 seconds through the Fiesta, Volvo XC40, Kia Sportage and MINI), *Centred, no car* (hides the car and centres the headline, actions and trust line), *Photo* (a full-bleed lifestyle photo under a purple wash, darkest behind the copy, with the nav clear until you scroll) or *Big headline* (the Cycling cars layout with a much larger "Car finance made easy" headline, inspired by zilch.com).
-- **Buttons**: *Sliding arrow* (default, after the 21st.dev ShadcnSpace "Button with icon": the square → arrow chip slides from the right edge to the left while the label shifts right and the lime fill sweeps in), *Fixed arrow* (the chip stays on the right) or *No arrow* (text only, centred with even padding). All keep the lime fill on hover. Touch screens have no hover, so there each button plays its hover state while it crosses the middle of the screen as you scroll (`src/lib/useScrollHover.ts`).
-
-They work by setting data-design, data-hero, data-green and data-btn on <html>, read by the design-modern:, hero-centered:, hero-bleed: and hero-big: Tailwind variants and the `html[data-btn]` and `html[data-green]` rules in src/index.css.
-
-Trustpilot stars always use Trustpilot's own brand colours (white stars in `#00B67A` green boxes, and a green logo star), as their brand guidelines require, so they have no test option.
+The homepage defaults to the **Modern** design. The earlier Classic design and other test options remain in the source for future use, but are not currently shown in the cog.
 
 ## Design tokens
 

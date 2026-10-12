@@ -11,7 +11,7 @@
       try {
         var saved = localStorage.getItem('cf247-heading-font')
         document.documentElement.dataset.headingFont = ['general-sans', 'manrope', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
-        document.documentElement.dataset.design = localStorage.getItem('cf247-design') === 'modern' ? 'modern' : 'classic'
+        document.documentElement.dataset.design = 'modern'
         var hero = localStorage.getItem('cf247-hero')
         document.documentElement.dataset.hero = ['centered', 'bleed', 'big'].indexOf(hero) > -1 ? hero : 'car'
         var green = localStorage.getItem('cf247-green')

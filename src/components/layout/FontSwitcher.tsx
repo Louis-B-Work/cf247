@@ -29,8 +29,8 @@ const toggles = [
     label: 'Site design',
     pages: ['home'],
     options: [
-      { id: 'classic', label: 'Classic' },
       { id: 'modern', label: 'Modern (new)' },
+      { id: 'classic', label: 'Classic' },
     ],
   },
   {
@@ -78,7 +78,8 @@ function initialToggles(): Record<ToggleKey, string> {
   return Object.fromEntries(
     toggles.map((t) => {
       const saved = localStorage.getItem(t.key)
-      return [t.key, t.options.some((o) => o.id === saved) ? saved : t.options[0].id]
+      const selected = t.attr === 'design' && saved !== 'modern' ? t.options[0].id : saved
+      return [t.key, t.options.some((o) => o.id === selected) ? selected : t.options[0].id]
     }),
   ) as Record<ToggleKey, string>
 }
