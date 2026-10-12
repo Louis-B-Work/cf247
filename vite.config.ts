@@ -6,6 +6,7 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 // Two pages share one set of components and styles: the homepage (/) and the refinance landing page (/landing-page/).
 export default defineConfig({
+  base: process.env.GITHUB_ACTIONS === 'true' ? '/cf247/' : '/',
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {

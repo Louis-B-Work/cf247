@@ -11,6 +11,14 @@ npm run build    # type-check and production build
 npm run lint
 ```
 
+## Share it on GitHub Pages
+
+The `main` branch is deployed automatically by GitHub Actions to
+<https://louis-b-work.github.io/cf247/> after each push. To enable the first deployment,
+open the repository's **Settings → Pages** and set the build and deployment source to
+**GitHub Actions**. The homepage is at `/cf247/`, and the refinance page is at
+`/cf247/landing-page/`.
+
 ## Brand fonts
 
 Neulis Neue (display) and Neulis Cursive (accent words) are Adobe Fonts. To load them:
