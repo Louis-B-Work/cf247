@@ -1,4 +1,4 @@
-import { refinanceApr, refinanceQuoteUrl, softSearchNote } from '../../src/data/refinance'
+import { refinanceApr, refinanceQuoteUrl } from '../../src/data/refinance'
 import { Button } from '../../src/components/ui/Button'
 import { Reveal } from '../../src/components/ui/Reveal'
 import { Accent, EndSmile } from '../../src/components/ui/Smile'
@@ -16,7 +16,6 @@ export function RefinanceFinalCta() {
           <h2 id="lp-final-title" className="text-[clamp(2.4rem,4.6vw,4.25rem)] leading-[var(--leading-title)] font-medium">
             Ready to see what you could <EndSmile tone="white" size={0.66}><Accent>save?</Accent></EndSmile>
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/80">{softSearchNote}</p>
         </div>
         <div className="shrink-0">
           <Button href={refinanceQuoteUrl} variant="reverse" size="xl">

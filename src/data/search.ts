@@ -55,7 +55,6 @@ export const searchIdeas = [
   'PCP or HP?',
   'Refinance my car',
   'Electric car finance',
-  'Will it affect my credit score?',
   'Van finance',
   'No deposit car finance',
 ]

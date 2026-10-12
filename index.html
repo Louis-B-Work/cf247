@@ -14,8 +14,8 @@
         document.documentElement.dataset.design = localStorage.getItem('cf247-design') === 'modern' ? 'modern' : 'classic'
         var hero = localStorage.getItem('cf247-hero')
         document.documentElement.dataset.hero = ['centered', 'bleed', 'big'].indexOf(hero) > -1 ? hero : 'car'
-        var tp = localStorage.getItem('cf247-tp')
-        document.documentElement.dataset.tp = ['brand', 'lime'].indexOf(tp) > -1 ? tp : 'purple'
+        var green = localStorage.getItem('cf247-green')
+        document.documentElement.dataset.green = ['fresh', 'green'].indexOf(green) > -1 ? green : 'original'
         var btn = localStorage.getItem('cf247-btn')
         document.documentElement.dataset.btn = ['static', 'plain'].indexOf(btn) > -1 ? btn : 'slide'
       } catch (e) {}

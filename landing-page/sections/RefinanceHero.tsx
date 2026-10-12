@@ -1,10 +1,9 @@
 import { motion } from 'motion/react'
 import { useId, useState, type FormEvent, type ReactNode } from 'react'
 import { trustpilot } from '../../src/data/reviews'
-import { heroBullets, refinanceApr, refinanceImages, refinanceQuoteUrl, softSearchNote } from '../../src/data/refinance'
+import { heroBullets, refinanceApr, refinanceImages, refinanceQuoteUrl } from '../../src/data/refinance'
 import { Logo } from '../../src/components/brand/Logo'
 import { Button } from '../../src/components/ui/Button'
-import { Icon } from '../../src/components/ui/Icon'
 import { Accent, EndSmile } from '../../src/components/ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../../src/components/ui/Trustpilot'
 
@@ -120,17 +119,13 @@ export function RefinanceHero() {
           >
             <a href={trustpilot.url} className="group flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
               <strong className="font-display">Excellent</strong>
-              <TrustpilotStars tone="light" boxClassName="size-[22px]" />
+              <TrustpilotStars boxClassName="size-[22px]" />
               <span className="text-white/75 transition-colors group-hover:text-white">{trustpilot.reviews} reviews on</span>
               <TrustpilotLogo tone="light" className="text-[16px]" />
             </a>
           </motion.div>
 
-          <div className="mt-6 max-w-xl space-y-1.5 text-[13px] leading-relaxed text-white/75">
-            <p className="flex gap-2">
-              <Icon name="shield" className="mt-0.5 size-4 shrink-0 text-lime" />
-              <span>{softSearchNote}</span>
-            </p>
+          <div className="mt-6 max-w-xl text-[13px] leading-relaxed text-white/75">
             <p>Representative {refinanceApr}% APR. Car Finance 247 Limited is a credit broker, not a lender.</p>
           </div>
         </div>

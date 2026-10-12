@@ -14,25 +14,26 @@ function RatingPanel() {
     <a
       href={trustpilot.url}
       className={cn(
-        'group block bg-white p-5 shadow-[0_28px_70px_-48px_rgba(22,1,50,0.55)] ring-1 ring-purple/10 transition-[transform,box-shadow,ring-color] duration-500 ease-[var(--ease-brand)] hover:-translate-y-1 hover:ring-purple/25 hover:shadow-[0_36px_85px_-50px_rgba(105,5,242,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-6',
+        // Hover keeps the card still: the outline and shadow deepen and a lime underline sweeps under "Excellent".
+        'group flex items-center gap-5 bg-white px-5 py-4 shadow-[0_28px_70px_-48px_rgba(22,1,50,0.55)] ring-1 ring-purple/10 transition-shadow duration-500 ease-[var(--ease-brand)] hover:ring-2 hover:ring-purple/35 hover:shadow-[0_36px_85px_-50px_rgba(105,5,242,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple motion-reduce:transition-none sm:gap-6 sm:px-6',
         panel,
       )}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="font-display text-[clamp(3.5rem,8vw,5.75rem)] leading-none font-medium tracking-[-0.06em] text-purple">
-            {trustpilot.score}
-          </p>
-          <p className="mt-1 font-display text-xl font-semibold text-blackcurrant">Excellent</p>
-        </div>
-        <span className="grid size-12 place-items-center rounded-brand bg-purple-10 text-purple transition-colors group-hover:bg-lime group-hover:text-blackcurrant">
-          <Icon name="arrow-up-right" className="size-6" />
+      {/* A short horizontal strip: the score on the left, the rating details beside it, so the header row stays low. */}
+      <p className="font-display text-[clamp(2.75rem,4vw,3.5rem)] leading-none font-medium tracking-[-0.06em] text-purple">
+        {trustpilot.score}
+      </p>
+      <div className="min-w-0 border-l border-purple/10 pl-5 sm:pl-6">
+      <p className="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-display text-lg font-semibold text-blackcurrant">
+        <span className="bg-[linear-gradient(var(--color-lime),var(--color-lime))] bg-[length:0%_3px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 ease-[var(--ease-brand)] group-hover:bg-[length:100%_3px] group-focus-visible:bg-[length:100%_3px]">
+          Excellent
         </span>
-      </div>
-      <TrustpilotStars className="mt-5" boxClassName="size-6" />
-      <p className="mt-3 text-sm text-blackcurrant/65">
+        <TrustpilotStars boxClassName="size-5" />
+      </p>
+      <p className="mt-1.5 text-sm text-blackcurrant/65">
         {trustpilot.reviews} reviews on <TrustpilotLogo className="text-sm" />
       </p>
+      </div>
     </a>
   )
 }
@@ -110,7 +111,7 @@ function ReviewStream({
 function WallColumn({ column, duration, reverse, className }: { column: Column; duration: number; reverse?: boolean; className?: string }) {
   const top = column.videoAt === 'top'
   return (
-    <div className={cn('relative h-full min-h-0 [--video-h:300px] sm:[--video-h:340px] lg:[--video-h:380px]', className)}>
+    <div className={cn('relative h-full min-h-0 [--video-h:280px] sm:[--video-h:340px] lg:[--video-h:440px]', className)}>
       <ReviewStream
         items={column.reviews}
         duration={duration}
@@ -128,26 +129,30 @@ function WallColumn({ column, duration, reverse, className }: { column: Column; 
   )
 }
 
-function ReviewTile({ review, tone }: { review: Review; tone: 'white' | 'purple' }) {
+/** `compact` tightens the padding and spacing for the fixed-height phone carousel. */
+function ReviewTile({ review, tone, className, compact }: { review: Review; tone: 'white' | 'purple'; className?: string; compact?: boolean }) {
   const dark = tone === 'purple'
   return (
     <figure
       className={cn(
-        'flex flex-col p-6 sm:p-7',
+        'flex flex-col',
+        compact ? 'p-4' : 'p-5 sm:p-6',
         panel,
         dark ? 'on-dark bg-purple' : 'bg-white ring-1 ring-purple/10',
+        className,
       )}
     >
-      <TrustpilotStars tone={dark ? 'light' : undefined} boxClassName="size-[20px]" />
+      <TrustpilotStars boxClassName={compact ? 'size-[18px]' : 'size-[20px]'} />
       <blockquote
         className={cn(
-          'mt-5 font-display text-[clamp(1.15rem,1.5vw,1.4rem)] leading-snug font-medium tracking-[-0.01em]',
+          'font-display text-[clamp(1.05rem,1.2vw,1.2rem)] leading-snug font-medium tracking-[-0.01em]',
+          compact ? 'mt-3' : 'mt-4',
           dark ? 'text-white' : 'text-blackcurrant',
         )}
       >
         {`\u201c${review.quote}\u201d`}
       </blockquote>
-      <figcaption className="mt-6 flex items-end justify-between gap-4 text-sm">
+      <figcaption className={cn('mt-auto flex items-end justify-between gap-4 text-sm', compact ? 'pt-3' : 'pt-5')}>
         <span>
           <span className={cn('block font-display font-semibold', dark ? 'text-white' : 'text-blackcurrant')}>{review.name}</span>
           <span className={dark ? 'text-white/70' : 'text-blackcurrant/60'}>{review.detail}</span>
@@ -171,11 +176,11 @@ function VideoTile({ video, className }: { video: VideoReview; className?: strin
         className="absolute inset-0 -z-20 h-full w-full object-cover object-top transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05]"
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(22,1,50,0)_40%,rgba(22,1,50,0.88))]" />
-      <span className="absolute top-[42%] left-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-brand bg-white/20 text-white ring-1 ring-white/35 backdrop-blur-md transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant">
+      <span className="absolute top-[42%] left-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-brand bg-white/20 text-white ring-1 ring-white/35 backdrop-blur-md transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant">
         <Icon name="play" className="ml-1 size-7" />
       </span>
-      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-        <p className="font-display text-[clamp(1.3rem,1.8vw,1.6rem)] leading-tight font-medium">{`\u201c${video.quote}\u201d`}</p>
+      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+        <p className="font-display text-[clamp(1.15rem,1.4vw,1.35rem)] leading-tight font-medium">{`\u201c${video.quote}\u201d`}</p>
         <p className="mt-3 text-sm text-white/75">
           <strong className="font-display text-white">{video.name}</strong> {`\u00b7 ${video.detail}`}
         </p>
@@ -185,13 +190,54 @@ function VideoTile({ video, className }: { video: VideoReview; className?: strin
   )
 }
 
+/** Shared classes for the phone rows: a native horizontal scroller that runs to the screen edges. */
+const phoneRow =
+  '-mx-[var(--pad-wide)] flex gap-3 overflow-x-auto overscroll-x-contain px-[var(--pad-wide)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+
+/** Phone row cards share one width; videos are 350px tall and reviews a shorter fixed 256px. */
+const phoneCard = 'flex w-[78vw] max-w-[320px] shrink-0 snap-start'
+
+/**
+ * Reviews short enough for the 256px phone card at the narrowest screen (320px). Longer ones stay on the
+ * tablet and desktop wall only.
+ */
+const PHONE_REVIEWS = ['Molly', 'GF', 'MI', 'GM', 'SA', 'DA', 'RB']
+
+/** Phones: the three video stories in a swipeable row, snapping card to card. */
+function VideoRow({ videos }: { videos: VideoReview[] }) {
+  return (
+    <ul aria-label="Video stories" className={cn(phoneRow, 'snap-x snap-mandatory scroll-px-[var(--pad-wide)]')}>
+      {videos.map((video) => (
+        <li key={video.name} className={cn(phoneCard, 'h-[350px]')}>
+          <VideoTile video={video} className="h-full w-full" />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** Phones: every written review in one swipeable row, snapping card to card. */
+function ReviewRow({ items }: { items: ReviewItem[] }) {
+  return (
+    <ul aria-label="Customer reviews" className={cn(phoneRow, 'snap-x snap-mandatory scroll-px-[var(--pad-wide)]')}>
+      {items
+        .filter((item) => PHONE_REVIEWS.includes(item.review.name))
+        .map((item) => (
+        <li key={item.review.name} className={cn(phoneCard, 'h-[256px]')}>
+          <ReviewTile review={item.review} tone={item.tone} className="h-full w-full" compact />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function ModernReviews() {
   const columns = buildColumns()
 
   return (
-    <section aria-labelledby="reviews-title" className="bg-purple-10 py-12 md:py-16">
-      <div className="container-cf">
-        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(310px,410px)] lg:items-end">
+    <section aria-labelledby="reviews-title" className="bg-purple-10 pt-12 pb-14 md:pt-16 md:pb-20">
+      <div className="container-xl">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
           <Reveal>
             <ModernHeading id="reviews-title">Making car finance simple for 500,000+ customers</ModernHeading>
           </Reveal>
@@ -207,8 +253,8 @@ export function ModernReviews() {
 
         {/*
           Three columns, each with a still video story and a stream of written reviews scrolling beside it
-          (the middle stream runs downwards). The streams keep moving on hover and have hard edges.
-          Tablets show two columns and phones one.
+          (the middle stream runs downwards). A stream pauses while hovered so it can be read, and has hard edges.
+          Tablets show two columns; phones get two horizontal rows instead (videos, then reviews).
         */}
         <style>
           {`
@@ -216,23 +262,29 @@ export function ModernReviews() {
             @keyframes review-column-down { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
             .review-column__track--up { animation: review-column-up var(--column-duration) linear infinite; }
             .review-column__track--down { animation: review-column-down var(--column-duration) linear infinite; }
+            .review-wall > div:hover .review-column__track { animation-play-state: paused; }
           `}
         </style>
         <Reveal y={28} className="mt-10 md:mt-12">
           <div
             role="region"
             aria-label="Customer reviews and video stories"
-            className="review-wall grid h-[680px] grid-cols-1 gap-4 sm:h-[780px] sm:grid-cols-2 lg:h-[860px] lg:grid-cols-3 lg:gap-5"
+            className="review-wall grid h-[720px] grid-cols-2 gap-4 max-sm:hidden lg:h-[820px] lg:grid-cols-3 lg:gap-5"
           >
             <WallColumn column={columns[0]} duration={40} />
-            <WallColumn column={columns[1]} duration={48} reverse className="max-sm:hidden" />
+            <WallColumn column={columns[1]} duration={48} reverse />
             <WallColumn column={columns[2]} duration={44} className="max-lg:hidden" />
+          </div>
+
+          <div role="region" aria-label="Customer reviews and video stories" className="space-y-4 sm:hidden">
+            <VideoRow videos={columns.map((c) => c.video)} />
+            <ReviewRow items={columns.flatMap((c) => c.reviews)} />
           </div>
         </Reveal>
 
         <a
           href={trustpilot.url}
-          className="group mt-6 ml-auto flex w-fit items-center gap-2 font-display text-lg font-semibold text-purple"
+          className="group mt-6 ml-auto flex w-fit items-center gap-2 font-display text-base font-semibold text-purple"
         >
           Read all {trustpilot.reviews} reviews on Trustpilot
           <Icon name="arrow" className="size-5 transition-transform duration-300 group-hover:translate-x-1" />

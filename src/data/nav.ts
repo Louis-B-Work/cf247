@@ -83,7 +83,7 @@ export const navItems: NavItem[] = [
     ],
     feature: {
       title: 'Been refused elsewhere?',
-      body: 'Some of our lenders specialise in helping people with bad credit. Checking won’t affect your score.',
+      body: 'Some of our lenders specialise in helping people with bad credit.',
       cta: 'Get my quote',
       href: 'https://apply.carfinance247.co.uk/',
       icon: 'shield',

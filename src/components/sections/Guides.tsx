@@ -32,7 +32,7 @@ function FeaturedGuide({ guide }: { guide: Guide }) {
   return (
     <a
       href={guide.href}
-      className="on-dark group relative isolate flex min-h-[360px] h-full flex-col justify-end overflow-hidden rounded-brand bg-blackcurrant p-6 [-webkit-tap-highlight-color:transparent] sm:aspect-[16/11] sm:min-h-0 md:p-9 lg:aspect-auto lg:min-h-[500px]"
+      className="on-dark group relative isolate flex min-h-[360px] h-full flex-col justify-end overflow-hidden rounded-brand bg-blackcurrant p-6 [-webkit-tap-highlight-color:transparent] sm:aspect-[16/11] sm:min-h-0 md:p-9 lg:aspect-auto lg:min-h-[500px] design-modern:lg:min-h-[420px] design-modern:md:p-8"
     >
       <img
         src={guide.image}
@@ -45,7 +45,7 @@ function FeaturedGuide({ guide }: { guide: Guide }) {
         className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(22,1,50,0.92)_0%,rgba(22,1,50,0.6)_38%,rgba(22,1,50,0)_68%)]"
       />
       <span className="text-xs text-white/75">{guide.readTime} min read</span>
-      <h3 className="mt-2 max-w-[22ch] text-[1.7rem] leading-[var(--leading-title)] font-medium tracking-[-0.02em] md:text-[2.4rem]">
+      <h3 className="mt-2 max-w-[22ch] text-[1.7rem] leading-[var(--leading-title)] font-medium tracking-[-0.02em] md:text-[2.4rem] design-modern:md:text-[2rem]">
         <span className={limeUnderline}>{guide.title}</span>
       </h3>
       {guide.excerpt && (
@@ -86,7 +86,7 @@ function CompactGuide({ guide }: { guide: Guide }) {
 export function Guides() {
   const [featured, ...rest] = guides
   return (
-    <section aria-labelledby="guides-title" className="bg-white py-14 md:py-20 design-modern:py-12 design-modern:md:py-16">
+    <section aria-labelledby="guides-title" className="bg-white py-14 md:py-20 design-modern:py-14 design-modern:md:py-20">
       <div className="container-cf">
         <SectionHeading
           id="guides-title"

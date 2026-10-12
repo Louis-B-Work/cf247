@@ -3,10 +3,10 @@ import { Founders } from '../sections/Founders'
 import { Guides } from '../sections/Guides'
 import { ModernFinalCta } from './ModernFinalCta'
 import { ModernHero } from './ModernHero'
+import { representativeExample } from '../../data/assets'
 import { ModernHowItWorks } from './ModernHowItWorks'
 import { ModernReviews } from './ModernReviews'
 import { ModernSituations } from './ModernSituations'
-import { ModernStats } from './ModernStats'
 import { ModernTrust } from './ModernTrust'
 
 /**
@@ -17,9 +17,13 @@ export function ModernHome() {
   return (
     <div className="bg-purple-10">
       <ModernHero />
+      <section aria-label="Representative example" className="bg-white py-5 sm:py-6">
+        <p className="container-cf text-center text-xs leading-relaxed text-blackcurrant/60 sm:text-[13px]">
+          <span className="mx-auto block max-w-4xl">{representativeExample}</span>
+        </p>
+      </section>
       <ModernTrust />
       <ModernHowItWorks />
-      <ModernStats />
       <ModernSituations />
       <ModernReviews />
       <Founders />

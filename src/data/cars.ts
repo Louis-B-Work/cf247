@@ -1,8 +1,8 @@
 import { heroCar } from './assets'
 
 /** Studio car renders from the imagin.studio CDN, all at the same 23 degree angle and 1.6 framing. */
-export const carSrc = (make: string, model: string, year: number, width = 1200) =>
-  `https://cdn.imagin.studio/getImage?customer=gb-carfinance247&zoomType=fullscreen&margins=0.03&fileType=webp&version=5&countryCode=0&licensePlateType=eu&aspectRatio=1.6&angle=23&width=${width}&make=${make}&modelFamily=${model}&modelYear=${year}`
+export const carSrc = (make: string, model: string, year: number, width = 1200, variant?: string) =>
+  `https://cdn.imagin.studio/getImage?customer=gb-carfinance247&zoomType=fullscreen&margins=0.03&fileType=webp&version=5&countryCode=0&licensePlateType=eu&aspectRatio=1.6&angle=23&width=${width}&make=${make}&modelFamily=${model}&modelYear=${year}${variant ? `&modelVariant=${variant}` : ''}`
 
 export const valueCars = {
   volvo: { src: carSrc('volvo', 'xc40', 2022), alt: 'White Volvo XC40' },

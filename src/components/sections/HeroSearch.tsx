@@ -212,7 +212,6 @@ export function HeroSearch({
                 >
                   <span>
                     {r.label}
-                    <span className="ml-2 hidden font-sans text-sm font-normal text-white/75 sm:inline">No impact on your credit score</span>
                   </span>
                   <span
                     className={cn(

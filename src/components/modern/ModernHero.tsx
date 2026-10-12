@@ -8,7 +8,6 @@ import { Button } from '../ui/Button'
 import { Icon, type IconName } from '../ui/Icon'
 import { Accent, EndSmile, SmileMark } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
-import { SmileBand } from './SmileBand'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -246,8 +245,9 @@ function Chip({ children, icon, side, className, delay }: { children: ReactNode;
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease, delay }}
       className={cn(
-        'absolute z-20 hidden w-[150px] flex-col gap-2 font-display text-[15px] leading-snug font-semibold text-white md:flex lg:hidden xl:flex',
-        side === 'left' ? 'right-[calc(50%+196px)] items-end text-right' : 'left-[calc(50%+196px)] items-start text-left',
+        'absolute z-20 hidden w-[140px] flex-col gap-2 font-display text-[14px] leading-snug 2xl:w-[160px] 2xl:text-[15px] font-semibold text-white md:flex lg:hidden xl:flex',
+        // Clears the phone (half of its 340px width, scaled by 0.84, or 0.96 on 2xl) with a small gap.
+        side === 'left' ? 'right-[calc(50%+166px)] items-end text-right 2xl:right-[calc(50%+190px)]' : 'left-[calc(50%+166px)] items-start text-left 2xl:left-[calc(50%+190px)]',
         className,
       )}
     >
@@ -259,7 +259,7 @@ function Chip({ children, icon, side, className, delay }: { children: ReactNode;
 
 /**
  * Modern design hero, after Weav (godly.design): a large left-aligned headline and one call to action,
- * with a phone demo of the CF247 journey on the right. Ends in a band of smile marks.
+ * with a phone demo of the CF247 journey on the right. Ends in a straight edge.
  */
 export function ModernHero() {
   return (
@@ -269,9 +269,9 @@ export function ModernHero() {
         <div className="absolute bottom-[-25%] left-[-15%] aspect-square w-[60vw] rounded-full bg-[radial-gradient(closest-side,rgba(22,1,50,0.35),rgba(22,1,50,0))]" />
       </div>
 
-      <div className="container-wide grid items-center gap-14 pt-10 pb-28 sm:pt-14 lg:grid-cols-12 lg:gap-8 lg:pt-12 lg:pb-36 lg:[--wide-left:max(var(--nav-pad),calc((100vw-1360px)/2))] lg:[--wide-right:max(var(--nav-pad),calc((100vw-1360px)/2))]">
+      <div className="container-xl grid items-center gap-12 pt-10 pb-16 sm:pt-14 lg:grid-cols-12 lg:gap-10 lg:pt-10 lg:pb-20">
         <div className="max-lg:text-center lg:col-span-7 xl:col-span-6">
-          <h1 className="text-[clamp(3.25rem,13vw,4.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-purple-10 sm:text-[clamp(4.5rem,8vw,7.25rem)]">
+          <h1 className="text-[clamp(3.25rem,13vw,4.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-purple-10 sm:text-[clamp(3.5rem,5.8vw,5.25rem)] 2xl:text-[6.25rem]">
             <Line delay={0.1}>Car finance</Line>
             <Line delay={0.22}>
               made{' '}
@@ -285,22 +285,21 @@ export function ModernHero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.45 }}
-            className="mt-6 max-w-2xl text-[17px] leading-relaxed text-white/85 max-lg:mx-auto md:text-lg"
+            className="mt-5 max-w-xl text-base leading-relaxed text-white/85 max-lg:mx-auto md:text-[17px] 2xl:max-w-2xl 2xl:text-lg"
           >
-            Tell us your budget and we’ll search our panel of lenders for a deal that fits. A decision in minutes, with no
-            impact on your credit score.
+            Tell us your budget and we’ll search our panel of lenders for a deal that fits. A decision in minutes.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.6 }}
-            className="mt-8 flex flex-col items-center gap-5 sm:flex-row sm:gap-6 max-lg:sm:justify-center"
+            className="mt-7 flex flex-col items-center gap-5 sm:flex-row sm:gap-6 max-lg:sm:justify-center"
           >
             {/* Phones: the quote button first. Larger screens: Trustpilot first, so the button sits nearer the centre of the page, by the phone. */}
             <a href={trustpilot.url} className="group flex flex-col gap-1.5 text-[14px] max-sm:order-2 max-sm:items-center">
               <span className="flex items-center gap-2">
-                <TrustpilotStars tone="light" boxClassName="size-[20px]" />
+                <TrustpilotStars boxClassName="size-[20px]" />
                 <strong className="font-display">Excellent</strong>
               </span>
               <span className="flex items-center gap-1.5 text-white/75 transition-colors group-hover:text-white">
@@ -312,7 +311,7 @@ export function ModernHero() {
             </Button>
           </motion.div>
 
-          <p className="mt-8 max-w-xl text-xs leading-relaxed text-white/65 max-lg:mx-auto sm:text-[13px]">
+          <p className="mt-7 max-w-xl text-xs leading-relaxed text-white/65 max-lg:mx-auto sm:text-[13px]">
             Rates from 8.9% APR. Representative 19.5% APR. Car Finance 247 Limited is a credit broker, not a lender.
           </p>
         </div>
@@ -326,46 +325,41 @@ export function ModernHero() {
           {/* The brand mark, oversized and faint behind the phone. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 text-[min(120vw,600px)] leading-none opacity-[0.09]"
+            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 text-[min(110vw,500px)] leading-none opacity-[0.09]"
           >
             <SmileMark tone="white" size={1} delay={0.5} className="ml-0 block" />
           </div>
 
-          {/* The whole phone is a quote link: on hover or focus it tips upright, the screen dims and a "Get my quote" button grows in the middle. */}
+          {/* The whole phone is a quote link: on hover or focus it tips upright, the screen dims and a "Get my quote" button grows in the middle.
+              On touch screens the same overlay shows later, once the phone has scrolled up into the top third and the demo has had a moment (useScrollHover). */}
           <a
             href={quoteUrl}
             aria-label="Get my quote"
-            className="group/phone relative block rounded-[46px] transition-transform duration-500 ease-[var(--ease-brand)] focus-visible:outline-offset-8 lg:rotate-[-3deg] lg:hover:rotate-0 lg:focus-visible:rotate-0 hover:scale-[1.02]"
+            data-scroll-hover="-22% 0px -70% 0px"
+            data-scroll-hover-delay="900"
+            className="group/phone relative block rounded-[46px] [zoom:0.84] 2xl:[zoom:0.96] transition-transform duration-500 ease-[var(--ease-brand)] focus-visible:outline-offset-8 lg:rotate-[-3deg] lg:hover:rotate-0 lg:focus-visible:rotate-0 hover:scale-[1.02] data-[scroll-active]:scale-[1.02]"
           >
             <PhoneDemo />
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-0 m-auto grid w-[min(78vw,320px)] place-items-center rounded-[46px] bg-[radial-gradient(closest-side,rgba(22,1,50,0.5),rgba(22,1,50,0.15))] p-6 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover/phone:opacity-100 group-focus-visible/phone:opacity-100 sm:w-[340px]"
+              className="pointer-events-none absolute inset-0 m-auto grid w-[min(78vw,320px)] place-items-center rounded-[46px] bg-[radial-gradient(closest-side,rgba(22,1,50,0.5),rgba(22,1,50,0.15))] p-6 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover/phone:opacity-100 group-focus-visible/phone:opacity-100 group-data-[scroll-active]/phone:opacity-100 sm:w-[340px]"
             >
-              <span className="flex w-full scale-90 items-center justify-center gap-3 rounded-brand bg-lime px-6 py-4 font-display text-lg font-semibold text-blackcurrant shadow-[0_20px_40px_-16px_rgba(22,1,50,0.8)] transition-transform duration-500 ease-[var(--ease-brand)] group-hover/phone:scale-100 group-focus-visible/phone:scale-100">
+              <span className="flex w-full scale-90 items-center justify-center gap-3 rounded-brand bg-lime px-6 py-4 font-display text-lg font-semibold text-blackcurrant shadow-[0_20px_40px_-16px_rgba(22,1,50,0.8)] transition-transform duration-500 ease-[var(--ease-brand)] group-hover/phone:scale-100 group-focus-visible/phone:scale-100 group-data-[scroll-active]/phone:scale-100">
                 Get my quote
                 <Icon name="arrow" className="size-5" />
               </span>
             </span>
           </a>
 
-          <Chip delay={1.1} icon="shield" side="left" className="top-[30%]">
-            No impact on your credit score
-          </Chip>
-          <Chip delay={1.2} icon="people" side="right" className="top-[22%]">
+          <Chip delay={1.1} icon="people" side="left" className="top-[28%]">
             <span className="text-lime">500,000+</span> drivers helped into a car they love
           </Chip>
-          <Chip delay={1.3} icon="heart" side="right" className="bottom-[24%]">
+          <Chip delay={1.3} icon="heart" side="right" className="bottom-[28%]">
             A decision in minutes
-          </Chip>
-          <Chip delay={1.5} icon="car" side="left" className="bottom-[16%]">
-            Buy from any UK dealer
           </Chip>
         </motion.div>
       </div>
 
-      {/* Sits 2px past the edge so sub-pixel rounding never shows a purple hairline under the band. */}
-      <SmileBand className="absolute inset-x-0 -bottom-[2px]" />
     </section>
   )
 }

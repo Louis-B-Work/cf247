@@ -9,9 +9,11 @@ import { Explainer, ProsCons, WhyUs } from './sections/Content'
 import { RefinanceCalculator } from './sections/RefinanceCalculator'
 import { RefinanceFinalCta } from './sections/RefinanceFinalCta'
 import { RefinanceHero } from './sections/RefinanceHero'
+import { useScrollHover } from '../src/lib/useScrollHover'
 
 /** Refinance paid landing page: one goal (get a quote). Like the live page there is no nav, just the logo in the hero. */
 export default function App() {
+  useScrollHover()
   return (
     <MotionConfig reducedMotion="user">
       <a

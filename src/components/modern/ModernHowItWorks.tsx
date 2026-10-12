@@ -19,12 +19,12 @@ type Step = {
 const steps: Step[] = [
   {
     title: 'Get your quote',
-    body: 'Answer a few quick questions and get a decision in minutes with a soft search, so checking will not affect your credit score.',
+    body: 'Answer a few quick questions and get a decision in minutes.',
     icon: 'search',
   },
   {
     title: 'Choose your car',
-    body: 'Browse 100,000+ cars in our members area, or choose a car from any reputable UK dealer and we will help agree the deal.',
+    body: 'Browse 100,000+ cars in our members area and we will help agree the deal.',
     icon: 'car',
   },
   {
@@ -34,10 +34,11 @@ const steps: Step[] = [
   },
 ]
 
+/** Body types rather than makes and models; `article` reads "Get a quote for a hatchback / an SUV / an estate". */
 const cars = [
-  { name: 'Kia Sportage', meta: '2023 · SUV', src: carSrc('kia', 'sportage', 2023, 500) },
-  { name: 'Volvo XC40', meta: '2022 · SUV', src: carSrc('volvo', 'xc40', 2022, 500) },
-  { name: 'MINI Hatch', meta: '2022 · Hatchback', src: carSrc('mini', 'hatch', 2022, 500) },
+  { name: 'Hatchback', article: 'a hatchback', meta: 'Small and easy to park', src: carSrc('mini', 'hatch', 2022, 500) },
+  { name: 'SUV', article: 'an SUV', meta: 'Space and a higher seat', src: carSrc('kia', 'sportage', 2023, 500) },
+  { name: 'Estate', article: 'an estate', meta: 'Room for the whole family', src: carSrc('skoda', 'octavia', 2021, 500, 'es') },
 ]
 
 const checklist = [
@@ -74,6 +75,7 @@ function Shell({ children }: { children: ReactNode }) {
 
 const BUDGET_MIN = 100
 const BUDGET_MAX = 1000
+const budgetCar = { src: carSrc('volvo', 'xc40', 2022, 1600), alt: '' }
 
 /** A working budget picker: drag the slider, then go straight to the quote form. */
 function QuoteMockup({ budget, onBudget }: { budget: number; onBudget: (value: number) => void }) {
@@ -81,12 +83,22 @@ function QuoteMockup({ budget, onBudget }: { budget: number; onBudget: (value: n
 
   return (
     <Shell>
-      <div className="mx-auto flex h-full max-w-[420px] flex-col justify-center">
+      {/* A large Volvo XC40 sits behind the card, drives in with the step and edges forward as the budget rises. Phones hide it: the card fills the stage, so only the wheels would show. */}
+      <motion.img
+        src={budgetCar.src}
+        alt={budgetCar.alt}
+        aria-hidden
+        initial={{ opacity: 0, x: 80 }}
+        animate={{ opacity: 1, x: (pct - 50) * 0.4 }}
+        transition={{ duration: 0.7, ease }}
+        className="pointer-events-none absolute top-1/2 left-1/2 w-[128%] max-w-none -translate-x-1/2 -translate-y-[44%] select-none max-sm:hidden"
+      />
+      <div className="relative mx-auto flex h-full max-w-[420px] flex-col justify-center">
         <div className={`${panel} bg-white p-5 shadow-[0_28px_80px_-42px_rgba(105,5,242,0.7)] ring-1 ring-purple/10 sm:p-6`}>
           <label htmlFor="how-budget" className="text-sm font-semibold text-blackcurrant/65">
             My monthly budget is
           </label>
-          <p aria-hidden className="mt-3 font-display text-[clamp(3rem,8vw,4.7rem)] leading-none font-medium tracking-[-0.06em] text-purple tabular-nums">
+          <p aria-hidden className="mt-3 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none font-medium tracking-[-0.06em] text-purple tabular-nums">
             £{budget}
           </p>
           <input
@@ -111,10 +123,6 @@ function QuoteMockup({ budget, onBudget }: { budget: number; onBudget: (value: n
           >
             Get my quote
           </a>
-          <p className="mt-4 flex items-center gap-2 text-sm font-medium text-blackcurrant/70">
-            <Tick className="size-5" />
-            Soft search, no impact on your credit score
-          </p>
         </div>
       </div>
     </Shell>
@@ -175,10 +183,9 @@ function ChooseCarMockup() {
             href={quoteUrl}
             className="mt-4 flex items-center justify-between gap-3 rounded-brand bg-purple px-4 py-3 font-display text-sm font-semibold text-white transition-colors hover:bg-lime hover:text-blackcurrant"
           >
-            Get a quote for the {cars[picked].name}
+            Get a quote for {cars[picked].article}
             <Icon name="arrow" className="size-4" />
           </a>
-          <p className="mt-3 text-center text-sm text-blackcurrant/60">Or buy from any UK dealer</p>
         </div>
       </div>
     </Shell>
@@ -249,7 +256,7 @@ function DriveAwayMockup() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease, delay: 0.18 }}
-          className={`${panel} group grid h-28 place-items-center overflow-hidden bg-[linear-gradient(155deg,#efe4fe,#fff)] ring-1 ring-purple/10 max-sm:hidden sm:h-32`}
+          className={`${panel} group grid h-28 place-items-center overflow-hidden bg-[linear-gradient(155deg,#efe4fe,#fff)] ring-1 ring-purple/10 max-sm:hidden sm:h-28`}
         >
           {/* The car eases forward when the card is hovered, ready to drive away. */}
           <img
@@ -266,7 +273,8 @@ function DriveAwayMockup() {
 function StepMockup({ active, budget, onBudget }: { active: number; budget: number; onBudget: (value: number) => void }) {
   return (
     <div
-      className={`${panel} relative h-[440px] overflow-hidden bg-[radial-gradient(circle_at_20%_10%,rgba(142,242,5,0.22),transparent_30%),linear-gradient(145deg,#f0e4ff,#fff)] p-4 ring-1 ring-purple/10 sm:p-6 lg:h-[520px]`}
+      data-step-demo
+      className={`${panel} relative h-[440px] overflow-hidden bg-[radial-gradient(circle_at_20%_10%,color-mix(in_srgb,var(--color-lime)_22%,transparent),transparent_30%),linear-gradient(145deg,#f0e4ff,#fff)] p-4 ring-1 ring-purple/10 sm:p-6 lg:h-[460px]`}
     >
       <div className="absolute top-8 right-8 size-24 rounded-full bg-lime/25 blur-3xl" />
       <div className="absolute bottom-0 left-8 h-32 w-32 rounded-full bg-purple/10 blur-3xl" />
@@ -311,6 +319,18 @@ export function ModernHowItWorks() {
     if (!(next instanceof Node) || !event.currentTarget.contains(next)) setPaused(false)
   }
 
+  // A drag can end anywhere on the page, so listen for the release on the window.
+  useEffect(() => {
+    if (!paused) return
+    const release = () => setPaused(false)
+    window.addEventListener('pointerup', release)
+    window.addEventListener('pointercancel', release)
+    return () => {
+      window.removeEventListener('pointerup', release)
+      window.removeEventListener('pointercancel', release)
+    }
+  }, [paused])
+
   useEffect(() => {
     if (reduce || paused || !inView) return
 
@@ -333,35 +353,39 @@ export function ModernHowItWorks() {
   return (
     <motion.section
       aria-labelledby="modern-how-title"
-      className="bg-purple-10 pt-10 pb-8 md:pt-14 md:pb-10"
+      className="bg-purple-10 pt-14 pb-14 md:pt-20 md:pb-20"
       viewport={{ amount: 0.45 }}
       onViewportEnter={onEnter}
       onViewportLeave={() => setInView(false)}
     >
       <div className="container-cf">
         <motion.div
-          className={`${panel} grid gap-8 bg-white p-5 shadow-[0_34px_110px_-64px_rgba(105,5,242,0.75)] ring-1 ring-purple/10 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(420px,1fr)] lg:gap-8 lg:p-8 xl:p-10`}
+          className={`${panel} grid gap-8 bg-white p-5 shadow-[0_34px_110px_-64px_rgba(105,5,242,0.75)] ring-1 ring-purple/10 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(400px,1fr)] lg:gap-10 lg:p-8 xl:p-10`}
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.75, ease }}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocus={() => setPaused(true)}
+          onPointerDown={(e) => {
+            // Using the demo (dragging the slider, picking a car) holds the step; a plain hover doesn't.
+            if ((e.target as HTMLElement).closest('[data-step-demo]')) setPaused(true)
+          }}
+          onFocus={(e) => {
+            if (e.target.matches(':focus-visible')) setPaused(true)
+          }}
           onBlur={handleBlur}
         >
-          <div className="flex flex-col lg:min-h-[520px]">
+          <div className="flex flex-col lg:min-h-[440px]">
             <h2
               id="modern-how-title"
-              className="font-display text-[clamp(2.55rem,4.2vw,4rem)] leading-[0.98] font-medium tracking-[-0.045em] text-purple"
+              className="font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.02] font-medium tracking-[-0.04em] text-purple"
             >
               Three steps to <span className="whitespace-nowrap">feel-good</span> car finance
             </h2>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-blackcurrant/70">
-              Get your quote in minutes with no impact on your credit score.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-blackcurrant/70">
+              Get your quote in minutes.
             </p>
 
-            <ol className="mt-8 divide-y divide-purple/10 border-y border-purple/10">
+            <ol className="mt-7 divide-y divide-purple/10 border-y border-purple/10">
               {steps.map((step, index) => {
                 const selected = active === index
                 const barWidth = reduce ? 100 : selected ? progress * 100 : 0
@@ -373,12 +397,15 @@ export function ModernHowItWorks() {
                       aria-expanded={selected}
                       aria-controls={`modern-how-step-${index}`}
                       onClick={() => selectStep(index)}
-                      className="group w-full py-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+                      className={cn(
+                        'group -mx-3 w-[calc(100%+1.5rem)] cursor-pointer rounded-inner px-3 py-4 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple',
+                        selected ? 'bg-transparent' : 'hover:bg-purple-10 focus-visible:bg-purple-10',
+                      )}
                     >
                       <span className="flex items-center gap-4">
                         <span
                           className={cn(
-                            'grid size-11 shrink-0 place-items-center rounded-inner transition-colors duration-300',
+                            'grid size-10 shrink-0 place-items-center rounded-inner transition-colors duration-300',
                             selected ? 'bg-purple text-white' : 'bg-purple-10 text-purple group-hover:bg-purple/15',
                           )}
                         >
@@ -386,10 +413,23 @@ export function ModernHowItWorks() {
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="flex items-center justify-between gap-4">
-                            <span className="font-display text-[clamp(1.35rem,2.4vw,1.85rem)] leading-tight font-medium tracking-[-0.03em] text-blackcurrant">
+                            <span
+                              className={cn(
+                                'font-display text-[clamp(1.15rem,1.7vw,1.4rem)] leading-tight font-medium tracking-[-0.03em] transition-colors duration-200',
+                                selected ? 'text-blackcurrant' : 'text-blackcurrant group-hover:text-purple',
+                              )}
+                            >
                               {step.title}
                             </span>
-                            <span className="font-display text-sm text-purple/50">0{index + 1}</span>
+                            <span className="flex items-center gap-2 font-display text-sm text-purple/50">
+                              {!selected && (
+                                <Icon
+                                  name="arrow"
+                                  className="size-4 -translate-x-1 text-purple opacity-0 transition-[opacity,transform] duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+                                />
+                              )}
+                              0{index + 1}
+                            </span>
                           </span>
                           <AnimatePresence initial={false}>
                             {selected && (
@@ -401,7 +441,7 @@ export function ModernHowItWorks() {
                                 transition={{ duration: 0.35, ease }}
                                 className="block overflow-hidden"
                               >
-                                <span className="mt-3 block max-w-xl text-[15px] leading-relaxed text-blackcurrant/65">
+                                <span className="mt-2 block max-w-xl text-[15px] leading-relaxed text-blackcurrant/65">
                                   {step.body}
                                 </span>
                                 <span className="mt-4 block h-1 overflow-hidden rounded-full bg-purple-10">

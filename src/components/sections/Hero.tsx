@@ -89,8 +89,7 @@ export function Hero() {
             transition={{ duration: 0.7, ease, delay: 0.45 }}
             className="mt-6 max-w-xl text-[17px] leading-relaxed text-white/85 hero-centered:mx-auto hero-centered:md:max-w-2xl sm:mt-5 sm:text-base md:mt-6 md:text-lg"
           >
-            Find your next car, compare finance from our panel of lenders and get a decision in minutes. No impact
-            on your credit score.
+            Find your next car, compare finance from our panel of lenders and get a decision in minutes.
           </motion.p>
 
           <motion.div
@@ -117,7 +116,7 @@ export function Hero() {
             >
               <span className="flex items-center gap-3">
                 <strong className="font-display">Excellent</strong>
-                <TrustpilotStars tone="light" boxClassName="size-[22px]" />
+                <TrustpilotStars boxClassName="size-[22px]" />
               </span>
               <span className="flex items-center gap-2">
                 <span className="text-white/75 transition-colors group-hover:text-white">

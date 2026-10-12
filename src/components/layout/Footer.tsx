@@ -55,7 +55,7 @@ const apps = [
 function AppAndSocial() {
   return (
     <div className="border-t border-white/10">
-      <div className="container-cf flex flex-col gap-8 py-8 sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-xl flex flex-col gap-8 py-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
           <p className="font-display text-base font-semibold">Get the app</p>
           <ul className="flex flex-wrap gap-3">
@@ -115,7 +115,7 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
 
   return (
     <footer className="on-dark bg-blackcurrant">
-      <div className="container-cf grid grid-cols-1 gap-8 pt-12 pb-8 sm:gap-10 sm:py-14 lg:grid-cols-12">
+      <div className="container-xl grid grid-cols-1 gap-8 pt-12 pb-8 sm:gap-10 sm:py-14 lg:grid-cols-12">
         <div className={compact ? 'flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:col-span-12' : 'lg:col-span-4'}>
           <div>
           <Logo className="h-14 w-auto text-white sm:h-16" />
@@ -130,7 +130,7 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
           <a href={trustpilot.url} className={cn('block w-fit text-sm text-white/75 transition-colors hover:text-white', !compact && 'mt-6')}>
             <span className="flex items-center gap-3">
               <TrustpilotLogo tone="light" className="text-[15px]" />
-              <TrustpilotStars tone="light" boxClassName="size-[18px]" />
+              <TrustpilotStars boxClassName="size-[18px]" />
             </span>
             <span className="mt-2 block">
               TrustScore {trustpilot.score} from {trustpilot.reviews} reviews
@@ -165,7 +165,7 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
       {!compact && <AppAndSocial />}
 
       <div className="border-t border-white/10">
-        <div className="container-cf space-y-4 py-8 text-xs sm:py-10 leading-relaxed text-white/55">
+        <div className="container-xl space-y-4 py-8 text-xs sm:py-10 leading-relaxed text-white/55">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-white/75">
             {legal.map(([label, path]) => (
               <li key={label}>

@@ -42,7 +42,7 @@ export function FinalCta() {
             Let’s get you <EndSmile tone="white" size={0.72}><Accent>started</Accent></EndSmile>
           </h2>
           <p className="mx-auto mt-4 max-w-md text-lg text-white/90 md:text-xl">
-            Applying only takes a couple of minutes, with no impact on your credit score.
+            Applying only takes a couple of minutes.
           </p>
           <div className="mt-7 flex justify-center">
             <Button href={quoteUrl} variant="reverse" size="lg">

@@ -25,7 +25,7 @@ export function ModernHeading({
     <h2
       id={id}
       className={cn(
-        'text-[clamp(2.4rem,6vw,4.75rem)] leading-[1] font-medium tracking-[-0.04em]',
+        'text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[1.02] font-medium tracking-[-0.035em]',
         tone === 'light' ? 'text-purple' : 'text-white',
         className,
       )}

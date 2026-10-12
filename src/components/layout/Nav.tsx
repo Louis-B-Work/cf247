@@ -64,7 +64,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
       >
         <nav
           aria-label="Main"
-          className="flex h-[var(--nav-height)] items-center gap-6 px-[var(--nav-pad)] lg:max-xl:gap-4"
+          className="flex h-[var(--nav-height)] items-center gap-6 px-[var(--pad-nav)] lg:max-xl:gap-4"
         >
           <a href="#top" className="shrink-0 rounded-inner" aria-label="Car Finance 247 home">
             <Logo className="h-[46px] w-auto text-white sm:hidden" />
@@ -200,7 +200,7 @@ function DesktopItem({ item, isOpen, onOpen, onClose, onToggle }: DesktopItemPro
 function MegaPanel({ item }: { item: NavItem }) {
   const cols = item.columns.length
   return (
-    <div className="container-cf">
+    <div className="container-xl">
       <div className="grid grid-cols-12 gap-10 pt-9 pb-8">
         <div
           className={cn(
@@ -232,7 +232,9 @@ function MegaPanel({ item }: { item: NavItem }) {
 
         <a
           href={item.feature.href}
-          className="group relative col-span-3 flex flex-col justify-between gap-8 overflow-hidden rounded-brand bg-purple p-7 text-white [--focus-ring:var(--color-lime)]"
+          // Not stretched to the link columns: every dropdown's card shares one height, the tallest card's content at each
+          // width plus a few px for the wider test fonts (it steps down as the text wraps less), so the four cards always match.
+          className="group relative col-span-3 flex min-h-[456px] flex-col min-[1144px]:min-h-[392px] min-[1304px]:min-h-[368px] min-[1424px]:min-h-[343px] min-[1760px]:min-h-[317px] justify-between gap-8 self-start overflow-hidden rounded-brand bg-purple p-7 text-white [--focus-ring:var(--color-lime)]"
         >
           <span
             aria-hidden
@@ -267,10 +269,6 @@ function MegaPanel({ item }: { item: NavItem }) {
           </span>
           <Icon name="arrow" className="size-4 transition-transform duration-300 group-hover/all:translate-x-1" />
         </a>
-        <span className="inline-flex items-center gap-2 text-blackcurrant/60">
-          <Icon name="shield" className="size-4 text-purple" />
-          Getting a quote won’t affect your credit score
-        </span>
       </div>
     </div>
   )

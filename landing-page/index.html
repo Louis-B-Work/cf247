@@ -11,8 +11,8 @@
       try {
         var saved = localStorage.getItem('cf247-heading-font')
         document.documentElement.dataset.headingFont = ['general-sans', 'manrope', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
-        var tp = localStorage.getItem('cf247-tp')
-        document.documentElement.dataset.tp = ['brand', 'lime'].indexOf(tp) > -1 ? tp : 'purple'
+        var green = localStorage.getItem('cf247-green')
+        document.documentElement.dataset.green = ['fresh', 'green'].indexOf(green) > -1 ? green : 'original'
         var btn = localStorage.getItem('cf247-btn')
         document.documentElement.dataset.btn = ['static', 'plain'].indexOf(btn) > -1 ? btn : 'slide'
       } catch (e) {}

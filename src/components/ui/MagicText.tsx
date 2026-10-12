@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
+import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { useRef, type ReactNode } from 'react'
 import { cn } from '../../lib/utils'
 import { Accent, SmileMark } from './Smile'
@@ -121,6 +121,7 @@ type MagicTextProps = {
 /**
  * Scroll-linked text reveal modelled on the 21st.dev Magic Text component:
  * each word brightens from a faint ghost as the paragraph moves up the viewport.
+ * It only plays once per page load: scrolling back up never dims the words again, and a refresh starts it afresh.
  */
 export function MagicText({ copy, className }: MagicTextProps) {
   const ref = useRef<HTMLParagraphElement>(null)
@@ -128,6 +129,11 @@ export function MagicText({ copy, className }: MagicTextProps) {
   const tokens = tokenise(copy)
   // Reveal runs from the paragraph's top entering low in the viewport until its bottom reaches the upper third.
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'end 0.3'] })
+  // High-water mark of the scroll progress, so the reveal moves forwards only.
+  const revealed = useMotionValue(0)
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    if (v > revealed.get()) revealed.set(v)
+  })
 
   if (reduce) {
     return (
@@ -153,10 +159,10 @@ export function MagicText({ copy, className }: MagicTextProps) {
           <Word
             key={i}
             token={token}
-            progress={scrollYProgress}
+            progress={revealed}
             range={[i * step, (i + 1) * step]}
             smile={
-              i === tokens.length - 1 ? <ScrollSmile progress={scrollYProgress} range={[WORDS_END, 1]} /> : undefined
+              i === tokens.length - 1 ? <ScrollSmile progress={revealed} range={[WORDS_END, 1]} /> : undefined
             }
           />
         ))}

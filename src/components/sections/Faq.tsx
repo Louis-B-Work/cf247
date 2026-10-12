@@ -208,7 +208,7 @@ export function Faq({ categories: faqCategories = defaultCategories }: FaqProps 
   }
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className="bg-purple-10 py-14 md:py-20 design-modern:py-12 design-modern:md:py-16">
+    <section id="faq" aria-labelledby="faq-title" className="bg-purple-10 py-14 md:py-20 design-modern:py-14 design-modern:md:py-20">
       <div className="container-cf">
         <div className="flex flex-col gap-7 md:gap-10">
           <Reveal>

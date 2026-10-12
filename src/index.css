@@ -5,12 +5,11 @@
 @custom-variant hero-bleed (&:where(html[data-hero='bleed'] *));
 @custom-variant hero-big (&:where(html[data-hero='big'] *));
 @custom-variant design-modern (&:where(html[data-design='modern'] *));
-@custom-variant tp-brand (&:where(html[data-tp='brand'] *));
-@custom-variant tp-lime (&:where(html[data-tp='lime'] *));
 
 /*
  * Brand tokens from CF247 Guidelines (2026 draft).
- * Lime is still being decided, so every lime usage reads from --color-lime.
+ * Lime is still being decided, so every lime usage reads from --color-lime
+ * (the cog's "Green" option swaps it, see html[data-green] below).
  */
 @theme {
   --color-purple: #6905f2;
@@ -39,6 +38,8 @@
   .cf-pill-button {
     --btn-flood-scale: 0;
     --btn-chip-x: 0px;
+    /* Never squeezed narrower than the label in a flex row, or the label slides under the arrow chip. */
+    flex-shrink: 0;
     height: var(--btn-h);
     color: var(--btn-label-color);
   }
@@ -72,8 +73,9 @@
     background: transparent;
   }
 
-  .cf-pill-button:is(:hover, :focus-visible, :active),
-  .group:is(:hover, :focus-visible, :active) .cf-pill-button {
+  /* [data-scroll-active] is the touch-screen stand-in for hover: set while the button crosses mid-screen (useScrollHover). */
+  .cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]),
+  .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
     --btn-flood-scale: 1;
     --btn-chip-x: 3px;
     --btn-label-color: var(--color-blackcurrant);
@@ -89,8 +91,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cf-pill-button:is(:hover, :focus-visible, :active),
-    .group:is(:hover, :focus-visible, :active) .cf-pill-button {
+    .cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]),
+    .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
       transition-delay: 0s;
     }
   }
@@ -134,7 +136,7 @@ html[data-btn='plain'] .cf-pill-button__label {
 
 /*
  * Test option "Sliding arrow" (the default), after the 21st.dev ShadcnSpace "Button with icon":
- * on hover the arrow chip slides from the right edge to the left and turns from up-right to right,
+ * on hover the arrow chip (pointing right throughout) slides from the right edge to the left,
  * while the label padding swaps sides so the text shifts right. The button width never changes.
  */
 html[data-btn='slide'] .cf-pill-button__chip {
@@ -145,21 +147,16 @@ html[data-btn='slide'] .cf-pill-button__chip {
 }
 html[data-btn='slide'] .cf-pill-button__arrow {
   translate: 0 0;
-  rotate: -45deg;
-  transition: rotate 0.5s var(--ease-brand);
 }
 html[data-btn='slide'] .cf-pill-button__label {
   transition:
     padding 0.5s var(--ease-brand),
     color 0.5s var(--ease-brand);
 }
-html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__chip {
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]), .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button) .cf-pill-button__chip {
   right: calc(100% - var(--btn-h) + var(--chip-inset));
 }
-html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__arrow {
-  rotate: 0deg;
-}
-html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__label {
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]), .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button) .cf-pill-button__label {
   padding-left: calc(var(--btn-h) - var(--chip-inset) + var(--btn-gap));
   padding-right: var(--btn-pad);
 }
@@ -167,6 +164,14 @@ html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), 
   html[data-btn='slide'] :is(.cf-pill-button__chip, .cf-pill-button__arrow, .cf-pill-button__label) {
     transition: none;
   }
+}
+
+/* Green candidates from the cog. "original" keeps the theme's #8ef205. */
+html[data-green='fresh'] {
+  --color-lime: #ccff4a;
+}
+html[data-green='green'] {
+  --color-lime: #00eb52;
 }
 
 /* Wide container: both edges inset to the shared page edge (the nav's logo), so the sides stay even. */
@@ -181,6 +186,13 @@ html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), 
   width: 100%;
   padding-left: var(--wide-left);
   padding-right: var(--wide-right);
+}
+
+/* Wider container for visual sections (Modern: hero, situations, reviews, final CTA, footer). Same as container-cf in Classic. */
+@utility container-xl {
+  width: 100%;
+  padding-left: var(--pad-wide);
+  padding-right: var(--pad-wide);
 }
 
 /* Accent words inherit the weight of the line they sit in (titles Medium, subtitles Semibold). */
@@ -210,6 +222,19 @@ html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active), 
     --nav-pad: max(clamp(20px, 4vw, 48px), calc((100vw - 1680px) / 2));
     --wide-left: var(--nav-pad);
     --wide-right: var(--nav-pad);
+    /* The nav bar's side margin and the wide-section margin. Classic uses the shared page edge for both. */
+    --pad-nav: var(--nav-pad);
+    --pad-wide: var(--nav-pad);
+  }
+  /*
+   * Modern design, three widths: the nav runs edge to edge with a small margin; visual sections (container-xl)
+   * cap at 1680px; text-led sections (container-cf) keep generous margins and a 1320px cap.
+   */
+  html[data-design='modern'] {
+    --nav-pad: max(clamp(20px, 6vw, 112px), calc((100vw - 1320px) / 2));
+    /* Same margin as the sections, but never centred, so the nav lines up with the content and then runs to the screen edges. */
+    --pad-nav: clamp(20px, 6vw, 112px);
+    --pad-wide: max(clamp(20px, 6vw, 112px), calc((100vw - 1680px) / 2));
   }
   html.has-neulis {
     --accent-style: normal;

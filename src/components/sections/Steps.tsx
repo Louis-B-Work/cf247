@@ -19,7 +19,7 @@ export function Steps() {
           }
           pullOut={
             <>
-              Get your quote in minutes with <PullOut>no impact</PullOut> on your credit score
+              Get your quote in <PullOut>minutes</PullOut>
             </>
           }
           actionOn="desktop"

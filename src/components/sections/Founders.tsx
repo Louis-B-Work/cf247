@@ -3,9 +3,9 @@ import { founders } from '../../data/assets'
 import { trustpilot } from '../../data/reviews'
 import { siteUrl } from '../../lib/utils'
 import { Button } from '../ui/Button'
-import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
 import { Accent } from '../ui/Smile'
+import { TrustpilotStars } from '../ui/Trustpilot'
 
 const stats = [
   { value: '500,000+', label: 'customers helped' },
@@ -17,7 +17,7 @@ export function Founders() {
     // Inset within the page container so the founders photo sits as a framed image rather than a full-bleed half.
     <section aria-labelledby="founders-title" className="bg-blackcurrant py-14 md:py-20 design-modern:py-16 design-modern:md:py-24 design-modern:lg:py-28">
       <div className="container-cf grid grid-cols-1 items-center gap-7 lg:grid-cols-12 lg:items-stretch lg:gap-12 xl:gap-16">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-brand lg:col-span-6 lg:aspect-auto lg:min-h-[440px]">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-brand lg:col-span-6 lg:aspect-auto lg:min-h-[440px] design-modern:lg:min-h-[380px]">
           <motion.img
             src={founders.image}
             alt={founders.alt}
@@ -53,7 +53,7 @@ export function Founders() {
               <dt className="sr-only">Trustpilot score</dt>
               <dd>
                 <a href={trustpilot.url} className="group inline-flex items-center gap-3">
-                  <Icon name="star" className="size-[clamp(1.6rem,2.4vw,2.2rem)] text-lime" />
+                  <TrustpilotStars boxClassName="size-[clamp(1.25rem,1.8vw,1.6rem)]" />
                   <span className="font-display text-[clamp(1.6rem,2.6vw,2.4rem)] leading-none font-medium">
                     {trustpilot.score}
                   </span>

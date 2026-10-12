@@ -22,9 +22,6 @@ export const refinanceImages = {
 
 export const heroBullets = ['Keep your current car', 'Spread your final payment', 'Switch to a new deal']
 
-export const softSearchNote =
-  'No impact on your credit score. We use a soft search to give you a quote. If you proceed, a hard search will be conducted which may impact your credit score.'
-
 export const reasons = [
   { title: 'Keep your current car', icon: 'car' as const },
   { title: 'Finance a PCP balloon payment', icon: 'gem' as const },
@@ -113,12 +110,6 @@ export const refinanceFaqs: FaqCategory[] = [
         a: [
           'At the end of a PCP deal, you may be able to refinance the final balloon payment if you want to keep the car but can’t pay the lump sum in one go. You may also be able to refinance during your PCP agreement to adjust your monthly payments.',
           'Whether you can refinance will depend on your agreement and personal circumstances. Spreading your balloon payment over a longer term can reduce the monthly payment but may increase the total amount of interest payable.',
-        ],
-      },
-      {
-        q: 'Will checking my options affect my credit score?',
-        a: [
-          'No. We use a soft search to give you a quote, which won’t affect your credit score. If you decide to proceed, a hard search will be carried out, which may impact your score.',
         ],
       },
       {

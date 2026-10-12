@@ -29,12 +29,12 @@ export const steps = [
 ]
 
 export const partners = [
+  // Not hosted on carfinance247.co.uk: MoneySuperMarket's own SVG logo (from their Contentful CDN), stored in public/.
+  { name: 'MoneySuperMarket', logo: `${import.meta.env.BASE_URL}partners/moneysupermarket.svg` },
   { name: 'ClearScore', logo: dA('6678400dc8/fileAsset/clearScore.png/100vw/webp_q') },
   { name: 'Compare the Market', logo: dA('b0032fb627/fileAsset/compareTheMarket.png/100vw/webp_q') },
   { name: 'Experian', logo: dA('b3944ca70f/fileAsset/experian.png/100vw/webp_q') },
   { name: 'Credit Karma', logo: dA('6f16e7bbd8/fileAsset/creditKarma.png/100vw/webp_q') },
-  // Not hosted on carfinance247.co.uk: MoneySuperMarket's own SVG logo (from their Contentful CDN), stored in public/.
-  { name: 'MoneySuperMarket', logo: `${import.meta.env.BASE_URL}partners/moneysupermarket.svg` },
 ]
 
 export const founders = {

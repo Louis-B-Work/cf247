@@ -30,13 +30,6 @@ export const faqCategories: FaqCategory[] = [
         ],
       },
       {
-        q: 'Can I buy my car from any dealer?',
-        a: [
-          'Yes, you can choose a car from any verified UK dealership. We’ve also got over 95,000 cars to view on our car search.',
-          'Once you’ve found a car, share the details with your account manager and they’ll do the rest. If you need a hand finding the right car, just let them know what you’re looking for.',
-        ],
-      },
-      {
         q: 'I have a part exchange, can I trade this in?',
         a: [
           'Yes, we could accept part exchanges. A part exchange acts as a deposit towards your new car, reducing your total loan amount and your monthly repayments.',
@@ -63,12 +56,6 @@ export const faqCategories: FaqCategory[] = [
           'UK residency: you must have lived in the UK for the last three years or more.',
           'Valid driving licence: a UK provisional or full licence.',
           'Proof of income: some lenders may ask for recent payslips or benefit statements.',
-        ],
-      },
-      {
-        q: 'Will applying for finance affect my credit score?',
-        a: [
-          'When you apply with Car Finance 247, there is no impact on your credit score. We use a soft search to give you a quote. If you proceed, a hard search will be conducted which may impact your credit score.',
         ],
       },
       {

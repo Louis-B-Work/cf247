@@ -19,7 +19,7 @@ function initialFont(): FontId {
 
 /**
  * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered`, `hero-bleed`,
- * `hero-big`, `tp-brand` and `tp-lime` Tailwind variants, and `html[data-btn]` button rules, in index.css) and is saved, so it survives reloads.
+ * and `hero-big` Tailwind variants, and the `html[data-btn]` and `html[data-green]` rules, in index.css) and is saved, so it survives reloads.
  * `pages` lists where each option applies.
  */
 const toggles = [
@@ -46,14 +46,14 @@ const toggles = [
     ],
   },
   {
-    key: 'cf247-tp',
-    attr: 'tp',
-    label: 'Trustpilot stars',
+    key: 'cf247-green',
+    attr: 'green',
+    label: 'Green',
     pages: ['home', 'landing'],
     options: [
-      { id: 'purple', label: 'Brand purple' },
-      { id: 'brand', label: 'Trustpilot green' },
-      { id: 'lime', label: 'CF247 green' },
+      { id: 'original', label: 'Original', swatch: '#8ef205' },
+      { id: 'fresh', label: 'Option 1', swatch: '#ccff4a' },
+      { id: 'green', label: 'Option 2', swatch: '#00eb52' },
     ],
   },
   {
@@ -125,7 +125,19 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   }, [open])
 
   return (
-    <div ref={rootRef} className="fixed bottom-4 left-4 z-[55] max-sm:hidden sm:bottom-6 sm:left-6 [html[data-menu-open]_&]:hidden">
+    // The cog fades in only when the pointer is near the bottom-left corner: the outer box is an invisible hover zone.
+    <div
+      ref={rootRef}
+      className={cn(
+        'group/cog fixed bottom-0 left-0 z-[55] p-4 max-sm:hidden sm:p-6 sm:pt-24 sm:pr-24 [html[data-menu-open]_&]:hidden',
+      )}
+    >
+      <div
+        className={cn(
+          'relative transition-opacity duration-300',
+          open ? 'opacity-100' : 'opacity-0 group-hover/cog:opacity-100 has-[:focus-visible]:opacity-100',
+        )}
+      >
       <AnimatePresence>
         {open && (
           <motion.div
@@ -174,7 +186,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
               .map((t) => (
               <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
                 <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-inner bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
+                <div role="radiogroup" aria-label={t.label} className="grid gap-1 rounded-inner bg-white/5 p-1" style={{ gridTemplateColumns: `repeat(${t.attr === 'green' ? 3 : Math.min(t.options.length, 2)}, minmax(0, 1fr))` }}>
                   {t.options.map((o) => {
                     const selected = opts[t.key] === o.id
                     return (
@@ -189,7 +201,15 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
                           selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
                         )}
                       >
-                        {o.label}
+                        {'swatch' in o ? (
+                          <span className="flex flex-col items-center gap-1">
+                            <span className="size-4 rounded-full ring-1 ring-blackcurrant/25" style={{ backgroundColor: o.swatch }} />
+                            {o.label}
+                            <span className="text-[10px] font-medium uppercase opacity-70">{o.swatch}</span>
+                          </span>
+                        ) : (
+                          o.label
+                        )}
                       </button>
                     )
                   })}
@@ -225,6 +245,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
           <circle cx="12" cy="12" r="3" />
         </svg>
       </button>
+      </div>
     </div>
   )
 }

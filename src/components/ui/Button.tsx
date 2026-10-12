@@ -58,7 +58,7 @@ const motion = 'duration-500 group-active:duration-150 ease-[var(--ease-brand)] 
 
 /**
  * Solid rounded-square CTA with a medium-weight label on the left and a square arrow chip inset evenly on the right.
- * Settings cog "Buttons": Sliding arrow (default, the chip slides to the left and turns on hover, after the 21st.dev
+ * Settings cog "Buttons": Sliding arrow (default, the chip slides to the left on hover, after the 21st.dev
  * ShadcnSpace "Button with icon"), Fixed arrow (the chip stays put) or No arrow (text only with even padding).
  * Hover, focus and press sweep a lime flood across the button, invert the chip and turn the label blackcurrant.
  *
