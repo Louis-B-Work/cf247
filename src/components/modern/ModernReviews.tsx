@@ -173,7 +173,8 @@ function VideoTile({ video, className }: { video: VideoReview; className?: strin
         src={video.poster}
         alt=""
         loading="lazy"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-top transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05]"
+        style={{ objectPosition: video.objectPosition ?? '50% 0%' }}
+        className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05]"
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(22,1,50,0)_40%,rgba(22,1,50,0.88))]" />
       <span className="absolute top-[42%] left-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-brand bg-white/20 text-white ring-1 ring-white/35 backdrop-blur-md transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant">

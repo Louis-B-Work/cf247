@@ -14,6 +14,8 @@ export type VideoReview = {
   quote: string
   detail: string
   poster: string
+  /** Crop focus for the poster (CSS object-position); defaults to the top of the frame. */
+  objectPosition?: string
 }
 
 export const trustpilot = {
@@ -134,6 +136,7 @@ export const videoReviews: VideoReview[] = [
     quote: 'The trust I’d built with them made the process a lot easier',
     detail: 'Bought a Mercedes CLA',
     poster: 'https://www.carfinance247.co.uk/dA/b60e472370/Untitled%20design.png',
+    objectPosition: '50% 30%',
   },
   {
     name: 'Terri',
