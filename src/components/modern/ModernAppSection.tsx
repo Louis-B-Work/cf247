@@ -10,8 +10,9 @@ export function ModernAppSection() {
       <div className="container-xl">
         <div className={`on-dark relative isolate overflow-hidden bg-purple px-6 pt-10 max-sm:-mx-[var(--pad-wide)] max-sm:rounded-none sm:px-8 sm:pt-8 lg:px-12 ${panel}`}>
           <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_78%_25%,rgba(165,105,247,0.52),transparent_42%),linear-gradient(140deg,#6905f2,#4a03a8)]" />
-          <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(280px,0.8fr)] md:gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.8fr)]">
-            <Reveal className="sm:py-8 md:py-12">
+          {/* Side by side only from lg: the phone is ~400px wide and spills over the copy in a narrower column. */}
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.8fr)] lg:gap-4">
+            <Reveal className="sm:py-8 lg:py-12">
               <ModernHeading id="members-app-title" tone="dark" className="max-w-xl">
                 Your car journey, in your pocket
               </ModernHeading>
@@ -41,8 +42,8 @@ export function ModernAppSection() {
               </div>
             </Reveal>
 
-            <div className="relative flex justify-center overflow-hidden px-3 pt-2 max-md:h-[420px] max-md:items-start md:justify-end md:overflow-visible md:pt-8 md:pb-0">
-              <div className="transition-transform duration-500 ease-[var(--ease-brand)] max-md:[zoom:0.9] md:rotate-[-5deg] md:hover:rotate-[-2deg]">
+            <div className="relative flex justify-center overflow-hidden px-3 pt-2 max-lg:h-[420px] max-lg:items-start lg:justify-end lg:overflow-visible lg:pt-8 lg:pb-0">
+              <div className="transition-transform duration-500 ease-[var(--ease-brand)] max-lg:[zoom:0.9] lg:rotate-[-5deg] lg:hover:rotate-[-2deg]">
                 <MembersPhoneDemo />
               </div>
             </div>
