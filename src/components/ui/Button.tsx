@@ -33,15 +33,15 @@ const variantStyles: Record<Variant, string> = {
 
 /**
  * Spacing per size, set as CSS variables read by `.cf-pill-button` in index.css:
- * height, the chip's equal inset from the top, bottom and right, the label's outer padding and its gap to the chip.
+ * height, the chip's equal inset from the top, bottom and right (outline variants add their 2px border on top), the label's outer padding and its gap to the chip.
  */
 const sizeStyles: Record<Size, { button: string; icon: string }> = {
   md: {
-    button: 'text-[15px] [--btn-h:44px] [--chip-inset:4px] [--btn-pad:20px] [--btn-gap:12px] sm:[--btn-h:48px] sm:[--btn-pad:22px] sm:[--btn-gap:14px]',
+    button: 'text-[15px] [--btn-h:44px] [--chip-inset:5px] [--btn-pad:20px] [--btn-gap:12px] sm:[--btn-h:48px] sm:[--btn-pad:22px] sm:[--btn-gap:14px]',
     icon: 'size-[18px] sm:size-5',
   },
   lg: {
-    button: 'text-[15px] [--btn-h:44px] [--chip-inset:4px] [--btn-pad:20px] [--btn-gap:12px] sm:text-base sm:[--btn-h:56px] sm:[--chip-inset:6px] sm:[--btn-pad:26px] sm:[--btn-gap:16px]',
+    button: 'text-[15px] [--btn-h:44px] [--chip-inset:5px] [--btn-pad:20px] [--btn-gap:12px] sm:text-base sm:[--btn-h:56px] sm:[--chip-inset:6px] sm:[--btn-pad:26px] sm:[--btn-gap:16px]',
     icon: 'size-[18px] sm:size-5',
   },
   xl: {

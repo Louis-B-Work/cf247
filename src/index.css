@@ -38,6 +38,8 @@
   .cf-pill-button {
     --btn-flood-scale: 0;
     --btn-chip-x: 0px;
+    /* Chip inset measured from the visible edge: outline buttons add their inner border so the gap matches filled buttons. */
+    --chip-offset: calc(var(--chip-inset) + var(--btn-ring, 0px));
     /* Never squeezed narrower than the label in a flex row, or the label slides under the arrow chip. */
     flex-shrink: 0;
     height: var(--btn-h);
@@ -73,6 +75,7 @@
   }
 
   .cf-pill-button--outline-light {
+    --btn-ring: 2px;
     --btn-label-color: white;
     --btn-chip-bg: white;
     --btn-chip-text: var(--color-purple);
@@ -80,6 +83,7 @@
   }
 
   .cf-pill-button--outline-dark {
+    --btn-ring: 2px;
     --btn-label-color: var(--color-purple);
     --btn-chip-bg: var(--color-purple);
     --btn-chip-text: white;
@@ -117,9 +121,9 @@
 
   /* Square chip inset by the same amount on the top, bottom and right, using the shared inner radius. */
   .cf-pill-button__chip {
-    top: var(--chip-inset);
-    bottom: var(--chip-inset);
-    right: var(--chip-inset);
+    top: var(--chip-offset);
+    bottom: var(--chip-offset);
+    right: var(--chip-offset);
     border-radius: var(--radius-inner);
     color: var(--btn-chip-text);
     background: var(--btn-chip-bg);
@@ -132,7 +136,7 @@
   /* Outer padding on the left; on the right, clear the chip (its width plus inset) and then the same gap. */
   .cf-pill-button__label {
     padding-left: var(--btn-pad);
-    padding-right: calc(var(--btn-h) - var(--chip-inset) + var(--btn-gap));
+    padding-right: calc(var(--btn-h) - var(--chip-offset) + var(--btn-gap));
     color: var(--btn-label-color);
   }
 }
@@ -168,10 +172,10 @@ html[data-btn='slide'] .cf-pill-button__label {
     color 0.5s var(--ease-brand);
 }
 html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]), .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button) .cf-pill-button__chip {
-  right: calc(100% - var(--btn-h) + var(--chip-inset));
+  right: calc(100% - var(--btn-h) + var(--chip-offset));
 }
 html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]), .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button) .cf-pill-button__label {
-  padding-left: calc(var(--btn-h) - var(--chip-inset) + var(--btn-gap));
+  padding-left: calc(var(--btn-h) - var(--chip-offset) + var(--btn-gap));
   padding-right: var(--btn-pad);
 }
 @media (prefers-reduced-motion: reduce) {
