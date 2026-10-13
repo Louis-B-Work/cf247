@@ -1,4 +1,5 @@
 import { Children, useEffect, useRef, useState, type ReactNode } from 'react'
+import { useDragScroll } from '../../lib/useDragScroll'
 import { cn } from '../../lib/utils'
 
 /**
@@ -30,6 +31,7 @@ export function SwipeRow({
   const ref = useRef<HTMLElement>(null)
   const [active, setActive] = useState(0)
   const count = Children.count(children)
+  useDragScroll(ref)
 
   useEffect(() => {
     const row = ref.current
@@ -61,7 +63,7 @@ export function SwipeRow({
         ref={ref as never}
         aria-label={label}
         className={cn(
-          'max-md:-mx-[var(--pad-wide)] max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:overscroll-x-contain max-md:scroll-px-[var(--pad-wide)] max-md:px-[var(--pad-wide)] max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden',
+          'max-md:-mx-[var(--pad-wide)] max-md:flex max-md:cursor-grab max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:overscroll-x-contain max-md:scroll-px-[var(--pad-wide)] max-md:px-[var(--pad-wide)] max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden',
           className,
         )}
       >

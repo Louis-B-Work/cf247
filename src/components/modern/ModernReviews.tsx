@@ -1,5 +1,7 @@
 import { motion } from 'motion/react'
+import { useRef } from 'react'
 import { reviews, trustpilot, videoReviews, type Review, type VideoReview } from '../../data/reviews'
+import { useDragScroll } from '../../lib/useDragScroll'
 import { cn, siteUrl } from '../../lib/utils'
 import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
@@ -127,6 +129,9 @@ function VideoTile({ video, className }: { video: VideoReview; className?: strin
 const moreReviews = reviews.filter((review) => !gridReviewNames.has(review.name))
 
 export function ModernReviews() {
+  const moreRef = useRef<HTMLUListElement>(null)
+  useDragScroll(moreRef)
+
   return (
     <section aria-labelledby="reviews-title" className="bg-purple-10 pt-12 pb-14 md:pt-16 md:pb-20">
       <div className="container-xl">
@@ -184,9 +189,10 @@ export function ModernReviews() {
             <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-purple sm:text-2xl">More from our customers</h3>
           </Reveal>
           <ul
+            ref={moreRef}
             aria-label="More customer reviews"
             tabIndex={0}
-            className="-mx-[var(--pad-wide)] mt-5 flex snap-x snap-mandatory scroll-px-[var(--pad-wide)] gap-3 overflow-x-auto overscroll-x-contain px-[var(--pad-wide)] pb-3 [scrollbar-width:thin] [scrollbar-color:var(--color-purple-40)_transparent] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-purple-40 [&::-webkit-scrollbar-track]:bg-transparent"
+            className="-mx-[var(--pad-wide)] mt-5 flex cursor-grab snap-x snap-mandatory scroll-px-[var(--pad-wide)] gap-3 overflow-x-auto overscroll-x-contain px-[var(--pad-wide)] pb-3 [scrollbar-width:thin] [scrollbar-color:var(--color-purple-40)_transparent] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-purple-40 [&::-webkit-scrollbar-track]:bg-transparent"
           >
             {moreReviews.map((review, index) => (
               <li key={review.name} className="h-[250px] w-[min(84vw,340px)] shrink-0 snap-start">
