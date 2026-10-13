@@ -35,7 +35,7 @@ export const reviews: Review[] = [
   {
     name: 'Jack',
     quote:
-      'It was so easy and hassle free, most of it done over WhatsApp which was really good for me with working long hours. And the staff were fantastic.',
+      'It was so easy and hassle free, most of it done over WhatsApp which was really good for me with working long hours. And the staff were fantastic. Overall very happy with the service',
     detail: 'Bought a Dacia Duster',
     rating: 5,
   },
@@ -63,7 +63,7 @@ export const reviews: Review[] = [
   {
     name: 'Harjinder',
     quote:
-      'My experience was really great with these guys. Easy, quick and effective. Kept me in the loop all the way and got me finance approved when everyone else couldn’t.',
+      'My experience was really great with these guys. Easy, quick and effective. Kept me in the loop all the way and got me finance approved when everyone else couldn’t. Highly recommend them.',
     detail: 'Bought a Hyundai ix35',
     rating: 5,
   },

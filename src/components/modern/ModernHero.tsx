@@ -1,10 +1,10 @@
 import { motion } from 'motion/react'
-import { type ReactNode } from 'react'
+import { useState, type FormEvent, type ReactNode } from 'react'
 import { heroCar } from '../../data/assets'
-import { quoteUrl } from '../../data/nav'
+import { quoteUrl, quoteUrlWithBudget } from '../../data/nav'
 import { trustpilot } from '../../data/reviews'
 import { Button } from '../ui/Button'
-import { Accent, EndSmile } from '../ui/Smile'
+import { Accent } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -16,6 +16,50 @@ function Line({ children, delay }: { children: ReactNode; delay: number }) {
         {children}
       </motion.span>
     </span>
+  )
+}
+
+const MAX_BUDGET = 5000
+
+/** The old homepage's best-converting entry point: a monthly budget passed to the apply form. Empty or invalid input still goes to the form. */
+function BudgetForm() {
+  const [budget, setBudget] = useState('')
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const amount = Number(budget)
+    window.location.href = amount > 0 && amount <= MAX_BUDGET ? quoteUrlWithBudget(amount) : quoteUrl
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="flex flex-col gap-2.5 sm:gap-3">
+      <label htmlFor="hero-budget" className="font-display text-lg font-semibold text-white sm:text-xl">
+        My monthly budget is
+      </label>
+      <div className="flex h-14 items-center rounded-inner bg-white px-5 text-blackcurrant shadow-[0_20px_45px_-28px_rgba(22,1,50,0.8)] focus-within:ring-4 focus-within:ring-lime sm:h-16">
+        <span aria-hidden className="font-display text-2xl font-bold">
+          £
+        </span>
+        <input
+          id="hero-budget"
+          name="monthlyBudget"
+          inputMode="numeric"
+          autoComplete="off"
+          maxLength={4}
+          placeholder="250"
+          value={budget}
+          onChange={(event) => setBudget(event.target.value.replace(/\D/g, ''))}
+          aria-describedby="hero-budget-hint"
+          className="h-full min-w-0 flex-1 bg-transparent pr-6 text-center font-display text-2xl font-semibold outline-none placeholder:text-blackcurrant/30"
+        />
+      </div>
+      <span id="hero-budget-hint" className="sr-only">
+        Amount in pounds per month. Optional.
+      </span>
+      <Button type="submit" variant="reverse" size="2xl" fullWidth className="justify-center">
+        Get my quote
+      </Button>
+    </form>
   )
 }
 
@@ -35,16 +79,15 @@ export function ModernHero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.1, ease, delay: 0.25 }}
-        className="pointer-events-none absolute right-[-8%] bottom-0 z-0 h-[clamp(170px,32vh,310px)] w-[min(112vw,920px)] object-contain object-right-bottom sm:right-[-4%] md:right-0"
+        className="pointer-events-none absolute right-[-8%] bottom-0 z-0 h-[140px] w-[min(112vw,920px)] object-contain object-right-bottom sm:right-[-4%] sm:h-[clamp(170px,32vh,310px)] md:right-0"
       />
 
-      <div className="container-xl relative z-10 mx-auto flex w-full flex-1 translate-y-6 flex-col items-center justify-center px-5 pt-[clamp(4rem,10vh,8rem)] pb-[clamp(190px,32vh,310px)] text-center sm:translate-y-8">
-        <h1 className="max-w-5xl text-[clamp(1.5rem,7.2vw,6.25rem)] leading-[0.98] font-medium tracking-[-0.045em] whitespace-nowrap text-white">
+      <div className="container-xl relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-5 pt-7 pb-[150px] text-center sm:translate-y-8 sm:pt-[clamp(4rem,10vh,8rem)] sm:pb-[clamp(190px,32vh,310px)]">
+        <h1 className="max-w-5xl text-[clamp(2.5rem,13vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-white sm:text-[clamp(1.5rem,7.2vw,6.25rem)] sm:whitespace-nowrap">
           <Line delay={0.1}>
-            Car finance made{' '}
-            <EndSmile tone="white" size={0.62} delay={1}>
-              <Accent className="text-white">easy</Accent>
-            </EndSmile>
+            Car finance <br className="sm:hidden" />
+            made{' '}
+            <Accent className="text-white">easy</Accent>
           </Line>
         </h1>
 
@@ -54,9 +97,8 @@ export function ModernHero() {
           transition={{ duration: 0.7, ease, delay: 0.45 }}
           className="mt-5 flex max-w-2xl flex-col gap-1.5 text-center"
         >
-          <span className="text-base leading-relaxed font-medium text-white sm:text-xl 2xl:text-[22px]">
-            Tell us your budget and we’ll search our panel of lenders
-            {' '}for a deal that fits.
+          <span className="text-balance text-base leading-relaxed font-medium text-white sm:text-xl 2xl:text-[22px]">
+            Looking to finance or refinance your car? We’ll help you find an option that fits.
           </span>
           <span className="text-sm leading-relaxed text-white/80 sm:text-base">Get a decision in minutes.</span>
         </motion.p>
@@ -65,11 +107,9 @@ export function ModernHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease, delay: 0.6 }}
-          className="mt-6"
+          className="mt-6 w-full max-w-[360px]"
         >
-          <Button href={quoteUrl} variant="reverse" size="2xl">
-            Get my quote
-          </Button>
+          <BudgetForm />
         </motion.div>
 
         <motion.a

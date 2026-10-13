@@ -4,6 +4,7 @@ import { Guides } from '../sections/Guides'
 import { Steps } from '../sections/Steps'
 import { Accent } from '../ui/Smile'
 import { ModernFinalCta } from './ModernFinalCta'
+import { ModernAppSection } from './ModernAppSection'
 import { ModernHero } from './ModernHero'
 import { representativeExample } from '../../data/assets'
 import { ModernHowItWorks } from './ModernHowItWorks'
@@ -27,6 +28,7 @@ export function ModernHome() {
       <ModernTrust />
       <ModernHowItWorks />
       <ModernSituations />
+      <ModernAppSection />
       <ModernReviews />
       <Founders />
       <Guides />
@@ -37,7 +39,7 @@ export function ModernHome() {
           </>
         }
       />
-      <Faq />
+      <Faq mobileTabs />
       <ModernFinalCta />
     </div>
   )

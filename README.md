@@ -31,9 +31,11 @@ The CSS families must be `neulis-neue` and `neulis-cursive` (the Adobe defaults)
 
 ### Settings cog
 
-The always-visible cog in the bottom-left opens a menu to switch headings between **General Sans**, **Manrope** and **Satoshi** (all free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`). The choice is saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]`.
+The always-visible cog in the bottom-left opens a menu to switch headings between **General Sans** and **Satoshi** (both free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`), and to preview the CTA buttons in their standard or green colour. Choices are saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]` and `html[data-cta-color=...]`.
 
-The homepage defaults to the **Modern** design. The earlier Classic design and other test options remain in the source for future use, but are not currently shown in the cog.
+The homepage defaults to the **Modern** design. The earlier Classic design and other test options remain in the source for future use, but are not currently shown in the cog. The Modern homepage includes a members-area app promotion and phone preview; its store links are shared with the footer via `src/data/appLinks.ts`.
+
+Most customers visit on mobile, so the Modern homepage is tuned for phones first. Below the `md` breakpoint, Situations and the review mosaic become swipeable rows (the `SwipeRow` and `swipeItem` helpers in `src/components/modern/ui.tsx`), and the FAQ shows one topic at a time behind tabs (`<Faq mobileTabs />`). Mobile tweaks to sections shared with Classic (Steps, FAQ and footer) use the `design-modern:` variant, so Classic is unchanged.
 
 ## Design tokens
 

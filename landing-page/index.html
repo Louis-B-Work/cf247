@@ -10,7 +10,7 @@
       // Apply the saved heading font before first paint so text (and the hero car below it) doesn't reflow.
       try {
         var saved = localStorage.getItem('cf247-heading-font')
-        document.documentElement.dataset.headingFont = ['general-sans', 'manrope', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
+        document.documentElement.dataset.headingFont = ['general-sans', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
         var green = localStorage.getItem('cf247-green')
         document.documentElement.dataset.green = ['fresh', 'green'].indexOf(green) > -1 ? green : 'original'
         var btn = localStorage.getItem('cf247-btn')
@@ -27,7 +27,6 @@
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <!-- One link per family: Fontshare ignores all but the first f[] in a combined request. Variable files cover every weight. -->
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@1,2&display=swap" />
-    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=manrope@1&display=swap" />
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap" />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://cdn.imagin.studio" />

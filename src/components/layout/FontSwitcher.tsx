@@ -4,7 +4,6 @@ import { cn } from '../../lib/utils'
 
 const fonts = [
   { id: 'general-sans', label: 'General Sans', family: "'General Sans', sans-serif" },
-  { id: 'manrope', label: 'Manrope', family: "'Manrope', sans-serif" },
   { id: 'satoshi', label: 'Satoshi', family: "'Satoshi', sans-serif" },
 ] as const
 
@@ -67,6 +66,16 @@ const toggles = [
       { id: 'plain', label: 'No arrow' },
     ],
   },
+  {
+    key: 'cf247-cta-color',
+    attr: 'ctaColor',
+    label: 'CTA colour',
+    pages: ['home', 'landing'],
+    options: [
+      { id: 'default', label: 'Standard' },
+      { id: 'green', label: 'Green' },
+    ],
+  },
 ] as const
 
 type ToggleKey = (typeof toggles)[number]['key']
@@ -86,7 +95,7 @@ function initialToggles(): Record<ToggleKey, string> {
 /** Settings cog in the bottom-left corner for choosing a heading font. Mockup tooling only. */
 export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   const [font, setFont] = useState<FontId>(initialFont)
-  const [opts] = useState(initialToggles)
+  const [opts, setOpts] = useState(initialToggles)
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const panelId = useId()
@@ -172,6 +181,34 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
                 )
               })}
             </div>
+
+            {togglesFor(page)
+              .filter((t) => t.attr === 'ctaColor')
+              .map((t) => (
+                <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
+                  <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
+                  <div role="radiogroup" aria-label={t.label} className="grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
+                    {t.options.map((o) => {
+                      const selected = opts[t.key] === o.id
+                      return (
+                        <button
+                          key={o.id}
+                          type="button"
+                          role="radio"
+                          aria-checked={selected}
+                          onClick={() => setOpts((cur) => ({ ...cur, [t.key]: o.id }))}
+                          className={cn(
+                            'rounded-inner px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
+                            selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
+                          )}
+                        >
+                          {o.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
 
           </motion.div>
         )}

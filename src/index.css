@@ -59,6 +59,19 @@
     background: white;
   }
 
+  html[data-cta-color='green'] .cf-pill-button--primary,
+  html[data-cta-color='green'] .cf-pill-button--reverse {
+    --btn-label-color: var(--color-blackcurrant);
+    --btn-chip-bg: white;
+    --btn-chip-text: var(--color-purple);
+    background: var(--color-lime);
+  }
+
+  html[data-cta-color='green'] .cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]),
+  html[data-cta-color='green'] .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
+    --btn-chip-text: var(--color-purple);
+  }
+
   .cf-pill-button--outline-light {
     --btn-label-color: white;
     --btn-chip-bg: white;
@@ -247,13 +260,6 @@ html[data-green='green'] {
     --font-accent: 'General Sans', ui-sans-serif, system-ui, sans-serif;
     --accent-style: italic;
     --leading-title: 1.02;
-  }
-
-  html[data-heading-font='manrope'] {
-    --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-    --font-accent: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-    --accent-style: italic;
-    --leading-title: 1.1;
   }
 
   html[data-heading-font='satoshi'] {

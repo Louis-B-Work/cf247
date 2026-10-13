@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { appLinks } from '../../data/appLinks'
 import { navItems } from '../../data/nav'
 import { trustpilot } from '../../data/reviews'
 import { cn, siteUrl } from '../../lib/utils'
@@ -37,40 +38,22 @@ const socials: Array<{ name: string; icon: BrandMark; href: string }> = [
   { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/car-finance-247' },
 ]
 
-const apps = [
-  {
-    store: 'App Store',
-    lead: 'Download on the',
-    icon: 'apple' as const,
-    href: 'https://apps.apple.com/gb/app/carfinance-247/id1161743286',
-  },
-  {
-    store: 'Google Play',
-    lead: 'Get it on',
-    icon: 'googleplay' as const,
-    href: 'https://play.google.com/store/apps/details?id=uk.co.carfinance247.customerapp&hl=en_GB',
-  },
-]
-
 function AppAndSocial() {
   return (
     <div className="border-t border-white/10">
       <div className="container-xl flex flex-col gap-8 py-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
           <p className="font-display text-base font-semibold">Get the app</p>
-          <ul className="flex flex-wrap gap-3">
-            {apps.map((app) => (
+          <ul className="flex flex-wrap gap-3 design-modern:max-sm:grid design-modern:max-sm:grid-cols-2 design-modern:max-sm:gap-2.5">
+            {appLinks.map((app) => (
               <li key={app.store}>
                 <a
                   href={app.href}
                   aria-label={`${app.lead} ${app.store}`}
-                  className="group flex h-12 items-center gap-2.5 rounded-inner bg-black px-4 ring-1 ring-white/25 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-lime"
+                  className="group flex h-12 items-center justify-center gap-2.5 rounded-inner bg-black px-4 ring-1 ring-white/25 transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-lime"
                 >
                   <BrandIcon name={app.icon} className="size-6 shrink-0" />
-                  <span className="leading-none">
-                    <span className="block text-[10px] tracking-wide text-white/80 uppercase">{app.lead}</span>
-                    <span className="mt-0.5 block font-display text-[17px] font-semibold">{app.store}</span>
-                  </span>
+                  <span className="font-display text-[16px] leading-none font-semibold whitespace-nowrap">{app.store}</span>
                 </a>
               </li>
             ))}
@@ -79,13 +62,13 @@ function AppAndSocial() {
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
           <p className="font-display text-base font-semibold">Follow us</p>
-          <ul className="flex flex-wrap gap-2.5">
+          <ul className="flex flex-wrap gap-2.5 design-modern:max-sm:grid design-modern:max-sm:grid-cols-6 design-modern:max-sm:gap-2">
             {socials.map((s) => (
               <li key={s.name}>
                 <a
                   href={s.href}
                   aria-label={`Car Finance 247 on ${s.name}`}
-                  className="grid size-11 place-items-center rounded-inner bg-white/10 text-white transition-[background-color,color,transform] duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-blackcurrant active:bg-lime active:text-blackcurrant"
+                  className="grid size-11 place-items-center rounded-inner bg-white/10 text-white transition-[background-color,color,transform] duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-blackcurrant active:bg-lime active:text-blackcurrant design-modern:max-sm:w-full"
                 >
                   <BrandIcon name={s.icon} className="size-5" />
                 </a>
@@ -147,10 +130,10 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
                 {col.title}
                 <Icon name="chevron" className="size-5 text-white/60 transition-transform duration-300 group-open/f:rotate-180 sm:hidden" />
               </summary>
-              <ul className="space-y-3 pb-5 sm:mt-5 sm:pb-0">
+              <ul className="space-y-3 pb-5 design-modern:max-sm:space-y-0 design-modern:max-sm:pb-3 sm:mt-5 sm:pb-0">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-[15px] text-white/70 transition-colors hover:text-lime">
+                    <a href={link.href} className="text-[15px] text-white/70 transition-colors hover:text-lime design-modern:max-sm:flex design-modern:max-sm:min-h-11 design-modern:max-sm:items-center">
                       {link.label}
                     </a>
                   </li>
@@ -166,10 +149,10 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
 
       <div className="border-t border-white/10">
         <div className="container-xl space-y-4 py-8 text-xs sm:py-10 leading-relaxed text-white/55">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-white/75">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-white/75 design-modern:max-sm:gap-x-5 design-modern:max-sm:gap-y-0">
             {legal.map(([label, path]) => (
               <li key={label}>
-                <a href={siteUrl(path)} className="hover:text-lime">
+                <a href={siteUrl(path)} className="hover:text-lime design-modern:max-sm:inline-flex design-modern:max-sm:min-h-11 design-modern:max-sm:items-center">
                   {label}
                 </a>
               </li>

@@ -83,6 +83,8 @@ function FaqItem({
 type FaqProps = {
   /** Question sets to render as grouped FAQ sections. */
   categories?: FaqCategory[]
+  /** Phones only: show one category at a time behind tabs instead of every group stacked. */
+  mobileTabs?: boolean
 }
 
 function questionKey(categoryId: string, index: number) {
@@ -198,10 +200,83 @@ function SingleCategoryQuestions({
   )
 }
 
-export function Faq({ categories: faqCategories = defaultCategories }: FaqProps = {}) {
+function MobileFaqTabs({
+  categories,
+  openKey,
+  onToggle,
+}: {
+  categories: FaqCategory[]
+  openKey: string | null
+  onToggle: (key: string) => void
+}) {
+  const [active, setActive] = useState(0)
+  const baseId = useId()
+  const category = categories[active]
+
+  const focusTab = (index: number) => {
+    const next = (index + categories.length) % categories.length
+    setActive(next)
+    document.getElementById(`${baseId}-tab-${next}`)?.focus()
+  }
+
+  return (
+    <div className="md:hidden">
+      <div
+        role="tablist"
+        aria-label="FAQ topics"
+        className="-mx-[var(--pad-wide)] flex gap-2 overflow-x-auto px-[var(--pad-wide)] pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {categories.map((item, index) => (
+          <button
+            key={item.id}
+            id={`${baseId}-tab-${index}`}
+            type="button"
+            role="tab"
+            aria-selected={index === active}
+            aria-controls={`${baseId}-panel`}
+            tabIndex={index === active ? 0 : -1}
+            onClick={() => setActive(index)}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowRight') focusTab(index + 1)
+              if (event.key === 'ArrowLeft') focusTab(index - 1)
+            }}
+            className={cn(
+              'min-h-11 shrink-0 rounded-full px-4 font-display text-sm font-semibold whitespace-nowrap transition-colors duration-200',
+              index === active ? 'bg-purple text-white' : 'bg-white text-blackcurrant ring-1 ring-purple-30',
+            )}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+      <div
+        id={`${baseId}-panel`}
+        role="tabpanel"
+        aria-labelledby={`${baseId}-tab-${active}`}
+        className="mt-4 overflow-hidden rounded-brand bg-white ring-1 ring-purple-10"
+      >
+        {category.items.map((item, index) => {
+          const key = questionKey(category.id, index)
+          return (
+            <FaqItem
+              key={item.q}
+              item={item}
+              open={openKey === key}
+              onToggle={() => onToggle(key)}
+              showMobileDivider={index < category.items.length - 1}
+            />
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function Faq({ categories: faqCategories = defaultCategories, mobileTabs = false }: FaqProps = {}) {
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [leftCategories, rightCategories] = splitCategoriesByQuestionCount(faqCategories)
   const singleCategory = faqCategories.length === 1 ? faqCategories[0] : null
+  const tabs = mobileTabs && !singleCategory
 
   const toggleItem = (key: string) => {
     setOpenKey((current) => (current === key ? null : key))
@@ -219,10 +294,11 @@ export function Faq({ categories: faqCategories = defaultCategories }: FaqProps 
         </div>
 
         <div className="mt-7 md:mt-8">
+          {tabs && <MobileFaqTabs categories={faqCategories} openKey={openKey} onToggle={toggleItem} />}
           {singleCategory ? (
             <SingleCategoryQuestions category={singleCategory} openKey={openKey} onToggle={toggleItem} />
           ) : (
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start lg:gap-8">
+            <div className={cn('grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start lg:gap-8', tabs && 'max-md:hidden')}>
               {[leftCategories, rightCategories].map((column, columnIndex) => (
                 <div key={columnIndex} className="contents lg:flex lg:flex-col lg:gap-8">
                   {column.map((category) => (

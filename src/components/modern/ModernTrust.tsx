@@ -36,12 +36,12 @@ export function ModernTrust() {
         <h2 id="modern-trust-title" className="sr-only">
           Why Car Finance 247
         </h2>
-        <div className="mt-14 lg:mt-20">
+        <div className="mt-10 sm:mt-14 lg:mt-20">
           <Reveal delay={0.06} y={34}>
             <MagicText
               copy={statementCopy}
               // pl offsets the trailing word margin MagicText leaves at each line end, so lines centre truly.
-              className="mx-auto max-w-4xl pl-[0.25em] text-center font-display text-[clamp(1.6rem,2.5vw,2.25rem)] leading-[1.08] font-medium tracking-[-0.035em] text-purple"
+              className="mx-auto max-w-4xl pl-[0.25em] text-center font-display text-[clamp(1.35rem,2.5vw,2.25rem)] leading-[1.1] font-medium tracking-[-0.03em] text-purple sm:text-[clamp(1.6rem,2.5vw,2.25rem)] sm:leading-[1.08] sm:tracking-[-0.035em]"
             />
           </Reveal>
         </div>

@@ -273,7 +273,7 @@ function StepMockup({ active, budget, onBudget }: { active: number; budget: numb
   return (
     <div
       data-step-demo
-      className={`${panel} relative h-[440px] overflow-hidden bg-[radial-gradient(circle_at_20%_10%,color-mix(in_srgb,var(--color-lime)_22%,transparent),transparent_30%),linear-gradient(145deg,#f0e4ff,#fff)] p-4 ring-1 ring-purple/10 sm:p-6 lg:h-[460px]`}
+      className={`${panel} relative h-[340px] overflow-hidden bg-[radial-gradient(circle_at_20%_10%,color-mix(in_srgb,var(--color-lime)_22%,transparent),transparent_30%),linear-gradient(145deg,#f0e4ff,#fff)] p-4 ring-1 ring-purple/10 sm:h-[440px] sm:p-6 lg:h-[460px]`}
     >
       <div className="absolute top-8 right-8 size-24 rounded-full bg-lime/25 blur-3xl" />
       <div className="absolute bottom-0 left-8 h-32 w-32 rounded-full bg-purple/10 blur-3xl" />
@@ -352,14 +352,14 @@ export function ModernHowItWorks() {
   return (
     <motion.section
       aria-labelledby="modern-how-title"
-      className="bg-purple-10 pt-14 pb-14 md:pt-20 md:pb-20"
+      className="bg-purple-10 pt-10 pb-12 md:pt-20 md:pb-20"
       viewport={{ amount: 0.45 }}
       onViewportEnter={onEnter}
       onViewportLeave={() => setInView(false)}
     >
       <div className="container-cf">
         <motion.div
-          className={`${panel} grid gap-8 bg-white p-5 shadow-[0_34px_110px_-64px_rgba(105,5,242,0.75)] ring-1 ring-purple/10 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(400px,1fr)] lg:gap-10 lg:p-8 xl:p-10`}
+          className={`${panel} grid gap-6 bg-white p-5 shadow-[0_34px_110px_-64px_rgba(105,5,242,0.75)] ring-1 ring-purple/10 max-sm:rounded-none max-sm:bg-transparent max-sm:p-0 max-sm:shadow-none max-sm:ring-0 sm:gap-8 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(400px,1fr)] lg:gap-10 lg:p-8 xl:p-10`}
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
