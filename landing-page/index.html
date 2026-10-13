@@ -9,8 +9,15 @@
     <script>
       // Apply the saved heading font before first paint so text (and the hero car below it) doesn't reflow.
       try {
+        // One-off preset: every visitor starts on Satoshi with green CTAs, even if an earlier visit saved other choices.
+        if (localStorage.getItem('cf247-preset') !== 'satoshi-green') {
+          localStorage.setItem('cf247-heading-font', 'satoshi')
+          localStorage.setItem('cf247-cta-color', 'green')
+          localStorage.setItem('cf247-preset', 'satoshi-green')
+        }
         var saved = localStorage.getItem('cf247-heading-font')
-        document.documentElement.dataset.headingFont = ['general-sans', 'satoshi'].indexOf(saved) > -1 ? saved : 'general-sans'
+        document.documentElement.dataset.headingFont = ['general-sans', 'satoshi'].indexOf(saved) > -1 ? saved : 'satoshi'
+        document.documentElement.dataset.ctaColor = localStorage.getItem('cf247-cta-color') === 'default' ? 'default' : 'green'
         var green = localStorage.getItem('cf247-green')
         document.documentElement.dataset.green = ['fresh', 'green'].indexOf(green) > -1 ? green : 'original'
         var btn = localStorage.getItem('cf247-btn')

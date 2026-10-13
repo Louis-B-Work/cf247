@@ -31,7 +31,7 @@ The CSS families must be `neulis-neue` and `neulis-cursive` (the Adobe defaults)
 
 ### Settings cog
 
-The always-visible cog in the bottom-left opens a menu to switch headings between **General Sans** and **Satoshi** (both free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`), and to preview the CTA buttons in their standard or green colour. Choices are saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]` and `html[data-cta-color=...]`.
+The always-visible cog in the bottom-left opens a menu to switch headings between **General Sans** and **Satoshi** (both free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`), and to preview the CTA buttons in their standard or green colour. The site opens on **Satoshi with green CTAs**; a one-off `cf247-preset` flag in the `index.html` startup script applies this even for visitors who saved other choices earlier. Later choices are saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]` and `html[data-cta-color=...]`.
 
 The homepage defaults to the **Modern** design. The earlier Classic design and other test options remain in the source for future use, but are not currently shown in the cog. The Modern homepage includes a members-area app promotion and phone preview; its store links are shared with the footer via `src/data/appLinks.ts`.
 

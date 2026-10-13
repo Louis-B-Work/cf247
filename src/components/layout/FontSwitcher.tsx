@@ -10,10 +10,11 @@ const fonts = [
 type FontId = (typeof fonts)[number]['id']
 
 const STORAGE_KEY = 'cf247-heading-font'
+const DEFAULT_FONT: FontId = 'satoshi'
 
 function initialFont(): FontId {
   const saved = localStorage.getItem(STORAGE_KEY)
-  return fonts.some((f) => f.id === saved) ? (saved as FontId) : fonts[0].id
+  return fonts.some((f) => f.id === saved) ? (saved as FontId) : DEFAULT_FONT
 }
 
 /**
@@ -71,6 +72,7 @@ const toggles = [
     attr: 'ctaColor',
     label: 'CTA colour',
     pages: ['home', 'landing'],
+    defaultId: 'green',
     options: [
       { id: 'default', label: 'Standard' },
       { id: 'green', label: 'Green' },
@@ -87,8 +89,9 @@ function initialToggles(): Record<ToggleKey, string> {
   return Object.fromEntries(
     toggles.map((t) => {
       const saved = localStorage.getItem(t.key)
+      const fallback = 'defaultId' in t ? t.defaultId : t.options[0].id
       const selected = t.attr === 'design' && saved !== 'modern' ? t.options[0].id : saved
-      return [t.key, t.options.some((o) => o.id === selected) ? selected : t.options[0].id]
+      return [t.key, t.options.some((o) => o.id === selected) ? selected : fallback]
     }),
   ) as Record<ToggleKey, string>
 }
