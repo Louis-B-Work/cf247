@@ -8,7 +8,7 @@ const statementCopy =
 
 export function ModernTrust() {
   return (
-    <section aria-labelledby="modern-trust-title" className="bg-purple-10 pt-12 lg:pt-16">
+    <section aria-labelledby="modern-trust-title" className="bg-purple-10 py-12 lg:py-16">
       <div className="container-cf">
         <Reveal
           className={`${panel} bg-white/70 p-5 ring-1 ring-purple/10 backdrop-blur md:p-6`}

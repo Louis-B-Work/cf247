@@ -7,11 +7,14 @@ import { Icon } from '../ui/Icon'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Accent, PullOut } from '../ui/Smile'
 
-/** `title` replaces the default heading (the Modern design uses "Three steps…" for How it works already). */
+/** `title` replaces the default heading when a page needs a different section title. */
 export function Steps({ title }: { title?: ReactNode } = {}) {
   return (
-    <section aria-labelledby="steps-title" className="bg-white pb-14 md:pb-20">
-      <div className="container-xl">
+    <section
+      aria-labelledby="steps-title"
+      className="bg-white pb-14 md:pb-20 design-modern:pt-10 design-modern:pb-12 design-modern:md:pt-20 design-modern:md:pb-20"
+    >
+      <div className="container-cf">
         <SectionHeading
           id="steps-title"
           title={
@@ -42,7 +45,7 @@ export function Steps({ title }: { title?: ReactNode } = {}) {
             >
               <a
                 href={quoteUrl}
-                className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 ring-1 ring-transparent transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:-translate-y-1.5 design-modern:hover:translate-y-0 hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white design-modern:max-sm:gap-3.5 design-modern:max-sm:p-4 lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3"
+                className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 ring-1 ring-transparent design-modern:bg-white design-modern:ring-purple/10 transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:-translate-y-1.5 design-modern:hover:translate-y-0 hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white design-modern:max-sm:gap-3.5 design-modern:max-sm:p-4 lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3"
               >
                 <div className="relative size-20 shrink-0 overflow-hidden rounded-inner bg-purple-30 design-modern:max-sm:size-[72px] sm:size-28 lg:size-auto">
                   <img

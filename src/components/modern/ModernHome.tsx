@@ -2,12 +2,10 @@ import { Faq } from '../sections/Faq'
 import { Founders } from '../sections/Founders'
 import { Guides } from '../sections/Guides'
 import { Steps } from '../sections/Steps'
-import { Accent } from '../ui/Smile'
 import { ModernFinalCta } from './ModernFinalCta'
 import { ModernAppSection } from './ModernAppSection'
 import { ModernHero } from './ModernHero'
 import { representativeExample } from '../../data/assets'
-import { ModernHowItWorks } from './ModernHowItWorks'
 import { ModernReviews } from './ModernReviews'
 import { ModernSituations } from './ModernSituations'
 import { ModernTrust } from './ModernTrust'
@@ -26,19 +24,12 @@ export function ModernHome() {
         </p>
       </section>
       <ModernTrust />
-      <ModernHowItWorks />
+      <Steps />
       <ModernSituations />
       <ModernAppSection />
       <ModernReviews />
       <Founders />
       <Guides />
-      <Steps
-        title={
-          <>
-            Quote, buy, <Accent>drive away</Accent>
-          </>
-        }
-      />
       <Faq mobileTabs />
       <ModernFinalCta />
     </div>
