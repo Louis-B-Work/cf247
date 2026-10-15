@@ -29,7 +29,9 @@ The always-visible cog in the bottom-left opens a menu to switch headings betwee
 
 The homepage defaults to the **Modern** design. The earlier Classic design and other test options remain in the source for future use, but are not currently shown in the cog. The Modern homepage includes a members-area app promotion and phone preview; its store links are shared with the footer via `src/data/appLinks.ts`.
 
-Most customers visit on mobile, so the Modern homepage is tuned for phones first. Below the `md` breakpoint, Situations and the review mosaic become swipeable rows (the `SwipeRow` and `swipeItem` helpers in `src/components/modern/ui.tsx`), and the FAQ shows one topic at a time behind tabs (`<Faq mobileTabs />`). Mobile tweaks to sections shared with Classic (Steps, FAQ and footer) use the `design-modern:` variant, so Classic is unchanged.
+Most customers visit on mobile, so the Modern homepage is tuned for phones first. Below the `md` breakpoint, Situations use a stacked grid, the review mosaic becomes a swipeable row (the `SwipeRow` and `swipeItem` helpers in `src/components/modern/ui.tsx`), and the FAQ shows one topic at a time behind tabs (`<Faq mobileTabs />`). The "More from our customers" review row starts in the middle, snaps to cards, and supports swiping, dragging and keyboard scrolling without a visible scrollbar. Mobile tweaks to sections shared with Classic (Steps, FAQ and footer) use the `design-modern:` variant, so Classic is unchanged.
+
+On touch devices, CTA buttons show their hover colour and arrow movement while crossing the middle fifth of the viewport, returning to normal as they leave. This applies to both pages, adapts to orientation changes, and respects reduced-motion preferences. Desktop hover is unchanged.
 
 ## Design tokens
 
