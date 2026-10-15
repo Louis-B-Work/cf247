@@ -7,7 +7,7 @@ import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
 import { Accent } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
-import { ModernHeading, panel, swipeItem, SwipeRow } from './ui'
+import { ModernHeading, panel } from './ui'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -36,8 +36,6 @@ const columns: Tile[][] = [
 const gridReviewNames = new Set(columns.flat().flatMap((tile) => (tile.kind === 'review' ? [tile.review.name] : [])))
 
 const mobileVideos = columns.flat().filter((tile) => tile.kind === 'video')
-const mobileReviews = columns.flat().filter((tile) => tile.kind === 'review').sort((a, b) => Number(b.tone === 'mint') - Number(a.tone === 'mint'))
-const mobileTiles: Tile[] = mobileVideos.flatMap((video, index) => [video, mobileReviews[index]])
 
 function RatingPanel() {
   return (
@@ -98,7 +96,7 @@ function ReviewTile({ review, tone, size = 'sm', className }: { review: Review; 
   )
 }
 
-function VideoTile({ video, className }: { video: VideoReview; className?: string }) {
+function VideoTile({ video, compact = false, className }: { video: VideoReview; compact?: boolean; className?: string }) {
   return (
     <a
       href={siteUrl('/customer-stories')}
@@ -112,12 +110,12 @@ function VideoTile({ video, className }: { video: VideoReview; className?: strin
         className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05]"
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(22,1,50,0)_45%,rgba(22,1,50,0.8))]" />
-      <span className="absolute top-1/2 left-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-blackcurrant/75 text-white transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant">
-        <Icon name="play" className="ml-1 size-7" />
+      <span className={cn('absolute top-1/2 left-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-blackcurrant/75 text-white transition-[background-color,color,transform] duration-300 ease-[var(--ease-brand)] group-hover:scale-110 group-hover:bg-lime group-hover:text-blackcurrant', compact ? 'size-11' : 'size-16')}>
+        <Icon name="play" className={cn('ml-1', compact ? 'size-5' : 'size-7')} />
       </span>
-      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-        <p className="font-display text-[clamp(1.05rem,1.45vw,1.3rem)] leading-snug font-semibold">{`\u201c${video.quote}\u201d`}</p>
-        <p className="mt-4 text-sm leading-snug">
+      <div className={cn('absolute inset-x-0 bottom-0', compact ? 'p-3 sm:p-4' : 'p-5 sm:p-6')}>
+        <p className={cn('font-display leading-snug font-semibold', compact ? 'text-[13px] sm:text-[15px]' : 'text-[clamp(1.05rem,1.45vw,1.3rem)]')}>{`\u201c${video.quote}\u201d`}</p>
+        <p className={cn('leading-snug', compact ? 'mt-2 text-xs' : 'mt-4 text-sm')}>
           <strong className="block font-display text-white">{video.name}</strong>
           <span className="text-white/80">{video.detail}</span>
         </p>
@@ -131,7 +129,21 @@ const moreReviews = reviews.filter((review) => !gridReviewNames.has(review.name)
 
 export function ModernReviews() {
   const moreRef = useRef<HTMLUListElement>(null)
+  const videosRef = useRef<HTMLUListElement>(null)
   useDragScroll(moreRef)
+  useDragScroll(videosRef)
+
+  useLayoutEffect(() => {
+    const row = videosRef.current
+    if (!row) return
+    const center = () => {
+      row.scrollLeft = (row.scrollWidth - row.clientWidth) / 2
+    }
+    center()
+    const observer = new ResizeObserver(center)
+    observer.observe(row)
+    return () => observer.disconnect()
+  }, [])
 
   useLayoutEffect(() => {
     const row = moreRef.current
@@ -157,18 +169,18 @@ export function ModernReviews() {
         </div>
 
         <Reveal y={28} className="mt-8 md:mt-12">
-          {/* Phones: one swipeable row, alternating video and review. */}
-          <SwipeRow as="ul" label="Customer video stories and reviews" className="md:hidden">
-            {mobileTiles.map((tile) => (
-              <li key={tile.kind === 'video' ? tile.video.name : tile.review.name} className={cn('h-[400px]', swipeItem)}>
-                {tile.kind === 'video' ? (
-                  <VideoTile video={tile.video} className="h-full" />
-                ) : (
-                  <ReviewTile review={tile.review} tone={tile.tone} size="lg" className="h-full" />
-                )}
+          <ul
+            ref={videosRef}
+            aria-label="Customer video stories"
+            tabIndex={0}
+            className="-mx-[var(--pad-wide)] flex cursor-grab snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain [--video-edge:calc((100%_-_min(72vw,280px))/2)] px-[var(--video-edge)] scroll-px-[var(--video-edge)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden"
+          >
+            {mobileVideos.map((tile) => (
+              <li key={tile.video.name} className="h-[320px] w-[min(72vw,280px)] shrink-0 snap-start">
+                <VideoTile video={tile.video} compact className="h-full" />
               </li>
             ))}
-          </SwipeRow>
+          </ul>
 
           <ul aria-label="Customer video stories and reviews" className="grid gap-4 max-md:hidden md:grid-cols-3 lg:gap-5">
             {columns.map((column, columnIndex) => (
