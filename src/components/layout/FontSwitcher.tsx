@@ -3,14 +3,14 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '../../lib/utils'
 
 const fonts = [
-  { id: 'general-sans', label: 'General Sans', family: "'General Sans', sans-serif" },
-  { id: 'satoshi', label: 'Satoshi', family: "'Satoshi', sans-serif" },
+  { id: 'neulis-neue', label: 'Neulis Neue', family: "'neulis-neue', sans-serif" },
+  { id: 'neulis-sans', label: 'Neulis Sans', family: "'neulis-sans', sans-serif" },
 ] as const
 
 type FontId = (typeof fonts)[number]['id']
 
 const STORAGE_KEY = 'cf247-heading-font'
-const DEFAULT_FONT: FontId = 'satoshi'
+const DEFAULT_FONT: FontId = 'neulis-neue'
 
 function initialFont(): FontId {
   const saved = localStorage.getItem(STORAGE_KEY)
@@ -76,6 +76,16 @@ const toggles = [
     options: [
       { id: 'default', label: 'Standard' },
       { id: 'green', label: 'Green' },
+    ],
+  },
+  {
+    key: 'cf247-cursive',
+    attr: 'cursive',
+    label: 'Neulis Cursive accents',
+    pages: ['home', 'landing'],
+    options: [
+      { id: 'off', label: 'Off' },
+      { id: 'on', label: 'On' },
     ],
   },
 ] as const
@@ -186,7 +196,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
             </div>
 
             {togglesFor(page)
-              .filter((t) => t.attr === 'ctaColor')
+              .filter((t) => t.attr === 'ctaColor' || t.attr === 'cursive')
               .map((t) => (
                 <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
                   <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>

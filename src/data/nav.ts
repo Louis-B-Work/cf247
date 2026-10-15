@@ -43,18 +43,6 @@ export const navItems: NavItem[] = [
         ],
       },
       {
-        title: 'Bad credit',
-        links: [
-          l('Bad credit car finance', '/bad-credit-car-finance'),
-          l('Bad credit van finance', '/bad-credit-van-finance'),
-          l('Bad credit motorbike finance', '/bad-credit-motorbike-finance'),
-          l('Car finance with an IVA', '/guide/can-you-get-car-finance-with-an-iva'),
-          l('Car finance with a CCJ', '/guide/car-finance-with-a-ccj'),
-          l('Car finance with a default', '/guide/car-finance-with-a-default'),
-          l('PCP with bad credit', '/guide/can-i-get-pcp-car-finance-with-bad-credit'),
-        ],
-      },
-      {
         title: 'By vehicle',
         links: [
           l('Used car finance', '/used-car-finance'),
@@ -78,6 +66,32 @@ export const navItems: NavItem[] = [
           l('Leeds', '/location/leeds'),
           l('Nottingham', '/location/nottingham'),
           l('All locations', '/locations'),
+        ],
+      },
+    ],
+    feature: {
+      title: 'Been refused elsewhere?',
+      body: 'Some of our lenders specialise in helping people with bad credit.',
+      cta: 'Get my quote',
+      href: 'https://apply.carfinance247.co.uk/',
+      icon: 'shield',
+    },
+  },
+  {
+    id: 'bad-credit',
+    label: 'Bad credit',
+    all: l('Bad credit car finance', '/bad-credit-car-finance'),
+    columns: [
+      {
+        title: 'Bad credit options',
+        links: [
+          l('Bad credit car finance', '/bad-credit-car-finance'),
+          l('Bad credit van finance', '/bad-credit-van-finance'),
+          l('Bad credit motorbike finance', '/bad-credit-motorbike-finance'),
+          l('Car finance with an IVA', '/guide/can-you-get-car-finance-with-an-iva'),
+          l('Car finance with a CCJ', '/guide/car-finance-with-a-ccj'),
+          l('Car finance with a default', '/guide/car-finance-with-a-default'),
+          l('PCP with bad credit', '/guide/can-i-get-pcp-car-finance-with-bad-credit'),
         ],
       },
     ],

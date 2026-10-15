@@ -64,11 +64,11 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
       >
         <nav
           aria-label="Main"
-          className="flex h-[var(--nav-height)] items-center gap-6 px-[var(--pad-nav)] lg:max-xl:gap-4"
+          className="flex h-[var(--nav-height)] items-center gap-6 px-[var(--pad-nav)] max-sm:gap-3 lg:max-2xl:gap-2"
         >
           <a href="#top" className="shrink-0 rounded-inner" aria-label="Car Finance 247 home">
-            <Logo className="h-[46px] w-auto text-white sm:hidden" />
-            <Logo variant="inline" className="hidden h-[26px] w-auto text-white sm:block lg:max-xl:h-[22px] xl:h-[28px]" />
+            <Logo className="block h-[46px] w-auto text-white 2xl:hidden" />
+            <Logo variant="inline" className="hidden h-[26px] w-auto text-white 2xl:block 2xl:h-[28px]" />
           </a>
 
           {!minimal && (
@@ -88,7 +88,12 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
 
           <div className="ml-auto flex items-center gap-1 sm:gap-4">
             {!minimal && <SignInLink />}
-            <Button href={quoteHref} variant="reverse" size="md">
+            <Button
+              href={quoteHref}
+              variant="reverse"
+              size="md"
+              className="max-sm:[--btn-pad:10px] max-sm:[--btn-gap:8px]"
+            >
               Get my quote
             </Button>
             {!minimal && (

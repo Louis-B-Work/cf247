@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { motion } from 'motion/react'
 import { images, type BrandImage } from '../../data/images'
 import { quoteUrl } from '../../data/nav'
@@ -6,7 +5,6 @@ import { cn, siteUrl } from '../../lib/utils'
 import { Button } from '../ui/Button'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Accent } from '../ui/Smile'
-import { useVerticalWheelPassthrough } from '../../lib/useVerticalWheelPassthrough'
 
 type Panel = {
   title: string
@@ -39,8 +37,6 @@ const panels: Panel[] = [
 ]
 
 export function Situations() {
-  const rowRef = useRef<HTMLDivElement>(null)
-  useVerticalWheelPassthrough(rowRef)
   return (
     <section aria-labelledby="situations-title" className="bg-white py-14 md:py-20">
       <div className="container-cf">
@@ -57,10 +53,9 @@ export function Situations() {
       {/*
         Poster layout from the brand campaign: title at the top in the sky, call to action at the bottom.
         On desktop each panel spans four shared rows (subgrid), so every item lines up across all three.
-        On phones the panels become a swipeable row that peeks the next card.
+        On phones the panels stack in a grid so every option is visible without swiping.
       */}
-      <div ref={rowRef}
-        className="mt-7 flex snap-x snap-mandatory scroll-px-[var(--wide-left)] gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x touch-pan-y px-[var(--wide-left)] pb-1 [scrollbar-width:none] md:mt-10 lg:grid lg:h-[clamp(420px,58vh,540px)] lg:overflow-visible lg:pb-0 lg:grid-cols-3 lg:grid-rows-[auto_minmax(0,1fr)_auto_auto] lg:gap-y-0">
+      <div className="mt-7 grid grid-cols-1 gap-4 px-[var(--wide-left)] md:mt-10 lg:h-[clamp(420px,58vh,540px)] lg:gap-y-0 lg:grid-cols-3 lg:grid-rows-[auto_minmax(0,1fr)_auto_auto]">
         {panels.map((panel, i) => (
           <motion.article
             key={panel.title}
@@ -68,7 +63,7 @@ export function Situations() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.05 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: i * 0.12 }}
-            className="on-dark group relative isolate flex h-[440px] w-[84vw] max-w-[360px] shrink-0 snap-start flex-col overflow-hidden rounded-brand bg-blackcurrant p-6 lg:h-auto lg:w-auto lg:max-w-none lg:p-7 lg:pt-9 lg:row-span-4 lg:grid lg:min-h-0 lg:grid-rows-subgrid xl:p-9 xl:pt-11"
+            className="on-dark group relative isolate flex h-[360px] w-full flex-col overflow-hidden rounded-brand bg-blackcurrant p-6 lg:h-auto lg:p-7 lg:pt-9 lg:row-span-4 lg:grid lg:min-h-0 lg:grid-rows-subgrid xl:p-9 xl:pt-11"
           >
             <img
               src={panel.image.src}

@@ -21,17 +21,11 @@ open the repository's **Settings → Pages** and set the build and deployment so
 
 ## Brand fonts
 
-Neulis Neue (display) and Neulis Cursive (accent words) are Adobe Fonts. To load them:
-
-1. Create a web project in Adobe Fonts containing **Neulis Neue** and **Neulis Cursive**.
-2. Copy `.env.example` to `.env` and set `VITE_TYPEKIT_ID` to the project ID.
-3. Restart the dev server.
-
-The CSS families must be `neulis-neue` and `neulis-cursive` (the Adobe defaults). Without a kit ID the mockup falls back to Urbanist, with Urbanist italic standing in for the cursive accent. Body copy uses Helvetica Neue with an Arial fallback.
+Neulis Neue is an Adobe Font used for headings and accent words. The Adobe Fonts web-project ID is configured in `src/lib/fonts.ts` (`kvt3yqx`); `VITE_TYPEKIT_ID` can override it. The CSS family must be `neulis-neue` (the Adobe default). Body copy uses Helvetica Neue with an Arial fallback.
 
 ### Settings cog
 
-The always-visible cog in the bottom-left opens a menu to switch headings between **General Sans** and **Satoshi** (both free from [Fontshare](https://www.fontshare.com/), loaded in `index.html`), and to preview the CTA buttons in their standard or green colour. The site opens on **Satoshi with green CTAs**; a one-off `cf247-preset` flag in the `index.html` startup script applies this even for visitors who saved other choices earlier. Later choices are saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]` and `html[data-cta-color=...]`.
+The always-visible cog in the bottom-left opens a menu to switch headings between **Neulis Neue** and **Neulis Sans**, toggle **Neulis Cursive** accents on or off, and preview the CTA buttons in their standard or green colour. Cursive accents are off by default. The site opens on **Neulis Neue with green CTAs**; a one-off `cf247-preset` flag in the `index.html` startup script applies this even for visitors who saved other choices earlier. Later choices are saved in the browser. The overrides live in `src/index.css` under `html[data-heading-font=...]`, `html[data-cursive=...]` and `html[data-cta-color=...]`.
 
 The homepage defaults to the **Modern** design. The earlier Classic design and other test options remain in the source for future use, but are not currently shown in the cog. The Modern homepage includes a members-area app promotion and phone preview; its store links are shared with the footer via `src/data/appLinks.ts`.
 

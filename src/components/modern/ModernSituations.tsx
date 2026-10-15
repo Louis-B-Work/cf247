@@ -8,7 +8,7 @@ import { cn, siteUrl } from '../../lib/utils'
 import { Button } from '../ui/Button'
 import { Reveal } from '../ui/Reveal'
 import { TrustpilotStars } from '../ui/Trustpilot'
-import { ModernHeading, panel, swipeItem, SwipeRow } from './ui'
+import { ModernHeading, panel } from './ui'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -39,7 +39,6 @@ function SituationCard({ title, body, cta, href, className, children, dark, wide
         plain ? 'min-h-[220px] sm:min-h-[240px]' : 'min-h-[300px] sm:min-h-[360px]',
         'overflow-hidden p-5 shadow-[0_28px_70px_-48px_rgba(22,1,50,0.55)] ring-1 transition-shadow duration-500 ease-[var(--ease-brand)] hover:shadow-[0_36px_85px_-48px_rgba(22,1,50,0.68)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple motion-reduce:transition-none sm:p-6',
         panel,
-        swipeItem,
         dark ? 'on-dark bg-purple ring-white/15 focus-visible:outline-lime' : 'bg-purple-10 ring-purple/10',
         className,
       )}
@@ -95,7 +94,7 @@ function StatsCard({ className }: { className?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.75, ease }}
-      className={cn('flex flex-col justify-center bg-purple-10 px-5 py-2 ring-1 ring-purple/10 sm:px-6', panel, swipeItem, className)}
+      className={cn('flex flex-col justify-center bg-purple-10 px-5 py-2 ring-1 ring-purple/10 sm:px-6', panel, className)}
     >
       <dl className="divide-y divide-purple/15">
         {stats.map((stat) => (
@@ -129,10 +128,7 @@ export function ModernSituations() {
         </Reveal>
 
         {/* Desktop: the large card spans two rows; beside it the stats card sits on top and the refinancing card below. The three remaining cards share the last row. */}
-        <SwipeRow
-          label="Car finance situations"
-          className="mt-8 grid gap-4 md:mt-10 md:grid-cols-2 lg:grid-cols-6 lg:grid-rows-[repeat(2,minmax(0,1fr))_auto] lg:gap-5 xl:mt-12"
-        >
+        <div className="mt-8 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 lg:grid-cols-6 lg:grid-rows-[repeat(2,minmax(0,1fr))_auto] lg:gap-5 xl:mt-12">
           <SituationCard
             title="Found a car you love?"
             body="Tell us about the car and we’ll search our panel of lenders for a finance quote that fits."
@@ -204,7 +200,7 @@ export function ModernSituations() {
           >
             <PhotoBackdrop image={images.situationFound} />
           </SituationCard>
-        </SwipeRow>
+        </div>
       </div>
     </section>
   )

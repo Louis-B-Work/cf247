@@ -82,7 +82,7 @@ type AccentProps = {
   className?: string
 }
 
-/** Neulis Cursive accent word. */
+/** Accent word styled with the selected accent font. */
 export function Accent({ children, className }: AccentProps) {
   return <span className={cn('font-accent inline-block whitespace-nowrap', className)}>{children}</span>
 }

@@ -23,7 +23,7 @@
   --color-progress: var(--color-lime);
 
   --font-display: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
-  --font-accent: 'neulis-cursive', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+  --font-accent: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
   /* Body copy is always Helvetica Neue (Arial is the approved substitute, guidelines p.19). */
   --font-body: 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
 
@@ -258,19 +258,21 @@ html[data-green='green'] {
     --accent-style: normal;
   }
 
-  /* Heading font experiment, set by the floating switcher. Accent words use the same family in italic. */
-  html[data-heading-font='general-sans'] {
-    --font-display: 'General Sans', ui-sans-serif, system-ui, sans-serif;
-    --font-accent: 'General Sans', ui-sans-serif, system-ui, sans-serif;
-    --accent-style: italic;
-    --leading-title: 1.02;
+  html[data-heading-font='neulis-neue'] {
+    --font-display: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
   }
 
-  html[data-heading-font='satoshi'] {
-    --font-display: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
-    --font-accent: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
-    --accent-style: italic;
-    --leading-title: 1.08;
+  html[data-heading-font='neulis-sans'] {
+    --font-display: 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
+  }
+
+  html[data-cursive='on'] {
+    --font-accent: 'neulis-cursive', 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
   }
 
   html {
