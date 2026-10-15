@@ -7,6 +7,7 @@ import { trustpilot } from '../../data/reviews'
 import { cn, siteUrl } from '../../lib/utils'
 import { Button } from '../ui/Button'
 import { Reveal } from '../ui/Reveal'
+import { Accent } from '../ui/Smile'
 import { TrustpilotStars } from '../ui/Trustpilot'
 import { ModernHeading, panel } from './ui'
 
@@ -119,7 +120,7 @@ export function ModernSituations() {
       <div className="container-xl">
         <Reveal>
           <ModernHeading id="situations-title">
-            Car finance for every situation
+            Car finance for every <span className="whitespace-nowrap"><Accent>si</Accent>tuation</span>
           </ModernHeading>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-blackcurrant/70 md:text-lg">
             Whether you have found the car, need help with your budget, or want to explore refinancing, we can help you

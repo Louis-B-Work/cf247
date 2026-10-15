@@ -5,6 +5,7 @@ import { useDragScroll } from '../../lib/useDragScroll'
 import { cn, siteUrl } from '../../lib/utils'
 import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
+import { Accent } from '../ui/Smile'
 import { TrustpilotLogo, TrustpilotStars } from '../ui/Trustpilot'
 import { ModernHeading, panel, swipeItem, SwipeRow } from './ui'
 
@@ -143,7 +144,7 @@ export function ModernReviews() {
       <div className="container-xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
           <Reveal>
-            <ModernHeading id="reviews-title">Making car finance simple for 500,000+ customers</ModernHeading>
+            <ModernHeading id="reviews-title">Making car finance <span className="whitespace-nowrap"><Accent>si</Accent>mple</span> for 500,000+ customers</ModernHeading>
           </Reveal>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -192,7 +193,7 @@ export function ModernReviews() {
 
         <div className="mt-10 md:mt-12">
           <Reveal>
-            <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-purple sm:text-2xl">More from our customers</h3>
+            <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-purple sm:text-2xl">More from our <span className="whitespace-nowrap"><Accent>cu</Accent>stomers</span></h3>
           </Reveal>
           <ul
             ref={moreRef}

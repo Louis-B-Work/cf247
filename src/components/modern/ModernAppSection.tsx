@@ -1,6 +1,7 @@
 import { appLinks } from '../../data/appLinks'
 import { BrandIcon } from '../ui/BrandIcon'
 import { Reveal } from '../ui/Reveal'
+import { Accent } from '../ui/Smile'
 import { MembersPhoneDemo } from './MembersPhoneDemo'
 import { ModernHeading, panel } from './ui'
 
@@ -14,7 +15,7 @@ export function ModernAppSection() {
           <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.8fr)] lg:gap-4">
             <Reveal className="sm:py-8 lg:py-12">
               <ModernHeading id="members-app-title" tone="dark" className="max-w-xl">
-                Your car journey, in your pocket
+                Your car journey, in your <span className="whitespace-nowrap"><Accent>po</Accent>cket</span>
               </ModernHeading>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
                 Keep your finance journey close at hand and explore cars that fit your budget in the CF247 members area.
