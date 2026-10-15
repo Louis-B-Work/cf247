@@ -28,7 +28,7 @@ export function SectionHeading({ title, intro, pullOut, action, actionOn = 'all'
         <h2 id={id} className="text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[var(--leading-title)] font-medium">
           {title}
         </h2>
-        {intro && <p className="mt-4 max-w-2xl text-[17px] leading-relaxed opacity-80">{intro}</p>}
+        {intro && <p className="mt-4 max-w-2xl text-base leading-relaxed md:text-[17px] opacity-80">{intro}</p>}
         {pullOut && (
           <p className="mt-4 max-w-[34ch] pl-[0.2em] font-display text-[clamp(1.2rem,1.7vw,1.5rem)] leading-snug font-medium text-purple">
             {pullOut}

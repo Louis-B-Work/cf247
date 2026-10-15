@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '../../lib/utils'
+import { CogIntro } from './CogIntro'
 
 const fonts = [
   { id: 'neulis-neue', label: 'Neulis Neue', family: "'neulis-neue', sans-serif" },
@@ -10,7 +11,7 @@ const fonts = [
 type FontId = (typeof fonts)[number]['id']
 
 const STORAGE_KEY = 'cf247-heading-font'
-const DEFAULT_FONT: FontId = 'neulis-neue'
+const DEFAULT_FONT: FontId = 'neulis-sans'
 
 function initialFont(): FontId {
   const saved = localStorage.getItem(STORAGE_KEY)
@@ -23,6 +24,16 @@ function initialFont(): FontId {
  * `pages` lists where each option applies.
  */
 const toggles = [
+  {
+    key: 'cf247-content',
+    attr: 'content',
+    label: 'Homepage content',
+    pages: ['home'],
+    options: [
+      { id: 'redesign', label: 'Redesign' },
+      { id: 'live', label: 'Exact replica' },
+    ],
+  },
   {
     key: 'cf247-design',
     attr: 'design',
@@ -68,17 +79,6 @@ const toggles = [
     ],
   },
   {
-    key: 'cf247-cta-color',
-    attr: 'ctaColor',
-    label: 'CTA colour',
-    pages: ['home', 'landing'],
-    defaultId: 'green',
-    options: [
-      { id: 'default', label: 'Standard' },
-      { id: 'green', label: 'Green' },
-    ],
-  },
-  {
     key: 'cf247-cursive',
     attr: 'cursive',
     label: 'Neulis Cursive accents',
@@ -92,6 +92,11 @@ const toggles = [
 
 type ToggleKey = (typeof toggles)[number]['key']
 type Page = 'home' | 'landing'
+
+const pages: { id: Page; label: string; href: string }[] = [
+  { id: 'home', label: 'Homepage', href: import.meta.env.BASE_URL },
+  { id: 'landing', label: 'Refinance landing', href: `${import.meta.env.BASE_URL}landing-page/` },
+]
 
 const togglesFor = (page: Page) => toggles.filter((t) => (t.pages as readonly Page[]).includes(page))
 
@@ -147,7 +152,35 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
     }
   }, [open])
 
+  const toggleGroup = (t: (typeof toggles)[number]) => (
+    <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
+      <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
+      <div role="radiogroup" aria-label={t.label} className="grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
+        {t.options.map((o) => {
+          const selected = opts[t.key] === o.id
+          return (
+            <button
+              key={o.id}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              onClick={() => setOpts((cur) => ({ ...cur, [t.key]: o.id }))}
+              className={cn(
+                'rounded-inner px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
+                selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
+              )}
+            >
+              {o.label}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+
   return (
+    <>
+    <CogIntro page={page} onOpenCog={() => setOpen(true)} />
     <div
       ref={rootRef}
       className="group/cog fixed bottom-0 left-0 z-[55] p-4 sm:p-6 sm:pt-24 sm:pr-24"
@@ -164,7 +197,31 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
             style={{ transformOrigin: 'bottom left' }}
             className="absolute bottom-[calc(100%+10px)] left-0 w-64 rounded-brand bg-blackcurrant/95 p-2 text-white shadow-[0_20px_50px_-15px_rgba(22,1,50,0.7)] ring-1 ring-white/10 backdrop-blur-md"
           >
-            <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Heading font</p>
+            <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Page</p>
+            <nav aria-label="Mockup pages" className="mb-2 grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
+              {pages.map((p) => {
+                const current = p.id === page
+                return (
+                  <a
+                    key={p.id}
+                    href={p.href}
+                    aria-current={current ? 'page' : undefined}
+                    className={cn(
+                      'rounded-inner px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
+                      current ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
+                    )}
+                  >
+                    {p.label}
+                  </a>
+                )
+              })}
+            </nav>
+
+            {togglesFor(page)
+              .filter((t) => t.attr === 'content')
+              .map(toggleGroup)}
+
+            <p className="border-t border-white/10 px-3 pt-3.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Heading font</p>
             <div role="radiogroup" aria-label="Heading font" className="grid gap-1">
               {fonts.map((f) => {
                 const selected = f.id === font
@@ -196,32 +253,8 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
             </div>
 
             {togglesFor(page)
-              .filter((t) => t.attr === 'ctaColor' || t.attr === 'cursive')
-              .map((t) => (
-                <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
-                  <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-                  <div role="radiogroup" aria-label={t.label} className="grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
-                    {t.options.map((o) => {
-                      const selected = opts[t.key] === o.id
-                      return (
-                        <button
-                          key={o.id}
-                          type="button"
-                          role="radio"
-                          aria-checked={selected}
-                          onClick={() => setOpts((cur) => ({ ...cur, [t.key]: o.id }))}
-                          className={cn(
-                            'rounded-inner px-2 py-2 text-center text-[13px] leading-tight font-semibold transition-colors',
-                            selected ? 'bg-lime text-blackcurrant' : 'text-white/80 hover:bg-white/10 hover:text-white',
-                          )}
-                        >
-                          {o.label}
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-              ))}
+              .filter((t) => t.attr === 'cursive')
+              .map(toggleGroup)}
 
           </motion.div>
         )}
@@ -254,5 +287,6 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
       </button>
       </div>
     </div>
+    </>
   )
 }

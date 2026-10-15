@@ -29,6 +29,18 @@ const legal = [
   ['Complaints procedure', '/complaints-procedure'],
 ] as const
 
+/** Compact (landing page) footer links and labels, word for word from the live refinance page. */
+const landingLegal = [
+  ['Sitemap', siteUrl('/sitemap')],
+  ['Terms & Conditions', siteUrl('/terms-and-conditions')],
+  ['Privacy Policy', siteUrl('/privacy-policy')],
+  ['Cookie Policy', siteUrl('/cookie-policy')],
+  ['Acceptable Use Policy', siteUrl('/website-terms-of-use')],
+  ['Complaints Procedure', siteUrl('/complaints-procedure')],
+  ['Anti-Slavery and Human Trafficking', siteUrl('/modern-slavery-act')],
+  ['247 Money', 'https://www.247money.com/'],
+] as const
+
 const socials: Array<{ name: string; icon: BrandMark; href: string }> = [
   { name: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/carfinance247' },
   { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/carfinance247' },
@@ -96,29 +108,35 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
     links: item.columns.flatMap((c) => c.links).slice(0, 7),
   }))
 
+  const trustScore = (
+    <a href={trustpilot.url} className={cn('block w-fit text-sm text-white/75 transition-colors hover:text-white', compact ? 'sm:order-last' : 'mt-6')}>
+      <span className="flex items-center gap-3">
+        <TrustpilotLogo tone="light" className="text-[15px]" />
+        <TrustpilotStars boxClassName="size-[18px]" />
+      </span>
+      <span className="mt-2 block">
+        {compact ? `TrustScore ${trustpilot.score} | ${trustpilot.reviews} reviews` : `TrustScore ${trustpilot.score} from ${trustpilot.reviews} reviews`}
+      </span>
+    </a>
+  )
+
   return (
     <footer className="on-dark bg-blackcurrant">
       <div className="container-xl grid grid-cols-1 gap-8 pt-12 pb-8 sm:gap-10 sm:py-14 lg:grid-cols-12">
         <div className={compact ? 'flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:col-span-12' : 'lg:col-span-4'}>
+          {/* The landing page keeps the live page's order: TrustScore first, then the address. */}
+          {compact && trustScore}
           <div>
           <Logo className="h-14 w-auto text-white sm:h-16" />
           <address className="mt-6 text-[15px] sm:mt-8 leading-relaxed text-white/70 not-italic">
             Car Finance 247 Limited
             <br />
-            Universal Square, Devonshire Street North
+            Universal Square, Devonshire Street North{compact && ','}
             <br />
             Manchester, M12 6JH
           </address>
           </div>
-          <a href={trustpilot.url} className={cn('block w-fit text-sm text-white/75 transition-colors hover:text-white', !compact && 'mt-6')}>
-            <span className="flex items-center gap-3">
-              <TrustpilotLogo tone="light" className="text-[15px]" />
-              <TrustpilotStars boxClassName="size-[18px]" />
-            </span>
-            <span className="mt-2 block">
-              TrustScore {trustpilot.score} from {trustpilot.reviews} reviews
-            </span>
-          </a>
+          {!compact && trustScore}
         </div>
 
         {!compact && (
@@ -150,9 +168,9 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
       <div className="border-t border-white/10">
         <div className="container-xl space-y-4 py-8 text-xs sm:py-10 leading-relaxed text-white/55">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-white/75 design-modern:max-sm:gap-x-5 design-modern:max-sm:gap-y-0">
-            {legal.map(([label, path]) => (
+            {(compact ? landingLegal : legal.map(([label, path]) => [label, siteUrl(path)] as const)).map(([label, href]) => (
               <li key={label}>
-                <a href={siteUrl(path)} className="hover:text-lime design-modern:max-sm:inline-flex design-modern:max-sm:min-h-11 design-modern:max-sm:items-center">
+                <a href={href} className="hover:text-lime design-modern:max-sm:inline-flex design-modern:max-sm:min-h-11 design-modern:max-sm:items-center">
                   {label}
                 </a>
               </li>
@@ -162,7 +180,7 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
             <p key={n}>{n}</p>
           ))}
           <p>
-            Registered office: Universal Square, Devonshire Street North, Manchester, M12 6JH. Registered in England
+            Registered office: Universal Square, Devonshire Street North, Manchester, M12 6JH. Registered in England{compact ? '.' : ''}{' '}
             (Registration Number 06035525).
           </p>
           <p>
@@ -172,8 +190,19 @@ export function Footer({ variant = 'full', notes = [] }: FooterProps = {}) {
           </p>
           <p>
             Finance is subject to status and is only available to UK residents aged 18 and over. Written quotations
-            are available on request. Car Finance 247 Limited is a credit broker, not a lender.
+            are available on request.{!compact && ' Car Finance 247 Limited is a credit broker, not a lender.'}
           </p>
+          {compact && (
+            <p>
+              This site uses cookies so that we can provide you with the best user experience. By continuing to use the
+              site you are consenting for cookies to be used. Further information on cookies and how you can disable them
+              is available on our{' '}
+              <a href={siteUrl('/cookie-policy')} className="underline underline-offset-2 hover:text-lime">
+                cookie policy
+              </a>
+              .
+            </p>
+          )}
         </div>
       </div>
     </footer>

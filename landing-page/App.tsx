@@ -2,18 +2,18 @@ import { MotionConfig } from 'motion/react'
 import { FontSwitcher } from '../src/components/layout/FontSwitcher'
 import { Footer } from '../src/components/layout/Footer'
 import { Faq } from '../src/components/sections/Faq'
-import { Partners } from '../src/components/sections/Partners'
-import { Reviews } from '../src/components/sections/Reviews'
-import { footerNotes, refinanceFaqs, refinanceQuoteUrl } from '../src/data/refinance'
-import { Explainer, ProsCons, WhyUs } from './sections/Content'
+import { Accent } from '../src/components/ui/Smile'
+import { footerNotes, refinanceFaqs } from '../src/data/refinance'
+import { Explainer, HowItWorks, ProsCons, TrustpilotBand, WhyUs } from './sections/Content'
 import { RefinanceCalculator } from './sections/RefinanceCalculator'
 import { RefinanceFinalCta } from './sections/RefinanceFinalCta'
 import { RefinanceHero } from './sections/RefinanceHero'
-import { useScrollHover } from '../src/lib/useScrollHover'
 
-/** Refinance paid landing page: one goal (get a quote). Like the live page there is no nav, just the logo in the hero. */
+/**
+ * Refinance paid landing page: one goal (get a quote). Like the live page there is no nav, just the logo in the hero.
+ * Sections, headings and copy follow the live page (carfinance247.co.uk/refinance) in the same order, for SEO.
+ */
 export default function App() {
-  useScrollHover()
   return (
     <MotionConfig reducedMotion="user">
       <a
@@ -27,11 +27,20 @@ export default function App() {
         <RefinanceCalculator />
         <Explainer />
         <ProsCons />
+        <HowItWorks />
         <WhyUs />
-        <Reviews showVideos={false} quoteHref={refinanceQuoteUrl} ctaSize="xl" />
-        <Partners />
-        <Faq categories={refinanceFaqs} />
+        <TrustpilotBand />
         <RefinanceFinalCta />
+        <Faq
+          categories={refinanceFaqs}
+          flat
+          contact={false}
+          title={
+            <>
+              Frequently Asked <Accent>Questions</Accent>
+            </>
+          }
+        />
       </main>
       <Footer variant="compact" notes={footerNotes} />
       <FontSwitcher page="landing" />

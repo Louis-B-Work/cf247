@@ -224,7 +224,7 @@ export function Reviews({ showVideos = true, quoteHref = quoteUrl, ctaSize = 'lg
 
       <div className="container-cf mt-5 flex flex-wrap items-center justify-end gap-x-5 gap-y-3 text-right md:mt-8">
         <p className="font-display text-lg font-semibold md:text-xl">Join them with a quote in minutes</p>
-        <Button href={quoteHref} variant="light" size={ctaSize}>
+        <Button href={quoteHref} variant="light" size={ctaSize} attention>
           Get my quote
         </Button>
       </div>

@@ -20,7 +20,7 @@ export type VideoReview = {
 
 export const trustpilot = {
   score: '4.9',
-  reviews: '58,565',
+  reviews: '59,096',
   url: 'https://uk.trustpilot.com/review/www.carfinance247.co.uk',
 }
 

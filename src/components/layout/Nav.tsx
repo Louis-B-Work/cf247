@@ -6,7 +6,7 @@ import {
   useSpring,
 } from 'motion/react'
 import { useEffect, useRef, useState, type FocusEvent } from 'react'
-import { navItems, quoteUrl, signInUrl, type NavItem } from '../../data/nav'
+import { navItems, quoteUrl, signInUrl, type NavItem, type NavLink } from '../../data/nav'
 import { cn } from '../../lib/utils'
 import { Logo } from '../brand/Logo'
 import { Button } from '../ui/Button'
@@ -19,9 +19,18 @@ type NavProps = {
   /** minimal: logo and quote button only, for paid landing pages that keep visitors focused on one action. */
   variant?: 'full' | 'minimal'
   quoteHref?: string
+  /** Menu content; defaults to the redesign's menus. */
+  items?: NavItem[]
+  /**
+   * Settings cog "Homepage content: Exact replica": match the live header's content and order. Menu links stay in
+   * the page while closed (as on the live site) and the sign-in label matches. The Get my quote button is kept.
+   */
+  parity?: boolean
+  /** Links kept in the page for the closed mobile menu (parity mode). */
+  mobileLinks?: NavLink[]
 }
 
-export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
+export function Nav({ variant = 'full', quoteHref = quoteUrl, items = navItems, parity = false, mobileLinks }: NavProps = {}) {
   const minimal = variant === 'minimal'
   const [openId, setOpenId] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 8)
@@ -72,11 +81,12 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
           </a>
 
           {!minimal && (
-          <ul className="hidden h-full items-stretch lg:flex xl:ml-4">
-            {navItems.map((item) => (
+          <ul className="hidden h-full items-stretch nav:flex 2xl:ml-4">
+            {items.map((item) => (
               <DesktopItem
                 key={item.id}
                 item={item}
+                keepMounted={parity}
                 isOpen={openId === item.id}
                 onOpen={() => open(item.id)}
                 onClose={scheduleClose}
@@ -87,7 +97,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
           )}
 
           <div className="ml-auto flex items-center gap-1 sm:gap-4">
-            {!minimal && <SignInLink />}
+            {!minimal && <SignInLink label={parity ? 'Sign In' : 'Sign in'} alwaysShow={parity} />}
             <Button
               href={quoteHref}
               variant="reverse"
@@ -99,12 +109,13 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
             {!minimal && (
             <button
               type="button"
-              className="grid size-12 place-items-center rounded-brand lg:hidden"
-              aria-label="Open menu"
+              className={cn('grid size-12 place-items-center rounded-brand nav:hidden', parity && 'w-auto grid-flow-col gap-1.5 px-2 font-display font-semibold')}
+              aria-label={parity ? undefined : 'Open menu'}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(true)}
             >
               <Icon name="menu" className="size-7" />
+              {parity && <span className="max-sm:sr-only">Menu</span>}
             </button>
             )}
           </div>
@@ -117,7 +128,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl }: NavProps = {}) {
         />
       </div>
 
-      {!minimal && <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />}
+      {!minimal && <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} items={items} closedLinks={mobileLinks} />}
     </header>
   )
 }
@@ -135,15 +146,16 @@ function NavUnderline({ active }: { active?: boolean }) {
   )
 }
 
-function SignInLink() {
+function SignInLink({ label, alwaysShow }: { label: string; alwaysShow?: boolean }) {
   return (
     <a
       href={signInUrl}
-      className="group hidden h-11 items-center gap-2 px-3 font-display text-[16px] font-semibold whitespace-nowrap sm:flex"
+      className={cn('group h-11 items-center gap-2 font-display text-[16px] font-semibold whitespace-nowrap', alwaysShow ? 'flex px-2 max-[359px]:hidden sm:px-3' : 'hidden px-3 sm:flex')}
     >
       <Icon name="user" className="size-5" />
-      <span className="relative lg:max-xl:sr-only">
-        Sign in
+      {/* Phones show just the icon; the label stays in the page for screen readers and search engines. */}
+      <span className={cn('relative lg:max-xl:sr-only', alwaysShow && 'max-sm:sr-only')}>
+        {label}
         <NavUnderline />
       </span>
     </a>
@@ -152,13 +164,15 @@ function SignInLink() {
 
 type DesktopItemProps = {
   item: NavItem
+  /** Keep the dropdown in the page while closed (hidden), so its links are always present. */
+  keepMounted?: boolean
   isOpen: boolean
   onOpen: () => void
   onClose: () => void
   onToggle: () => void
 }
 
-function DesktopItem({ item, isOpen, onOpen, onClose, onToggle }: DesktopItemProps) {
+function DesktopItem({ item, keepMounted, isOpen, onOpen, onClose, onToggle }: DesktopItemProps) {
   const panelId = `nav-panel-${item.id}`
 
   const handleBlur = (e: FocusEvent<HTMLLIElement>) => {
@@ -172,7 +186,7 @@ function DesktopItem({ item, isOpen, onOpen, onClose, onToggle }: DesktopItemPro
         aria-expanded={isOpen}
         aria-controls={panelId}
         onClick={onToggle}
-        className="group flex h-11 items-center gap-1.5 px-3 lg:max-xl:px-2 font-display text-[16px] font-semibold whitespace-nowrap xl:px-4 xl:text-[17px]"
+        className="group flex h-11 items-center gap-1.5 px-3 nav:max-xl:px-2 font-display text-[16px] font-semibold whitespace-nowrap 2xl:px-4 2xl:text-[17px]"
       >
         <span className="relative">
           {item.label}
@@ -184,8 +198,17 @@ function DesktopItem({ item, isOpen, onOpen, onClose, onToggle }: DesktopItemPro
         />
       </button>
 
+      {keepMounted && (
+        <div
+          id={panelId}
+          hidden={!isOpen}
+          className="absolute inset-x-0 top-full border-t border-white/10 bg-white text-blackcurrant shadow-[0_30px_60px_-20px_rgba(22,1,50,0.35)] [--focus-ring:var(--color-purple)]"
+        >
+          <MegaPanel item={item} />
+        </div>
+      )}
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && !keepMounted && (
           <motion.div
             id={panelId}
             initial={{ opacity: 0, y: -8 }}
@@ -204,23 +227,28 @@ function DesktopItem({ item, isOpen, onOpen, onClose, onToggle }: DesktopItemPro
 
 function MegaPanel({ item }: { item: NavItem }) {
   const cols = item.columns.length
+  // The live menus are one long list each: flow them into columns instead of one tall list.
+  const flat = cols === 1 && !item.columns[0].title
   return (
     <div className="container-xl">
       <div className="grid grid-cols-12 gap-10 pt-9 pb-8">
         <div
           className={cn(
-            'col-span-9 grid divide-x divide-purple-10',
-            cols >= 4 ? 'grid-cols-4' : cols === 3 ? 'grid-cols-3' : 'grid-cols-2',
+            'grid divide-x divide-purple-10',
+            item.feature ? 'col-span-9' : 'col-span-12',
+            flat ? 'grid-cols-1' : cols >= 4 ? 'grid-cols-4' : cols === 3 ? 'grid-cols-3' : 'grid-cols-2',
           )}
         >
-          {item.columns.map((col) => (
-            <div key={col.title} className="px-7 first:pl-0">
-              <p className="font-display text-[1.6rem] leading-[var(--leading-title)] font-medium tracking-[-0.02em] text-blackcurrant">
-                {col.title}
-              </p>
-              <ul className="mt-5 space-y-1">
+          {item.columns.map((col, i) => (
+            <div key={col.title ?? i} className="px-7 first:pl-0">
+              {col.title && (
+                <p className="font-display text-[1.6rem] leading-[var(--leading-title)] font-medium tracking-[-0.02em] text-blackcurrant">
+                  {col.title}
+                </p>
+              )}
+              <ul className={cn(col.title ? 'mt-5 space-y-1' : 'gap-x-8 space-y-1', flat && col.links.length > 8 && 'columns-3 xl:columns-4', flat && col.links.length <= 8 && col.links.length > 4 && 'columns-2')}>
                 {col.links.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.href + link.label} className="break-inside-avoid">
                     <a
                       href={link.href}
                       className="group/link -mx-2 flex items-center rounded-inner px-2 py-1.5 text-[15px] text-blackcurrant/75 transition-colors duration-200 hover:bg-purple-10 hover:text-purple"
@@ -235,6 +263,7 @@ function MegaPanel({ item }: { item: NavItem }) {
           ))}
         </div>
 
+        {item.feature && (
         <a
           href={item.feature.href}
           // Not stretched to the link columns: every dropdown's card shares one height, the tallest card's content at each
@@ -261,8 +290,10 @@ function MegaPanel({ item }: { item: NavItem }) {
             </span>
           </div>
         </a>
+        )}
       </div>
 
+      {item.all && (
       <div className="flex items-center justify-between gap-6 border-t border-purple-10 py-4 text-sm">
         <a
           href={item.all.href}
@@ -275,6 +306,7 @@ function MegaPanel({ item }: { item: NavItem }) {
           <Icon name="arrow" className="size-4 transition-transform duration-300 group-hover/all:translate-x-1" />
         </a>
       </div>
+      )}
     </div>
   )
 }

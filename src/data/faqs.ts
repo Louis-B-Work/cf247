@@ -1,7 +1,10 @@
 export type Faq = {
   q: string
+  /** Paragraphs. Inline links can be written as [label](url). */
   a: string[]
   list?: string[]
+  /** Paragraphs after the list. */
+  after?: string[]
 }
 
 export type FaqCategory = {

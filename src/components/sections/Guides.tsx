@@ -49,7 +49,7 @@ function FeaturedGuide({ guide }: { guide: Guide }) {
         <span className={limeUnderline}>{guide.title}</span>
       </h3>
       {guide.excerpt && (
-        <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-white/80 md:text-base">{guide.excerpt}</p>
+        <p className="mt-3 max-w-lg text-base leading-relaxed text-white/80">{guide.excerpt}</p>
       )}
       <span className="mt-6 flex items-center gap-3 font-display font-semibold">
         <ArrowChip className="size-11" light />

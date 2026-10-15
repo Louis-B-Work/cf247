@@ -41,7 +41,7 @@ export function ModernFinalCta() {
               </p>
 
               <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center">
-                <Button href={quoteUrl} variant="reverse" size="2xl" className="max-sm:w-full max-sm:justify-center">
+                <Button href={quoteUrl} variant="reverse" size="2xl" attention className="max-sm:w-full max-sm:justify-center">
                   Get my quote
                 </Button>
                 <a href={trustpilot.url} className="group flex flex-col gap-1.5 text-sm text-white/78 transition-colors hover:text-white">
@@ -78,8 +78,8 @@ export function ModernFinalCta() {
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(22,1,50,0.04),rgba(22,1,50,0.2)_48%,rgba(22,1,50,0.74))] max-sm:hidden" />
               <div className="relative p-4 text-white sm:absolute sm:top-5 sm:right-5 sm:left-auto sm:max-w-[300px] sm:rounded-brand sm:bg-blackcurrant/45 sm:ring-1 sm:ring-white/20 sm:backdrop-blur-md">
                 <p className="font-display text-xl leading-tight font-semibold">Quick to apply</p>
-                <p className="mt-2 text-sm leading-relaxed text-white/75">
-                  Answer a few quick questions and see your personalised quote in minutes.
+                <p className="mt-2 text-base leading-relaxed text-white/75">
+                  Your personalised quote in minutes.
                 </p>
               </div>
             </motion.div>

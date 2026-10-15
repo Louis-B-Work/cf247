@@ -35,10 +35,8 @@ export function Founders() {
           <h2 id="founders-title" className="text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[var(--leading-title)] font-medium">
             Proudly founded in <Accent>Manchester</Accent> by Reg and Louis Rix
           </h2>
-          <p className="mt-4 text-[17px] leading-relaxed text-white/80">
-            The motor trade has been part of their lives for as long as they can remember. From working in their
-            dad’s dealership as kids to striking out as entrepreneurs, it’s always been the industry for them. Still
-            is. They’re passionate about what we do and proud to be the UK’s leading digital car finance platform.
+          <p className="mt-4 text-base leading-relaxed text-white/80 md:text-[17px]">
+            Raised in their dad’s dealership, Reg and Louis built the UK’s leading digital car finance platform.
           </p>
 
           <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/15 pt-6">

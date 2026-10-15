@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react'
+import { useRef, type ReactNode, type Ref } from 'react'
+import { useAttentionOnce, usePressHold } from '../../lib/buttonFeedback'
 import { cn } from '../../lib/utils'
 import { Icon } from './Icon'
 
@@ -21,6 +22,12 @@ type ButtonProps = {
    */
   asSpan?: boolean
   tabIndex?: number
+  /** Show the hover state without a pointer, e.g. once the related input has a value. */
+  active?: boolean
+  /** Touch screens: play the hover state once when the button first scrolls into view. Used on the main quote CTAs. */
+  attention?: boolean
+  /** Milliseconds to wait before the attention play, e.g. to let an entrance animation finish. */
+  attentionDelay?: number
 }
 
 const variantStyles: Record<Variant, string> = {
@@ -76,8 +83,15 @@ export function Button({
   ariaLabel,
   asSpan,
   tabIndex,
+  active,
+  attention = false,
+  attentionDelay = 400,
 }: ButtonProps) {
+  const ref = useRef<HTMLElement>(null)
+  usePressHold(ref)
+  useAttentionOnce(ref, attention, attentionDelay)
   const s = sizeStyles[size]
+  const dataActive = active ? '' : undefined
   const classes = cn(
     'cf-pill-button group relative isolate inline-flex touch-manipulation items-center overflow-hidden rounded-brand font-display font-medium whitespace-nowrap select-none [-webkit-tap-highlight-color:transparent] transition-[transform,background-color] duration-150 active:scale-[0.97] motion-reduce:active:scale-100',
     variantStyles[variant],
@@ -115,18 +129,18 @@ export function Button({
     </>
   )
 
-  if (asSpan) return <span className={classes}>{content}</span>
+  if (asSpan) return <span ref={ref} data-active={dataActive} className={classes}>{content}</span>
 
   if (href) {
     return (
-      <a href={href} aria-label={ariaLabel} tabIndex={tabIndex} className={classes}>
+      <a ref={ref as Ref<HTMLAnchorElement>} href={href} aria-label={ariaLabel} tabIndex={tabIndex} data-active={dataActive} className={classes}>
         {content}
       </a>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} aria-label={ariaLabel} tabIndex={tabIndex} className={classes}>
+    <button ref={ref as Ref<HTMLButtonElement>} type={type} onClick={onClick} aria-label={ariaLabel} tabIndex={tabIndex} data-active={dataActive} className={classes}>
       {content}
     </button>
   )

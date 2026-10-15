@@ -9,16 +9,20 @@
     <script>
       // Apply the saved heading font before first paint so text (and the hero car below it) doesn't reflow.
       try {
-        // One-off preset: every visitor starts on Neulis Neue with green CTAs, even if an earlier visit saved other choices.
-        if (localStorage.getItem('cf247-preset') !== 'neulis-green') {
-          localStorage.setItem('cf247-heading-font', 'neulis-neue')
-          localStorage.setItem('cf247-cta-color', 'green')
-          localStorage.setItem('cf247-preset', 'neulis-green')
+        // One-off preset: every visitor starts on the redesign homepage content, Neulis Sans and no cursive accents, even if an earlier visit saved other choices.
+        if (localStorage.getItem('cf247-preset') !== 'sans-redesign') {
+          localStorage.setItem('cf247-heading-font', 'neulis-sans')
+          localStorage.setItem('cf247-content', 'redesign')
+          localStorage.setItem('cf247-cursive', 'off')
+          localStorage.setItem('cf247-preset', 'sans-redesign')
         }
         var saved = localStorage.getItem('cf247-heading-font')
-        document.documentElement.dataset.headingFont = ['neulis-neue', 'neulis-sans'].indexOf(saved) > -1 ? saved : 'neulis-neue'
-        document.documentElement.dataset.ctaColor = localStorage.getItem('cf247-cta-color') === 'default' ? 'default' : 'green'
+        document.documentElement.dataset.headingFont = ['neulis-neue', 'neulis-sans'].indexOf(saved) > -1 ? saved : 'neulis-sans'
+        // CTAs are always green (the cog's CTA colour option has been removed).
+        document.documentElement.dataset.ctaColor = 'green'
+        document.documentElement.dataset.cursive = localStorage.getItem('cf247-cursive') === 'on' ? 'on' : 'off'
         document.documentElement.dataset.design = 'modern'
+        document.documentElement.dataset.content = localStorage.getItem('cf247-content') === 'live' ? 'live' : 'redesign'
         var hero = localStorage.getItem('cf247-hero')
         document.documentElement.dataset.hero = ['centered', 'bleed', 'big'].indexOf(hero) > -1 ? hero : 'car'
         var green = localStorage.getItem('cf247-green')

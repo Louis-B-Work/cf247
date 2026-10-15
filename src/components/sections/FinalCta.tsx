@@ -45,7 +45,7 @@ export function FinalCta() {
             Applying only takes a couple of minutes.
           </p>
           <div className="mt-7 flex justify-center">
-            <Button href={quoteUrl} variant="reverse" size="lg">
+            <Button href={quoteUrl} variant="reverse" size="lg" attention>
               Get my quote
             </Button>
           </div>

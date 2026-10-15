@@ -2,6 +2,8 @@ import { motion } from 'motion/react'
 import type { ReactNode } from 'react'
 import { steps } from '../../data/assets'
 import { quoteUrl } from '../../data/nav'
+import { cn } from '../../lib/utils'
+import { useTestOption } from '../../lib/useTestOption'
 import { Button } from '../ui/Button'
 import { Icon } from '../ui/Icon'
 import { SectionHeading } from '../ui/SectionHeading'
@@ -9,6 +11,7 @@ import { Accent, PullOut } from '../ui/Smile'
 
 /** `title` replaces the default heading when a page needs a different section title. */
 export function Steps({ title }: { title?: ReactNode } = {}) {
+  const modern = useTestOption('design') === 'modern'
   return (
     <section
       aria-labelledby="steps-title"
@@ -30,11 +33,11 @@ export function Steps({ title }: { title?: ReactNode } = {}) {
             </>
           }
           actionOn="desktop"
-          action={<Button href={quoteUrl} variant="light" size="lg">Get my quote</Button>}
+          action={<Button href={quoteUrl} variant="light" size="lg" attention>Get my quote</Button>}
         />
 
-        {/* Phones: compact rows (thumbnail beside text). Tablet and up: three image cards. Every card links to the quote form. */}
-        <ol className="mt-7 grid grid-cols-1 gap-3 md:mt-10 lg:grid-cols-3 lg:gap-5">
+        {/* Classic phones: compact rows (thumbnail beside text). Modern, and Classic from lg: image cards (Modern stacks them on phones with a shorter photo). Every card links to the quote form. */}
+        <ol className={cn('mt-7 grid grid-cols-1 md:mt-10 lg:grid-cols-3 lg:gap-5', modern ? 'gap-4 md:grid-cols-3' : 'gap-3')}>
           {steps.map((step, i) => (
             <motion.li
               key={step.title}
@@ -45,35 +48,51 @@ export function Steps({ title }: { title?: ReactNode } = {}) {
             >
               <a
                 href={quoteUrl}
-                className="group flex h-full touch-manipulation items-center gap-4 rounded-brand bg-purple-10 p-5 ring-1 ring-transparent design-modern:bg-white design-modern:ring-purple/10 transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:-translate-y-1.5 design-modern:hover:translate-y-0 hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white design-modern:max-sm:gap-3.5 design-modern:max-sm:p-4 lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3"
+                className={cn(
+                  'group flex h-full touch-manipulation rounded-brand ring-1 transition-[transform,box-shadow,background-color] duration-500 ease-[var(--ease-brand)] [-webkit-tap-highlight-color:transparent] hover:bg-white hover:shadow-[0_28px_60px_-28px_rgba(105,5,242,0.55)] hover:ring-purple/40 active:scale-[0.99] active:bg-white',
+                  modern
+                    ? 'flex-col bg-white p-3 ring-purple/10'
+                    : 'items-center gap-4 bg-purple-10 p-5 ring-transparent hover:-translate-y-1.5 lg:flex-col lg:items-stretch lg:gap-0 lg:p-3 lg:pr-3',
+                )}
               >
-                <div className="relative size-20 shrink-0 overflow-hidden rounded-inner bg-purple-30 design-modern:max-sm:size-[72px] sm:size-28 lg:size-auto">
+                <div className={cn('relative shrink-0 overflow-hidden rounded-inner bg-purple-30', modern ? 'w-full' : 'size-20 sm:size-28 lg:size-auto')}>
                   <img
                     src={step.image}
                     alt={step.alt}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05] lg:aspect-[4/3.6] lg:h-auto"
+                    className={cn(
+                      'w-full object-cover transition-transform duration-700 ease-[var(--ease-brand)] group-hover:scale-[1.05]',
+                      modern ? 'aspect-[16/10] lg:aspect-[4/3.6]' : 'h-full lg:aspect-[4/3.6] lg:h-auto',
+                    )}
                   />
-                  <span className="absolute top-2 left-2 grid size-8 place-items-center rounded-inner bg-purple font-display text-base font-semibold text-white transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant design-modern:max-sm:top-1.5 design-modern:max-sm:left-1.5 design-modern:max-sm:size-7 design-modern:max-sm:text-sm lg:top-4 lg:left-4 lg:size-12 lg:text-xl">
+                  <span
+                    className={cn(
+                      'absolute grid place-items-center rounded-inner bg-purple font-display font-semibold text-white transition-colors duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-active:bg-lime group-active:text-blackcurrant',
+                      modern ? 'top-3 left-3 size-10 text-lg lg:top-4 lg:left-4 lg:size-12 lg:text-xl' : 'top-2 left-2 size-8 text-base lg:top-4 lg:left-4 lg:size-12 lg:text-xl',
+                    )}
+                  >
                     {i + 1}
                   </span>
                 </div>
-                <div className="flex min-w-0 flex-1 items-center gap-4 lg:items-start lg:px-3 lg:pt-5 lg:pb-3">
+                <div className={cn('flex min-w-0 flex-1 gap-4', modern ? 'items-start px-2 pt-4 pb-2 lg:px-3 lg:pt-5 lg:pb-3' : 'items-center lg:items-start lg:px-3 lg:pt-5 lg:pb-3')}>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-xl leading-tight font-semibold transition-colors duration-300 group-hover:text-purple lg:text-[1.75rem]">
+                    <h3 className={cn('leading-tight font-semibold transition-colors duration-300 group-hover:text-purple lg:text-[1.75rem]', modern ? 'text-2xl' : 'text-xl')}>
                       {step.title}
                     </h3>
-                    <p className="mt-1 max-w-sm text-[15px] leading-relaxed text-blackcurrant/75 design-modern:max-sm:text-sm design-modern:max-sm:leading-snug lg:mt-2 lg:text-[16px]">
+                    <p className={cn('mt-1 max-w-sm leading-relaxed text-blackcurrant/75 lg:mt-2', modern ? 'text-base' : 'text-[15px] lg:text-[16px]')}>
                       {step.body}
                     </p>
                   </div>
                   <span
                     aria-hidden
-                    className="grid size-9 shrink-0 place-items-center rounded-inner bg-white text-purple ring-1 ring-purple-10 transition-[background-color,color] duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-hover:ring-lime group-active:bg-lime design-modern:max-sm:hidden lg:size-12 lg:self-end"
+                    className={cn(
+                      'grid shrink-0 place-items-center rounded-inner text-purple ring-1 ring-purple-10 transition-[background-color,color] duration-300 group-hover:bg-lime group-hover:text-blackcurrant group-hover:ring-lime group-active:bg-lime lg:size-12',
+                      modern ? 'size-10 self-end bg-purple-10' : 'size-9 bg-white lg:self-end',
+                    )}
                   >
                     <Icon
                       name="arrow"
-                      className="size-5 transition-transform duration-300 ease-[var(--ease-brand)] lg:-rotate-45 lg:group-hover:rotate-0"
+                      className={cn('size-5 transition-transform duration-300 ease-[var(--ease-brand)]', modern ? '-rotate-45 group-hover:rotate-0' : 'lg:-rotate-45 lg:group-hover:rotate-0')}
                     />
                   </span>
                 </div>
@@ -82,7 +101,7 @@ export function Steps({ title }: { title?: ReactNode } = {}) {
           ))}
         </ol>
         <div className="mt-7 md:hidden">
-          <Button href={quoteUrl} variant="light" size="lg" className="design-modern:max-sm:w-full design-modern:max-sm:justify-center">Get my quote</Button>
+          <Button href={quoteUrl} variant="light" size="lg" attention className="design-modern:max-sm:w-full design-modern:max-sm:justify-center">Get my quote</Button>
         </div>
       </div>
     </section>

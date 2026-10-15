@@ -98,7 +98,7 @@ export function Hero() {
             transition={{ duration: 0.7, ease, delay: 0.6 }}
             className="mt-[clamp(28px,4.5svh,44px)] flex w-full max-w-[520px] justify-center sm:mt-7 sm:w-auto sm:max-w-none sm:justify-start hero-centered:mx-auto hero-centered:justify-center md:mt-8"
           >
-            <Button href={quoteUrl} variant="reverse" size="2xl" className="max-sm:w-full max-sm:justify-center">
+            <Button href={quoteUrl} variant="reverse" size="2xl" attention attentionDelay={1200} className="max-sm:w-full max-sm:justify-center">
               Get my quote
             </Button>
           </motion.div>

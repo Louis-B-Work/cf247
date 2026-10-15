@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState, type ReactNode } from 'react'
-import { navItems, quoteUrl, signInUrl } from '../../data/nav'
+import { navItems, quoteUrl, signInUrl, type NavItem, type NavLink } from '../../data/nav'
 import { cn } from '../../lib/utils'
 import { Logo } from '../brand/Logo'
 import { Button } from '../ui/Button'
@@ -9,6 +9,9 @@ import { Icon } from '../ui/Icon'
 type MobileMenuProps = {
   open: boolean
   onClose: () => void
+  items?: NavItem[]
+  /** Links kept in the page (hidden) while the menu is closed, as on the live site. */
+  closedLinks?: NavLink[]
 }
 
 /** A tree level: a vertical trunk line runs down the left, stopping at the last child's elbow. */
@@ -44,8 +47,8 @@ function BranchItem({ children, small }: { children: ReactNode; small?: boolean 
   )
 }
 
-export function MobileMenu({ open, onClose }: MobileMenuProps) {
-  const [expanded, setExpanded] = useState<string | null>(navItems[0].id)
+export function MobileMenu({ open, onClose, items = navItems, closedLinks }: MobileMenuProps) {
+  const [expanded, setExpanded] = useState<string | null>(items[0].id)
   const [group, setGroup] = useState<string | null>(null)
 
   useEffect(() => {
@@ -63,6 +66,16 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
   }, [open, onClose])
 
   return (
+    <>
+    {!open && closedLinks && (
+      <ul hidden>
+        {closedLinks.map((link) => (
+          <li key={link.href + link.label}>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    )}
     <AnimatePresence>
       {open && (
         <motion.div
@@ -73,7 +86,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', stiffness: 260, damping: 32 }}
-          className="on-dark fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-purple lg:hidden"
+          className="on-dark fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-purple nav:hidden"
         >
           <div className="flex h-[var(--nav-height)] shrink-0 items-center justify-between px-5">
             <Logo className="h-[46px] w-auto text-white" />
@@ -89,7 +102,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           </div>
 
           <ul className="flex-1 px-5 pb-6">
-            {navItems.map((item) => {
+            {items.map((item) => {
               const isOpen = expanded === item.id
               return (
                 <li key={item.id} className="border-b border-white/15 py-1.5">
@@ -115,8 +128,21 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                         className="overflow-hidden"
                       >
                         <Branch className="ml-4 pt-1 pb-4">
-                          {item.columns.map((col) => {
-                            const key = `${item.id}:${col.title}`
+                          {item.columns.map((col, colIndex) => {
+                            // Untitled columns (the live site's flat menus) list their links directly.
+                            if (!col.title) {
+                              return col.links.map((link) => (
+                                <BranchItem key={link.href + link.label} small>
+                                  <a
+                                    href={link.href}
+                                    className="block rounded-inner py-2 pr-2 pl-1 text-[15px] text-white/85 transition-colors [--focus-ring:var(--color-lime)] hover:text-lime active:text-lime focus-visible:outline-offset-[-2px]"
+                                  >
+                                    {link.label}
+                                  </a>
+                                </BranchItem>
+                              ))
+                            }
+                            const key = `${item.id}:${col.title ?? colIndex}`
                             const groupOpen = group === key
                             return (
                               <BranchItem key={col.title}>
@@ -182,5 +208,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         </motion.div>
       )}
     </AnimatePresence>
+    </>
   )
 }

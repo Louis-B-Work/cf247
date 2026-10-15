@@ -55,7 +55,7 @@ function SituationCard({ title, body, cta, href, className, children, dark, wide
         >
           {title}
         </h3>
-        <p className={cn('mt-2.5 max-w-xl text-sm leading-relaxed sm:text-[15px]', dark ? 'text-white/78' : 'text-blackcurrant/70')}>{body}</p>
+        <p className={cn('mt-2.5 max-w-xl text-base leading-relaxed', dark ? 'text-white/78' : 'text-blackcurrant/70')}>{body}</p>
         <div className="mt-5">
           <Button asSpan variant={dark ? 'reverse' : 'light'} size="md">
             {cta}
@@ -122,24 +122,20 @@ export function ModernSituations() {
           <ModernHeading id="situations-title">
             Car finance for every <span className="whitespace-nowrap"><Accent>si</Accent>tuation</span>
           </ModernHeading>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-blackcurrant/70 md:text-lg">
-            Whether you have found the car, need help with your budget, or want to explore refinancing, we can help you
-            take the next step.
-          </p>
         </Reveal>
 
         {/* Desktop: the large card spans two rows; beside it the stats card sits on top and the refinancing card below. The three remaining cards share the last row. */}
         <div className="mt-8 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 lg:grid-cols-6 lg:grid-rows-[repeat(2,minmax(0,1fr))_auto] lg:gap-5 xl:mt-12">
           <SituationCard
             title="Found a car you love?"
-            body="Tell us about the car and we’ll search our panel of lenders for a finance quote that fits."
+            body="Tell us about it and we’ll find a quote that fits."
             cta="Get my quote"
             href={quoteUrl}
             wideTitle
             className="lg:col-span-4 lg:row-span-2 lg:row-start-1 lg:min-h-[460px] 2xl:min-h-[520px]"
           >
             <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_65%_15%,rgba(210,180,251,0.85),rgba(240,230,254,0)_38%),linear-gradient(145deg,#f0e6fe,#f7f1ff)]" />
-            <div className="relative mb-6 pt-4">
+            <div className="relative mb-6">
               <div className="grid place-items-center rounded-brand bg-white/70 p-6 ring-1 ring-purple/10">
                 <img
                   src={car.src}
@@ -148,9 +144,6 @@ export function ModernSituations() {
                   className="w-[min(72%,460px)] max-w-none 2xl:w-[min(72%,580px)] transition-transform duration-[1100ms] ease-[var(--ease-brand)] group-hover:scale-[1.04]"
                 />
               </div>
-              <div className="absolute top-0 left-0 max-w-[230px] rounded-brand bg-white p-4 text-sm font-semibold text-blackcurrant shadow-[0_24px_60px_-28px_rgba(22,1,50,0.55)] ring-1 ring-purple/10">
-                Seen it, love it, now quote it.
-              </div>
             </div>
           </SituationCard>
 
@@ -158,7 +151,7 @@ export function ModernSituations() {
 
           <SituationCard
             title="Thinking of refinancing your car?"
-            body="See if you could pay less each month by checking your refinance options. Extending the term of your loan could increase the interest payable."
+            body="See if you could pay less each month. Extending your loan term could increase the interest payable."
             cta="See what I could save"
             href={siteUrl('/refinance-car-finance')}
             dark
@@ -171,7 +164,7 @@ export function ModernSituations() {
 
           <SituationCard
             title="Still searching for the perfect car?"
-            body="Use the calculator to explore what might fit your monthly budget before you start looking."
+            body="See what fits your monthly budget."
             cta="See what I can afford"
             href={siteUrl('/car-finance-calculator')}
             dark
@@ -182,7 +175,7 @@ export function ModernSituations() {
 
           <SituationCard
             title="Bad credit? We look beyond your score"
-            body="Some of our lenders specialise in helping people with bad credit."
+            body="Some of our lenders specialise in bad credit."
             cta="Find out more"
             href={siteUrl('/bad-credit-car-finance')}
             plain
@@ -193,7 +186,7 @@ export function ModernSituations() {
 
           <SituationCard
             title="Value my car"
-            body="Use your part exchange as a deposit and see how it could shape your next car finance quote."
+            body="Use your part exchange as a deposit."
             cta="Value my car"
             href={siteUrl('/valuations')}
             dark

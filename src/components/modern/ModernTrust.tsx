@@ -3,8 +3,7 @@ import { MagicText } from '../ui/MagicText'
 import { Reveal } from '../ui/Reveal'
 import { panel } from './ui'
 
-const statementCopy =
-  'We’ve helped over 500,000 people drive away in a car they *love.* [[One quick application]], a decision in minutes and a panel of trusted lenders. We sort the paperwork, so you just turn up and drive away.'
+const statementCopy = 'We’ve helped over 500,000 people drive away in a car they *love.*'
 
 export function ModernTrust() {
   return (
@@ -15,13 +14,14 @@ export function ModernTrust() {
           y={18}
           amount={0.35}
         >
-          <div className="flex flex-col items-center gap-5 md:flex-row md:justify-between md:gap-8">
-            <p className="text-center text-[13px] font-semibold tracking-[-0.01em] text-blackcurrant/65 md:text-left lg:shrink-0 lg:whitespace-nowrap">
+          {/* Text above one row of logos until there's room for both side by side, so a logo never wraps on its own. */}
+          <div className="flex flex-col items-center gap-5 xl:flex-row xl:justify-between xl:gap-8">
+            <p className="text-center text-[13px] font-semibold tracking-[-0.01em] text-blackcurrant/65 xl:shrink-0 xl:text-left xl:whitespace-nowrap">
               We only work with trusted partners and lenders
             </p>
-            <ul className="grid w-full grid-cols-2 items-center justify-items-center gap-x-6 gap-y-5 md:flex md:w-auto md:flex-wrap md:justify-end md:gap-x-7 lg:gap-x-8">
+            <ul className="grid w-full grid-cols-2 items-center justify-items-center gap-x-6 gap-y-5 md:grid-cols-5 md:gap-x-8 xl:flex xl:w-auto xl:justify-end xl:gap-x-7">
               {partners.map((partner) => (
-                <li key={partner.name} className="flex h-8 w-full max-w-[140px] items-center justify-center last:odd:col-span-2 md:h-8 md:w-[132px] md:max-w-none">
+                <li key={partner.name} className="flex h-8 w-full max-w-[140px] items-center justify-center last:odd:col-span-2 md:max-w-[132px] md:last:odd:col-span-1 xl:w-[118px] 2xl:w-[132px]">
                   <img
                     src={partner.logo}
                     alt={partner.name}

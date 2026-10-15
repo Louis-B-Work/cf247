@@ -12,6 +12,8 @@
  * (the cog's "Green" option swaps it, see html[data-green] below).
  */
 @theme {
+  /* Desktop nav bar from here (full menu labels fit); below it the menu button is used. */
+  --breakpoint-nav: 72.5rem;
   --color-purple: #6905f2;
   --color-purple-80: #8737f5;
   --color-purple-60: #a569f7;
@@ -69,8 +71,8 @@
     background: var(--color-lime);
   }
 
-  html[data-cta-color='green'] .cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]),
-  html[data-cta-color='green'] .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
+  html[data-cta-color='green'] .cf-pill-button:is(:hover, :focus-visible, :active, [data-active], [data-attention], [data-pressed]),
+  html[data-cta-color='green'] .group:is(:hover, :focus-visible, :active) .cf-pill-button {
     --btn-chip-text: var(--color-purple);
   }
 
@@ -90,9 +92,12 @@
     background: transparent;
   }
 
-  /* [data-scroll-active] is the touch-screen stand-in for hover: set while the button crosses mid-screen (useScrollHover). */
-  .cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]),
-  .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
+  /*
+   * Hover stand-ins without a pointer: [data-active] (Button's active prop, e.g. once the hero budget has a value),
+   * [data-attention] (one-off play on touch screens) and [data-pressed] (held briefly after a tap). See lib/buttonFeedback.ts.
+   */
+  .cf-pill-button:is(:hover, :focus-visible, :active, [data-active], [data-attention], [data-pressed]),
+  .group:is(:hover, :focus-visible, :active) .cf-pill-button {
     --btn-flood-scale: 1;
     --btn-chip-x: 3px;
     /* Green and white on hover: dark label for legibility, white chip with a green arrow. */
@@ -109,8 +114,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]),
-    .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button {
+    .cf-pill-button:is(:hover, :focus-visible, :active, [data-active], [data-attention], [data-pressed]),
+    .group:is(:hover, :focus-visible, :active) .cf-pill-button {
       transition-delay: 0s;
     }
   }
@@ -171,12 +176,27 @@ html[data-btn='slide'] .cf-pill-button__label {
     padding 0.5s var(--ease-brand),
     color 0.5s var(--ease-brand);
 }
-html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]), .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button) .cf-pill-button__chip {
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-active], [data-attention], [data-pressed]), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__chip {
   right: calc(100% - var(--btn-h) + var(--chip-offset));
 }
-html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-scroll-active]), .group:is(:hover, :focus-visible, :active, [data-scroll-active]) .cf-pill-button) .cf-pill-button__label {
+html[data-btn='slide'] :is(.cf-pill-button:is(:hover, :focus-visible, :active, [data-active], [data-attention], [data-pressed]), .group:is(:hover, :focus-visible, :active) .cf-pill-button) .cf-pill-button__label {
   padding-left: calc(var(--btn-h) - var(--chip-offset) + var(--btn-gap));
   padding-right: var(--btn-pad);
+}
+/*
+ * Touch screens: a tap shows the whole hover change almost at once (flood, chip slide, colours), instead of the
+ * slower desktop sweep, so it is visible before the next page loads. Releasing still eases back at the normal pace.
+ */
+@media (hover: none) {
+  .cf-pill-button:is(:active, [data-pressed]),
+  .group:active .cf-pill-button {
+    transition-duration: 120ms;
+    transition-delay: 0s, 0.1s;
+  }
+  :is(.cf-pill-button:is(:active, [data-pressed]), .group:active .cf-pill-button)
+    :is(.cf-pill-button__flood, .cf-pill-button__chip, .cf-pill-button__arrow, .cf-pill-button__label) {
+    transition-duration: 120ms;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html[data-btn='slide'] :is(.cf-pill-button__chip, .cf-pill-button__arrow, .cf-pill-button__label) {
@@ -225,6 +245,12 @@ html[data-green='green'] {
 }
 
 @layer base {
+  /* Tailwind v4 gives buttons the default arrow cursor; every clickable button here should show the pointer like links do. */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
   :root {
     --focus-ring: var(--color-purple);
     --nav-height: 76px;

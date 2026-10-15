@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useId, useState } from 'react'
+import { useId, useState, type ReactNode } from 'react'
 import { faqCategories as defaultCategories, type Faq as FaqItemData, type FaqCategory } from '../../data/faqs'
 import { cn, siteUrl } from '../../lib/utils'
 import { Button } from '../ui/Button'
 import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
+import { RichText } from '../ui/RichText'
 import { Accent } from '../ui/Smile'
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -14,13 +15,42 @@ function FaqItem({
   open,
   onToggle,
   showMobileDivider,
+  level = 'h4',
 }: {
   item: FaqItemData
   open: boolean
   onToggle: () => void
   showMobileDivider?: boolean
+  level?: 'h3' | 'h4'
 }) {
   const id = useId()
+  const Heading = level
+  const answer = (
+    <div className="space-y-3 px-4 pb-5 text-[15px] leading-relaxed text-blackcurrant/75 md:px-5 md:pb-6">
+      {item.a.map((p) => (
+        <p key={p}>
+          <RichText text={p} />
+        </p>
+      ))}
+      {item.list && (
+        <ul className="space-y-1.5">
+          {item.list.map((li) => (
+            <li key={li} className="flex gap-2.5">
+              <span className="mt-[9px] size-1.5 shrink-0 rounded-full bg-purple" />
+              <span>
+                <RichText text={li} />
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {item.after?.map((p) => (
+        <p key={p}>
+          <RichText text={p} />
+        </p>
+      ))}
+    </div>
+  )
   return (
     <div
       className={cn(
@@ -29,7 +59,7 @@ function FaqItem({
         open && 'md:shadow-[0_20px_40px_-24px_rgba(105,5,242,0.5)] md:ring-2 md:ring-purple',
       )}
     >
-      <h4 className="text-[15px] leading-snug font-semibold tracking-normal md:text-[17px]">
+      <Heading className="text-[15px] leading-snug font-semibold tracking-normal md:text-[17px]">
         <button
           type="button"
           aria-expanded={open}
@@ -47,7 +77,13 @@ function FaqItem({
             <Icon name="plus" className={cn('size-4 transition-transform duration-300', open && 'rotate-45')} />
           </span>
         </button>
-      </h4>
+      </Heading>
+      {/* Closed answers stay in the page (hidden), so search engines can read them, as on the live site. */}
+      {!open && (
+        <div id={id} hidden>
+          {answer}
+        </div>
+      )}
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
@@ -58,21 +94,7 @@ function FaqItem({
             transition={{ duration: 0.35, ease }}
             className="overflow-hidden"
           >
-            <div className="space-y-3 px-4 pb-5 text-[15px] leading-relaxed text-blackcurrant/75 md:px-5 md:pb-6">
-              {item.a.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-              {item.list && (
-                <ul className="space-y-1.5">
-                  {item.list.map((li) => (
-                    <li key={li} className="flex gap-2.5">
-                      <span className="mt-[9px] size-1.5 shrink-0 rounded-full bg-purple" />
-                      {li}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            {answer}
           </motion.div>
         )}
       </AnimatePresence>
@@ -85,6 +107,15 @@ type FaqProps = {
   categories?: FaqCategory[]
   /** Phones only: show one category at a time behind tabs instead of every group stacked. */
   mobileTabs?: boolean
+  /** Replaces the default section heading. */
+  title?: ReactNode
+  /**
+   * Single question set only: render questions as h3 with no (visually hidden) category heading,
+   * so the heading outline can match an existing page.
+   */
+  flat?: boolean
+  /** Show the "Still got a question?" contact box. */
+  contact?: boolean
 }
 
 function questionKey(categoryId: string, index: number) {
@@ -160,19 +191,23 @@ function SingleCategoryQuestions({
   category,
   openKey,
   onToggle,
+  flat = false,
 }: {
   category: FaqCategory
   openKey: string | null
   onToggle: (key: string) => void
+  flat?: boolean
 }) {
   const [leftQuestions, rightQuestions] = splitQuestions(category.items)
 
   return (
     <Reveal>
-      <section aria-labelledby={`faq-${category.id}`}>
-        <h3 id={`faq-${category.id}`} className="sr-only">
-          {category.label}
-        </h3>
+      <section aria-labelledby={flat ? 'faq-title' : `faq-${category.id}`}>
+        {!flat && (
+          <h3 id={`faq-${category.id}`} className="sr-only">
+            {category.label}
+          </h3>
+        )}
         <div className="grid grid-cols-1 overflow-hidden rounded-brand bg-white ring-1 ring-purple-10 md:overflow-visible md:bg-transparent md:ring-0 lg:grid-cols-2 lg:items-start lg:gap-3">
           {[leftQuestions, rightQuestions].map((items, columnIndex) => {
             const offset = columnIndex === 0 ? 0 : leftQuestions.length
@@ -188,6 +223,7 @@ function SingleCategoryQuestions({
                       open={openKey === key}
                       onToggle={() => onToggle(key)}
                       showMobileDivider={itemIndex < category.items.length - 1}
+                      level={flat ? 'h3' : 'h4'}
                     />
                   )
                 })}
@@ -272,7 +308,13 @@ function MobileFaqTabs({
   )
 }
 
-export function Faq({ categories: faqCategories = defaultCategories, mobileTabs = false }: FaqProps = {}) {
+export function Faq({
+  categories: faqCategories = defaultCategories,
+  mobileTabs = false,
+  title,
+  flat = false,
+  contact = true,
+}: FaqProps = {}) {
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [leftCategories, rightCategories] = splitCategoriesByQuestionCount(faqCategories)
   const singleCategory = faqCategories.length === 1 ? faqCategories[0] : null
@@ -288,7 +330,11 @@ export function Faq({ categories: faqCategories = defaultCategories, mobileTabs 
         <div className="flex flex-col gap-7 md:gap-10">
           <Reveal>
             <h2 id="faq-title" className="text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[var(--leading-title)] font-medium">
-              Frequently asked <Accent>questions</Accent>
+              {title ?? (
+                <>
+                  Frequently asked <Accent>questions</Accent>
+                </>
+              )}
             </h2>
           </Reveal>
         </div>
@@ -296,7 +342,7 @@ export function Faq({ categories: faqCategories = defaultCategories, mobileTabs 
         <div className="mt-7 md:mt-8">
           {tabs && <MobileFaqTabs categories={faqCategories} openKey={openKey} onToggle={toggleItem} />}
           {singleCategory ? (
-            <SingleCategoryQuestions category={singleCategory} openKey={openKey} onToggle={toggleItem} />
+            <SingleCategoryQuestions category={singleCategory} openKey={openKey} onToggle={toggleItem} flat={flat} />
           ) : (
             <div className={cn('grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start lg:gap-8', tabs && 'max-md:hidden')}>
               {[leftCategories, rightCategories].map((column, columnIndex) => (
@@ -310,11 +356,12 @@ export function Faq({ categories: faqCategories = defaultCategories, mobileTabs 
           )}
         </div>
 
+        {contact && (
         <Reveal>
           <div className="mt-6 flex flex-col gap-4 rounded-brand bg-white p-5 ring-1 ring-purple-10 sm:flex-row sm:items-center sm:justify-between md:p-6 lg:mt-8">
             <div>
               <p className="font-display text-xl leading-tight font-semibold text-blackcurrant md:text-2xl">Still got a question?</p>
-              <p className="mt-1.5 text-sm leading-relaxed text-blackcurrant/70 md:text-base">
+              <p className="mt-1.5 text-base leading-relaxed text-blackcurrant/70">
                 Get in touch and our team will be happy to help.
               </p>
             </div>
@@ -323,6 +370,7 @@ export function Faq({ categories: faqCategories = defaultCategories, mobileTabs 
             </Button>
           </div>
         </Reveal>
+        )}
       </div>
     </section>
   )

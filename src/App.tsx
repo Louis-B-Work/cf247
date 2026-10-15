@@ -1,7 +1,10 @@
 import { MotionConfig } from 'motion/react'
+import { useEffect } from 'react'
 import { FontSwitcher } from './components/layout/FontSwitcher'
 import { Footer } from './components/layout/Footer'
 import { Nav } from './components/layout/Nav'
+import { LiveFooter } from './components/live/LiveFooter'
+import { LiveHome } from './components/live/LiveHome'
 import { ModernHome } from './components/modern/ModernHome'
 import { Faq } from './components/sections/Faq'
 import { FinalCta } from './components/sections/FinalCta'
@@ -15,12 +18,37 @@ import { Situations } from './components/sections/Situations'
 import { Statement } from './components/sections/Statement'
 import { Steps } from './components/sections/Steps'
 import { Values } from './components/sections/Values'
-import { useScrollHover } from './lib/useScrollHover'
+import { liveMobileMenuLinks, liveNavItems, livePage } from './data/liveHome'
 import { useTestOption } from './lib/useTestOption'
+
+/** While the live-content option is on, the page title and meta description match the live homepage too. */
+function usePageMeta(live: boolean) {
+  useEffect(() => {
+    if (!live) return
+    const title = document.title
+    let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+    const created = !meta
+    if (!meta) {
+      meta = document.createElement('meta')
+      meta.name = 'description'
+      document.head.append(meta)
+    }
+    const description = meta.content
+    document.title = livePage.title
+    meta.content = livePage.description
+    return () => {
+      document.title = title
+      if (created) meta.remove()
+      else meta.content = description
+    }
+  }, [live])
+}
 
 export default function App() {
   const modern = useTestOption('design') === 'modern'
-  useScrollHover()
+  // Settings cog "Homepage content: Exact replica": the live homepage's content and order in the new design.
+  const live = useTestOption('content') === 'live'
+  usePageMeta(live)
 
   return (
     <MotionConfig reducedMotion="user">
@@ -30,9 +58,11 @@ export default function App() {
       >
         Skip to content
       </a>
-      <Nav />
+      {live ? <Nav items={liveNavItems} mobileLinks={liveMobileMenuLinks} parity /> : <Nav />}
       <main id="main">
-        {modern ? (
+        {live ? (
+          <LiveHome />
+        ) : modern ? (
           <ModernHome />
         ) : (
           <>
@@ -51,7 +81,7 @@ export default function App() {
           </>
         )}
       </main>
-      <Footer />
+      {live ? <LiveFooter /> : <Footer />}
       <FontSwitcher />
     </MotionConfig>
   )

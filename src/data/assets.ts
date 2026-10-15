@@ -10,19 +10,19 @@ export const heroCar = {
 export const steps = [
   {
     title: 'Quote',
-    body: 'Answer a few quick questions and see your personalised quote in minutes.',
+    body: 'Answer a few quick questions to get your quote.',
     image: dA('08e67e350c/Homepage_HIW_01.png/100vw/webp_q'),
     alt: 'Woman smiling at her phone as her quote arrives',
   },
   {
     title: 'Buy',
-    body: 'Browse 100,000+ cars in our members area and we help you agree the deal.',
+    body: 'Choose from 100,000+ cars and we’ll help agree the deal.',
     image: dA('c44b635c16/HIW_02_New.png/100vw/webp_q'),
     alt: 'Hand holding a phone showing car search results',
   },
   {
     title: 'Drive away',
-    body: 'We sort the paperwork with the dealer and lender. You just turn up and drive away.',
+    body: 'We sort the paperwork. You just drive away.',
     image: dA('4e321dbed1/HIW_03_New.png/100vw/webp_q'),
     alt: 'Family running towards their new car',
   },

@@ -79,7 +79,7 @@ function ReviewTile({ review, tone, size = 'sm', className }: { review: Review; 
       <blockquote
         className={cn(
           'mt-3 font-display leading-snug font-semibold tracking-[-0.01em]',
-          size === 'lg' ? 'text-[clamp(1.05rem,1.45vw,1.3rem)]' : 'text-[15px] font-medium',
+          size === 'lg' ? 'text-[clamp(1.05rem,1.45vw,1.3rem)]' : 'text-base font-medium',
           dark ? 'text-white' : 'text-blackcurrant',
         )}
       >
@@ -114,7 +114,7 @@ function VideoTile({ video, compact = false, className }: { video: VideoReview; 
         <Icon name="play" className={cn('ml-1', compact ? 'size-5' : 'size-7')} />
       </span>
       <div className={cn('absolute inset-x-0 bottom-0', compact ? 'p-3 sm:p-4' : 'p-5 sm:p-6')}>
-        <p className={cn('font-display leading-snug font-semibold', compact ? 'text-[13px] sm:text-[15px]' : 'text-[clamp(1.05rem,1.45vw,1.3rem)]')}>{`\u201c${video.quote}\u201d`}</p>
+        <p className={cn('font-display leading-snug font-semibold', compact ? 'text-base' : 'text-[clamp(1.05rem,1.45vw,1.3rem)]')}>{`\u201c${video.quote}\u201d`}</p>
         <p className={cn('leading-snug', compact ? 'mt-2 text-xs' : 'mt-4 text-sm')}>
           <strong className="block font-display text-white">{video.name}</strong>
           <span className="text-white/80">{video.detail}</span>

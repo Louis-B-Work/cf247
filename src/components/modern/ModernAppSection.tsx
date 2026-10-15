@@ -18,10 +18,7 @@ export function ModernAppSection() {
                 Your car journey, in your <span className="whitespace-nowrap"><Accent>po</Accent>cket</span>
               </ModernHeading>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-                Keep your finance journey close at hand and explore cars that fit your budget in the CF247 members area.
-              </p>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/65">
-                Already bought with CF247? Download the app to keep your finance details close at hand. We’re working to open up the members area to people still looking for their next car.
+                Already bought with CF247? Manage your finance in the app.
               </p>
 
               <div className="mt-6">

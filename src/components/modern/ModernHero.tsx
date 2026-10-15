@@ -21,8 +21,11 @@ function Line({ children, delay }: { children: ReactNode; delay: number }) {
 
 const MAX_BUDGET = 5000
 
-/** The old homepage's best-converting entry point: a monthly budget passed to the apply form. Empty or invalid input still goes to the form. */
-function BudgetForm() {
+/**
+ * The old homepage's best-converting entry point: a monthly budget passed to the apply form. Empty or invalid input still goes to the form.
+ * `hint` adds a screen-reader description; the live-content (SEO) homepage leaves it out to match the live text exactly.
+ */
+export function BudgetForm({ hint = true }: { hint?: boolean } = {}) {
   const [budget, setBudget] = useState('')
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -49,14 +52,16 @@ function BudgetForm() {
           placeholder="250"
           value={budget}
           onChange={(event) => setBudget(event.target.value.replace(/\D/g, ''))}
-          aria-describedby="hero-budget-hint"
+          aria-describedby={hint ? 'hero-budget-hint' : undefined}
           className="h-full min-w-0 flex-1 bg-transparent pr-6 text-center font-display text-2xl font-semibold outline-none placeholder:text-blackcurrant/30"
         />
       </div>
-      <span id="hero-budget-hint" className="sr-only">
-        Amount in pounds per month. Optional.
-      </span>
-      <Button type="submit" variant="reverse" size="2xl" fullWidth className="justify-center">
+      {hint && (
+        <span id="hero-budget-hint" className="sr-only">
+          Amount in pounds per month. Optional.
+        </span>
+      )}
+      <Button type="submit" variant="reverse" size="2xl" fullWidth active={budget !== ''} attention attentionDelay={1400} className="justify-center">
         Get my quote
       </Button>
     </form>
@@ -67,11 +72,6 @@ function BudgetForm() {
 export function ModernHero() {
   return (
     <section id="top" className="on-dark relative isolate flex min-h-[min(820px,100svh)] flex-col overflow-hidden bg-purple pt-[var(--nav-height)]">
-      <div aria-hidden className="absolute inset-0 -z-10">
-        <div className="absolute top-[-12%] left-1/2 aspect-square w-[min(100vw,1050px)] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(165,105,247,0.48),rgba(105,5,242,0))]" />
-        <div className="absolute right-0 bottom-0 left-0 h-[36%] bg-[linear-gradient(to_bottom,transparent,rgba(22,1,50,0.2))]" />
-      </div>
-
       <motion.img
         src={heroCar.src}
         alt={heroCar.alt}
@@ -95,12 +95,9 @@ export function ModernHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease, delay: 0.45 }}
-          className="mt-5 flex max-w-2xl flex-col gap-1.5 text-center"
+          className="mt-5 max-w-2xl text-balance text-center text-base leading-relaxed font-medium text-white sm:text-xl 2xl:text-[22px]"
         >
-          <span className="text-balance text-base leading-relaxed font-medium text-white sm:text-xl 2xl:text-[22px]">
-            Looking to finance or refinance your car? We’ll help you find an option that fits.
-          </span>
-          <span className="text-sm leading-relaxed text-white/80 sm:text-base">Get a decision in minutes.</span>
+          Find car finance that fits your budget.
         </motion.p>
 
         <motion.div
