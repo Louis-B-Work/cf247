@@ -6,6 +6,9 @@ import { CogIntro } from './CogIntro'
 const fonts = [
   { id: 'neulis-neue', label: 'Neulis Neue', family: "'neulis-neue', sans-serif" },
   { id: 'neulis-sans', label: 'Neulis Sans', family: "'neulis-sans', sans-serif" },
+  // Trials close to Monzo / Auto Trader's heavy display grotesques.
+  { id: 'inter-display', label: 'Inter Display', family: "'Inter', sans-serif" },
+  { id: 'neue-haas', label: 'Neue Haas Grotesk Display', family: "'neue-haas-grotesk-display', sans-serif" },
 ] as const
 
 type FontId = (typeof fonts)[number]['id']
@@ -132,8 +135,36 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   // Fetch every option up front so switching is instant and the labels never show a fallback.
   useEffect(() => {
     for (const f of fonts) {
-      for (const style of ['500', '600', 'italic 500', 'italic 600']) void document.fonts.load(`${style} 16px ${f.family}`)
+      for (const style of ['500', '600', '800', 'italic 500', 'italic 600']) void document.fonts.load(`${style} 16px ${f.family}`)
     }
+  }, [])
+
+  // Fonts that only work once added to the Adobe Fonts kit: once the kit's stylesheet has loaded, flag any with no faces.
+  const [missing, setMissing] = useState<FontId[]>([])
+  useEffect(() => {
+    const kitFonts: FontId[] = ['neue-haas']
+    const check = async () => {
+      const results = await Promise.all(
+        kitFonts.map(async (id) => {
+          const family = fonts.find((f) => f.id === id)!.family
+          const faces = await document.fonts.load(`600 16px ${family}`)
+          return faces.length ? null : id
+        }),
+      )
+      setMissing(results.filter((id): id is FontId => id !== null))
+    }
+    const root = document.documentElement
+    if (root.classList.contains('has-neulis')) {
+      void check()
+      return
+    }
+    const observer = new MutationObserver(() => {
+      if (!root.classList.contains('has-neulis')) return
+      observer.disconnect()
+      void check()
+    })
+    observer.observe(root, { attributes: true, attributeFilter: ['class'] })
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -195,7 +226,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: 'bottom left' }}
-            className="absolute bottom-[calc(100%+10px)] left-0 w-64 rounded-brand bg-blackcurrant/95 p-2 text-white shadow-[0_20px_50px_-15px_rgba(22,1,50,0.7)] ring-1 ring-white/10 backdrop-blur-md"
+            className="absolute bottom-[calc(100%+10px)] left-0 max-h-[calc(100svh-6rem)] w-64 overflow-y-auto overscroll-contain rounded-brand bg-blackcurrant/95 p-2 text-white shadow-[0_20px_50px_-15px_rgba(22,1,50,0.7)] ring-1 ring-white/10 backdrop-blur-md"
           >
             <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Page</p>
             <nav aria-label="Mockup pages" className="mb-2 grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
@@ -245,7 +276,12 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
                         className="absolute inset-0 rounded-inner bg-lime"
                       />
                     )}
-                    <span className="relative">{f.label}</span>
+                    <span className="relative">
+                      {f.label}
+                      {missing.includes(f.id) && (
+                        <span className="block font-sans text-[11px] leading-tight font-medium opacity-70">Add to the Adobe Fonts kit to preview</span>
+                      )}
+                    </span>
                     <span className="relative text-sm font-medium opacity-70">Aa</span>
                   </button>
                 )

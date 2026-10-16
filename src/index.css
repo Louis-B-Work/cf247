@@ -5,6 +5,8 @@
 @custom-variant hero-bleed (&:where(html[data-hero='bleed'] *));
 @custom-variant hero-big (&:where(html[data-hero='big'] *));
 @custom-variant design-modern (&:where(html[data-design='modern'] *));
+/* Heading font trial "Neue Haas Grotesk Display": a wider, heavier face, so hero titles are set smaller. */
+@custom-variant neue-haas (&:where(html[data-heading-font='neue-haas'] *));
 
 /*
  * Brand tokens from CF247 Guidelines (2026 draft).
@@ -147,6 +149,24 @@
 }
 
 /*
+ * Titles: as heavy as the Neulis font kit allows, for a bolder, Monzo-like heading weight. The kit currently has
+ * Regular (400) and Semibold (600), so titles render Semibold; add Bold/Extra Bold to the Adobe kit and they'll be
+ * picked up automatically. Faux bold is off so the browser never thickens the letters artificially.
+ * Line height follows Monzo's titles too (44.1px on 36px, a 1.225 ratio), so it scales with every title size.
+ * Unlayered so it beats the `font-medium` and `leading-*` utilities on headings. Button labels keep their own
+ * styles, and big figures (`leading-none`, such as the Trustpilot score) keep their tight line height.
+ */
+:is(h1, h2, h3, h4).font-medium,
+.font-display.font-medium:not(.cf-pill-button) {
+  font-weight: 800;
+  font-synthesis-weight: none;
+}
+:is(h1, h2, h3, h4).font-medium:not(.leading-none),
+.font-display.font-medium:not(.cf-pill-button, .leading-none) {
+  line-height: var(--leading-title);
+}
+
+/*
  * Test option "No arrow" from the settings cog: text only, with even padding on both sides.
  * Unlayered so it beats the chip's `grid` utility.
  */
@@ -258,7 +278,7 @@ html[data-green='green'] {
      * Title line spacing: tight, but always clear of collisions between descenders (g, j, p, y)
      * and ascenders (h, d, l, f) on the next line. Each font gets its own value below.
      */
-    --leading-title: 1.1;
+    --leading-title: 1.225;
     /*
      * One page edge shared by the nav and every section, so the logo and all content line up on both sides.
      * Very wide screens cap the content at 1680px, centred.
@@ -293,6 +313,23 @@ html[data-green='green'] {
   html[data-heading-font='neulis-sans'] {
     --font-display: 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --font-accent: 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
+  }
+
+  /* Trial: Inter Display (free, Google Fonts; the display cut is Inter's largest optical size). */
+  html[data-heading-font='inter-display'] {
+    --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
+  }
+  html[data-heading-font='inter-display'] :is(h1, h2, h3, h4, .font-display, .font-accent) {
+    font-variation-settings: 'opsz' 32;
+  }
+
+  /* Trial: Neue Haas Grotesk Display (Adobe Fonts; shows once it's added to the kit). */
+  html[data-heading-font='neue-haas'] {
+    --font-display: 'neue-haas-grotesk-display', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'neue-haas-grotesk-display', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --accent-style: normal;
   }
 

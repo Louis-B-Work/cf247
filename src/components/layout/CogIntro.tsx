@@ -12,7 +12,11 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
     body: 'Redesign shows the proposed copy and layout. Exact replica shows the live site’s content, word for word and in the same order, in the new design.',
     pages: ['home'],
   },
-  { title: 'Heading font', body: 'Compare Neulis Sans and Neulis Neue.', pages: ['home', 'landing'] },
+  {
+    title: 'Heading font',
+    body: 'Compare Neulis Sans and Neulis Neue with two bolder trials close to Monzo’s headings: Inter Display and Neue Haas Grotesk Display.',
+    pages: ['home', 'landing'],
+  },
   { title: 'Neulis Cursive accents', body: 'Trial the cursive letters used for emphasis in some headings.', pages: ['home', 'landing'] },
 ]
 

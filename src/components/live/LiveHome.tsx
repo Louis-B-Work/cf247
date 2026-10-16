@@ -71,7 +71,7 @@ function LiveHero() {
   return (
     <section id="top" className="on-dark relative isolate flex min-h-[min(820px,100svh)] flex-col overflow-hidden bg-purple pt-[var(--nav-height)]">
       <div className="container-xl relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-5 pt-10 pb-[150px] text-center sm:translate-y-8 sm:pt-[clamp(4rem,10vh,8rem)] sm:pb-[clamp(190px,32vh,310px)]">
-        <h1 className="max-w-5xl text-[clamp(2.5rem,13vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-white sm:text-[clamp(1.5rem,7.2vw,6.25rem)] sm:whitespace-nowrap">
+        <h1 className="text-[clamp(2.5rem,13vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-white sm:text-[clamp(1.5rem,7.2vw,6.25rem)] sm:whitespace-nowrap neue-haas:text-[clamp(2.125rem,11vw,3.25rem)] neue-haas:sm:text-[clamp(1.25rem,6.1vw,5.25rem)]">
           Car Finance Made <Accent className="text-white">Easy</Accent>
         </h1>
 
@@ -243,13 +243,13 @@ function Partners() {
   return (
     <section aria-labelledby="partners-title" className="bg-white pt-12 pb-8 lg:pt-16">
       <div className="container-cf">
-        <div className={cn('flex flex-col items-center gap-6 bg-purple-10 p-6 ring-1 ring-purple/10 md:flex-row md:justify-between md:gap-8', panel)}>
-          <h2 id="partners-title" className="text-center font-display text-lg font-semibold text-blackcurrant md:text-left lg:shrink-0">
+        <div className={cn('flex flex-col items-center gap-6 bg-purple-10 p-6 ring-1 ring-purple/10 xl:flex-row xl:justify-between xl:gap-8', panel)}>
+          <h2 id="partners-title" className="text-center font-display text-lg font-semibold text-blackcurrant xl:shrink-0 xl:text-left">
             {livePartners.title}
           </h2>
-          <ul className="grid w-full grid-cols-2 items-center justify-items-center gap-x-6 gap-y-5 md:flex md:w-auto md:gap-x-8">
+          <ul className="grid w-full grid-cols-2 items-center justify-items-center gap-x-6 gap-y-5 md:grid-cols-4 md:gap-x-8 xl:flex xl:w-auto">
             {livePartners.logos.map((p) => (
-              <li key={p.name} className="flex h-8 w-full max-w-[140px] items-center justify-center md:w-[132px]">
+              <li key={p.name} className="flex h-8 w-full max-w-[140px] items-center justify-center xl:w-[132px]">
                 <img src={p.logo} alt={p.name} loading="lazy" className="h-full w-full object-contain" />
               </li>
             ))}
@@ -284,7 +284,7 @@ function Situations() {
                 <img src={card.image} alt={card.alt} loading="lazy" className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="flex flex-1 flex-col px-2 pt-5 pb-2">
-                <p className={cn('text-[clamp(1.5rem,2.2vw,2rem)] leading-[1.02] font-medium tracking-[-0.03em]', i === 1 ? 'text-white' : 'text-purple')}>{card.title}</p>
+                <p className={cn('font-display text-[clamp(1.5rem,2.2vw,2rem)] leading-[1.02] font-medium tracking-[-0.03em]', i === 1 ? 'text-white' : 'text-purple')}>{card.title}</p>
                 <p className={cn('mt-2.5 text-base leading-relaxed', i === 1 ? 'text-white/80' : 'text-blackcurrant/70')}>{card.body}</p>
                 <div className="mt-auto pt-5">
                   <Button asSpan variant={i === 1 ? 'reverse' : 'light'} size="md">

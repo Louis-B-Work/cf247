@@ -59,7 +59,7 @@ export function LiveFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container-xl flex flex-col gap-8 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-xl flex flex-col gap-8 py-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
             <h3 className="font-display text-base font-semibold">{liveFooter.appTitle}</h3>
             <ul className="grid grid-cols-2 gap-2.5 sm:flex sm:gap-3">

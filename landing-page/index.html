@@ -17,7 +17,7 @@
           localStorage.setItem('cf247-preset', 'sans-redesign')
         }
         var saved = localStorage.getItem('cf247-heading-font')
-        document.documentElement.dataset.headingFont = ['neulis-neue', 'neulis-sans'].indexOf(saved) > -1 ? saved : 'neulis-sans'
+        document.documentElement.dataset.headingFont = ['neulis-neue', 'neulis-sans', 'inter-display', 'neue-haas'].indexOf(saved) > -1 ? saved : 'neulis-sans'
         // CTAs are always green (the cog's CTA colour option has been removed).
         document.documentElement.dataset.ctaColor = 'green'
         document.documentElement.dataset.cursive = localStorage.getItem('cf247-cursive') === 'on' ? 'on' : 'off'
@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300..800;1,500..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Urbanist:ital,wght@0,300..800;1,500..800&display=swap"
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://cdn.imagin.studio" />

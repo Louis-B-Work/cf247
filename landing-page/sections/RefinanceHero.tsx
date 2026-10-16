@@ -83,7 +83,7 @@ export function RefinanceHero() {
 
       <div className="container-wide relative grid grid-cols-1 gap-10 pt-[clamp(24px,4svh,40px)] pb-14 lg:grid-cols-12 lg:pt-12 lg:pb-20">
         <div className="lg:col-span-7">
-          <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em] sm:text-[clamp(3.5rem,5.6vw,5.5rem)]">
+          <h1 className="text-[clamp(3rem,13.5vw,3.75rem)] leading-[calc(var(--leading-title)-0.12)] font-medium tracking-[-0.035em] sm:text-[clamp(3.5rem,5.6vw,5.5rem)] neue-haas:text-[clamp(2.5rem,11.5vw,3.25rem)] neue-haas:sm:text-[clamp(3rem,4.75vw,4.75rem)]">
             <Line delay={0.1}>Refinance</Line>{' '}
             <Line delay={0.22}>
               Car <EndSmile tone="white" size={0.62} delay={1}><Accent>Loan</Accent></EndSmile>
