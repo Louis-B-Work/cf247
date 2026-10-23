@@ -517,10 +517,15 @@ html[data-green='green'] {
     --accent-style: normal;
   }
 
-  /* Option: Overused Grotesk (open source, SIL OFL; served locally from public/fonts/overused-grotesk). Falls back to Aeonik. */
+  /*
+   * Option: Overused Grotesk (open source, SIL OFL; served locally from public/fonts/overused-grotesk). Falls back to Aeonik.
+   * The cog's Font option sets every kind of text (headings, accents and body), so the A/B test compares one font site-wide.
+   * (The attribute and storage key are still named "heading-font" from when it only changed headings.)
+   */
   html[data-heading-font='overused-grotesk'] {
     --font-display: 'Overused Grotesk', 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --font-accent: 'Overused Grotesk', 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Overused Grotesk', 'Aeonik', 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
     --accent-style: normal;
   }
 

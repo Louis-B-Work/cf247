@@ -13,8 +13,8 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
     pages: ['home'],
   },
   {
-    title: 'Heading font',
-    body: 'Body text is Aeonik. Compare Aeonik with Overused Grotesk for the headings.',
+    title: 'Font',
+    body: 'Compare Aeonik with Overused Grotesk. The chosen font is used for all text on the page, headings and body alike.',
     pages: ['home', 'landing'],
   },
   {

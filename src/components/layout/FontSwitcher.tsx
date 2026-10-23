@@ -64,10 +64,11 @@ const toggles = [
     ],
   },
   {
-    // Body text is always Aeonik; this only swaps the headings.
+    // One font for all text (headings, accents and body), so the A/B test compares like with like.
+    // The attribute and storage key keep their old "heading font" names.
     key: 'cf247-heading-font',
     attr: 'headingFont',
-    label: 'Heading font',
+    label: 'Font',
     pages: ['home', 'landing'],
     defaultId: 'aeonik',
     options: [
