@@ -8,6 +8,55 @@
 /* Heading font trial "Neue Haas Grotesk Display": a wider, heavier face, so hero titles are set smaller. */
 @custom-variant neue-haas (&:where(html[data-heading-font='neue-haas'] *));
 
+/*
+ * Option: Overused Grotesk (open source, SIL OFL 1.1, github.com/RandomMaerks/Overused-Grotesk). One variable file covers weights 300 to 900.
+ * size-adjust keeps the Aeonik / Overused Grotesk test fair. Font sizes in the CSS are identical for both fonts, but at the same
+ * size Overused Grotesk sets about 3-5% narrower than Aeonik (cap height 65 vs 70 per 100px, x-height 50 vs 51), and it widens
+ * faster as the weight rises. Each weight range below scales it so the hero heading is within about 1% of Aeonik's width at the
+ * same weight (measured at 300, 400, 500, 600, 700 and 900), so lines break the same, with x-height and cap height balanced
+ * either side. Re-measure if the heading font, weights or text change.
+ */
+@font-face {
+  font-family: 'Overused Grotesk';
+  src: url('/fonts/overused-grotesk/OverusedGrotesk-VF.woff2') format('woff2');
+  font-weight: 300 399;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 106.5%;
+}
+@font-face {
+  font-family: 'Overused Grotesk';
+  src: url('/fonts/overused-grotesk/OverusedGrotesk-VF.woff2') format('woff2');
+  font-weight: 400 549;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 105%;
+}
+@font-face {
+  font-family: 'Overused Grotesk';
+  src: url('/fonts/overused-grotesk/OverusedGrotesk-VF.woff2') format('woff2');
+  font-weight: 550 649;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 104.3%;
+}
+@font-face {
+  font-family: 'Overused Grotesk';
+  src: url('/fonts/overused-grotesk/OverusedGrotesk-VF.woff2') format('woff2');
+  font-weight: 650 799;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 103.1%;
+}
+@font-face {
+  font-family: 'Overused Grotesk';
+  src: url('/fonts/overused-grotesk/OverusedGrotesk-VF.woff2') format('woff2');
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 101.2%;
+}
+
 /* Trial: Aeonik (CoType Foundry trial fonts, evaluation only; files live in public/fonts/aeonik and are committed and deployed at the owner's request despite that, see the README). */
 @font-face {
   font-family: 'Aeonik';
@@ -279,9 +328,9 @@
 .font-display.font-medium:not(.cf-pill-button, .leading-none) {
   line-height: var(--leading-title);
 }
-/* Aeonik has no 800: the 800 title weight would jump to Black (900), so titles use the cog's "Aeonik heading weight" (Bold by default). */
-html[data-heading-font='aeonik'] :is(h1, h2, h3, h4).font-medium,
-html[data-heading-font='aeonik'] .font-display.font-medium:not(.cf-pill-button) {
+/* Aeonik has no 800: the 800 title weight would jump to Black (900), so titles use the cog's heading weight (700 by default). Overused Grotesk follows the same option. */
+html:is([data-heading-font='aeonik'], [data-heading-font='overused-grotesk']) :is(h1, h2, h3, h4).font-medium,
+html:is([data-heading-font='aeonik'], [data-heading-font='overused-grotesk']) .font-display.font-medium:not(.cf-pill-button) {
   font-weight: var(--heading-weight, 700);
 }
 /*
@@ -289,8 +338,8 @@ html[data-heading-font='aeonik'] .font-display.font-medium:not(.cf-pill-button) 
  * so that squashes the letters together; use the cog's "Heading letter-spacing" instead (natural spacing by default).
  * Unlayered so it beats the `tracking-*` utilities.
  */
-html[data-heading-font='aeonik'] :is(h1, h2, h3, h4),
-html[data-heading-font='aeonik'] .font-display:not(.cf-pill-button) {
+html:is([data-heading-font='aeonik'], [data-heading-font='overused-grotesk']) :is(h1, h2, h3, h4),
+html:is([data-heading-font='aeonik'], [data-heading-font='overused-grotesk']) .font-display:not(.cf-pill-button) {
   letter-spacing: var(--heading-tracking, 0em);
 }
 
@@ -465,6 +514,13 @@ html[data-green='green'] {
   html[data-heading-font='aeonik'] {
     --font-display: 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --font-accent: 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
+  }
+
+  /* Option: Overused Grotesk (open source, SIL OFL; served locally from public/fonts/overused-grotesk). Falls back to Aeonik. */
+  html[data-heading-font='overused-grotesk'] {
+    --font-display: 'Overused Grotesk', 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'Overused Grotesk', 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --accent-style: normal;
   }
 

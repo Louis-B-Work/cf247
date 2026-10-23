@@ -3,12 +3,9 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '../../lib/utils'
 import { CogIntro } from './CogIntro'
 
-// The site is set in CoType Foundry's Aeonik (trial, loaded locally from public/fonts/aeonik).
-const HEADING_FONT = 'aeonik'
-
 /**
  * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered`, `hero-bleed`,
- * and `hero-big` Tailwind variants, and the `html[data-btn]`, `html[data-green]`, `html[data-weight]`, and `html[data-tracking]` rules, in index.css) and is saved, so it survives reloads.
+ * and `hero-big` Tailwind variants, and the `html[data-btn]`, `html[data-green]`, `html[data-heading-font]`, `html[data-weight]`, and `html[data-tracking]` rules, in index.css) and is saved, so it survives reloads.
  * `pages` lists where each option applies.
  */
 const toggles = [
@@ -67,9 +64,22 @@ const toggles = [
     ],
   },
   {
+    // Body text is always Aeonik; this only swaps the headings.
+    key: 'cf247-heading-font',
+    attr: 'headingFont',
+    label: 'Heading font',
+    pages: ['home', 'landing'],
+    defaultId: 'aeonik',
+    options: [
+      { id: 'aeonik', label: 'Aeonik' },
+      { id: 'overused-grotesk', label: 'Overused Grotesk' },
+    ],
+  },
+  {
     key: 'cf247-weight',
     attr: 'weight',
-    label: 'Aeonik heading weight',
+    // Shown as "<font> heading weight" (see labelOf).
+    label: 'Heading weight',
     pages: ['home', 'landing'],
     defaultId: '700',
     options: [
@@ -128,18 +138,16 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   const panelId = useId()
 
   useEffect(() => {
-    document.documentElement.dataset.headingFont = HEADING_FONT
-  }, [])
-
-  useEffect(() => {
     for (const t of togglesFor(page)) {
       document.documentElement.dataset[t.attr] = opts[t.key]
       localStorage.setItem(t.key, opts[t.key])
     }
   }, [opts, page])
-  // Fetch every weight up front so switching is instant.
+  // Fetch every weight of both heading fonts up front so switching is instant.
   useEffect(() => {
-    for (const weight of ['300', '400', '500', '600', '700', '900']) void document.fonts.load(`${weight} 16px 'Aeonik'`)
+    for (const family of ["'Aeonik'", "'Overused Grotesk'"]) {
+      for (const weight of ['300', '400', '500', '600', '700', '900']) void document.fonts.load(`${weight} 16px ${family}`)
+    }
   }, [])
 
   useEffect(() => {
@@ -158,10 +166,14 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
     }
   }, [open])
 
+  // The weight group names the heading font it applies to, so it's always clear which one is being adjusted.
+  const headingFont = toggles.find((t) => t.attr === 'headingFont')!.options.find((o) => o.id === opts['cf247-heading-font'])!.label
+  const labelOf = (t: (typeof toggles)[number]) => (t.attr === 'weight' ? `${headingFont} heading weight` : t.label)
+
   const toggleGroup = (t: (typeof toggles)[number]) => (
     <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
-      <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-      <div role="radiogroup" aria-label={t.label} className={cn('grid gap-1 rounded-inner bg-white/5 p-1', gridCols[t.options.length])}>
+      <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{labelOf(t)}</p>
+      <div role="radiogroup" aria-label={labelOf(t)} className={cn('grid gap-1 rounded-inner bg-white/5 p-1', gridCols[t.options.length])}>
         {t.options.map((o) => {
           const selected = opts[t.key] === o.id
           return (
@@ -228,7 +240,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
               .map(toggleGroup)}
 
             {togglesFor(page)
-              .filter((t) => t.attr === 'weight' || t.attr === 'tracking')
+              .filter((t) => t.attr === 'headingFont' || t.attr === 'weight' || t.attr === 'tracking')
               .map(toggleGroup)}
 
           </motion.div>

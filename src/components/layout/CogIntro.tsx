@@ -13,8 +13,13 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
     pages: ['home'],
   },
   {
-    title: 'Aeonik heading weight',
-    body: 'The whole site is set in Aeonik. Compare heading weights from 300 to 900 for how chunky they feel; paragraph text is unaffected.',
+    title: 'Heading font',
+    body: 'Body text is Aeonik. Compare Aeonik with Overused Grotesk for the headings.',
+    pages: ['home', 'landing'],
+  },
+  {
+    title: 'Heading weight',
+    body: 'Compare heading weights from 300 to 900 for how chunky they feel, in whichever heading font is chosen; paragraph text is unaffected.',
     pages: ['home', 'landing'],
   },
   {

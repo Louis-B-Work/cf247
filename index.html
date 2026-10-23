@@ -14,8 +14,9 @@
           localStorage.setItem('cf247-content', 'redesign')
           localStorage.setItem('cf247-preset', 'aeonik-redesign')
         }
-        // The mockup is exploring Aeonik only, so the heading font is fixed and the cursive accents are always off.
-        document.documentElement.dataset.headingFont = 'aeonik'
+        // Headings are Aeonik or Overused Grotesk (the cog's Heading font); body text is always Aeonik and the cursive accents are always off.
+        var headingFont = localStorage.getItem('cf247-heading-font')
+        document.documentElement.dataset.headingFont = headingFont === 'overused-grotesk' ? headingFont : 'aeonik'
         document.documentElement.dataset.cursive = 'off'
         var weight = localStorage.getItem('cf247-weight')
         document.documentElement.dataset.weight = ['300', '400', '500', '600', '900'].indexOf(weight) > -1 ? weight : '700'
