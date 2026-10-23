@@ -25,6 +25,3 @@ dist-ssr
 
 .env
 .env.local
-
-# CoType Aeonik trial fonts: licensed for evaluation only, so not committed or deployed
-public/fonts/aeonik

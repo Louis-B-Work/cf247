@@ -8,7 +8,7 @@
 /* Heading font trial "Neue Haas Grotesk Display": a wider, heavier face, so hero titles are set smaller. */
 @custom-variant neue-haas (&:where(html[data-heading-font='neue-haas'] *));
 
-/* Trial: Aeonik (CoType Foundry trial fonts, evaluation only; files live in public/fonts/aeonik, which is gitignored). */
+/* Trial: Aeonik (CoType Foundry trial fonts, evaluation only; files live in public/fonts/aeonik and are committed and deployed at the owner's request despite that, see the README). */
 @font-face {
   font-family: 'Aeonik';
   src: url('/fonts/aeonik/AeonikTRIAL-Thin.otf') format('opentype');
