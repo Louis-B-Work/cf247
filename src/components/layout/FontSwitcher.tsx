@@ -3,6 +3,11 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '../../lib/utils'
 import { CogIntro } from './CogIntro'
 
+const fontOptions: readonly { id: string; label: string }[] = [
+  { id: 'aeonik', label: 'Aeonik' },
+  { id: 'overused-grotesk', label: 'Overused Grotesk' },
+]
+
 /**
  * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered`, `hero-bleed`,
  * and `hero-big` Tailwind variants, and the `html[data-btn]`, `html[data-green]`, `html[data-heading-font]`, `html[data-weight]`, and `html[data-tracking]` rules, in index.css) and is saved, so it survives reloads.
@@ -70,11 +75,9 @@ const toggles = [
     attr: 'headingFont',
     label: 'Font',
     pages: ['home', 'landing'],
-    defaultId: 'aeonik',
-    options: [
-      { id: 'aeonik', label: 'Aeonik' },
-      { id: 'overused-grotesk', label: 'Overused Grotesk' },
-    ],
+    // Aeonik (a trial font) only exists on machines that have its files; the shared site has Overused Grotesk alone.
+    defaultId: __HAS_AEONIK__ ? 'aeonik' : 'overused-grotesk',
+    options: __HAS_AEONIK__ ? fontOptions : fontOptions.filter((o) => o.id !== 'aeonik'),
   },
   {
     key: 'cf247-weight',
@@ -241,7 +244,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
               .map(toggleGroup)}
 
             {togglesFor(page)
-              .filter((t) => t.attr === 'headingFont' || t.attr === 'weight' || t.attr === 'tracking')
+              .filter((t) => (t.attr === 'headingFont' && t.options.length > 1) || t.attr === 'weight' || t.attr === 'tracking')
               .map(toggleGroup)}
 
           </motion.div>

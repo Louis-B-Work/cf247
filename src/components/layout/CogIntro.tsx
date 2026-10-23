@@ -12,14 +12,19 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
     body: 'Redesign shows the proposed copy and layout. Exact replica is the live site exactly as it is today, with only the fonts and colours swapped, for the first A/B test.',
     pages: ['home'],
   },
-  {
-    title: 'Font',
-    body: 'Compare Aeonik with Overused Grotesk. The chosen font is used for all text on the page, headings and body alike.',
-    pages: ['home', 'landing'],
-  },
+  // The Font choice only exists where the Aeonik trial files do (a local build), so its blurb is left out of the shared site.
+  ...(__HAS_AEONIK__
+    ? [
+        {
+          title: 'Font',
+          body: 'Compare Aeonik with Overused Grotesk. The chosen font is used for all text on the page, headings and body alike.',
+          pages: ['home', 'landing'] as Page[],
+        },
+      ]
+    : []),
   {
     title: 'Heading weight',
-    body: 'Compare heading weights from 300 to 900 for how chunky they feel, in whichever heading font is chosen; paragraph text is unaffected.',
+    body: 'Compare heading weights from 300 to 900 for how chunky they feel; paragraph text is unaffected.',
     pages: ['home', 'landing'],
   },
   {

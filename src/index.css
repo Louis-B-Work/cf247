@@ -57,7 +57,7 @@
   size-adjust: 101.2%;
 }
 
-/* Trial: Aeonik (CoType Foundry trial fonts, evaluation only; files live in public/fonts/aeonik and are committed and deployed at the owner's request despite that, see the README). */
+/* Trial: Aeonik (CoType Foundry trial fonts, evaluation only). The files live in public/fonts/aeonik, which is gitignored: they are never committed or deployed, so the shared site has no Aeonik (see the README). */
 @font-face {
   font-family: 'Aeonik';
   src: url('/fonts/aeonik/AeonikTRIAL-Thin.otf') format('opentype');
