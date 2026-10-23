@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
+    "live:snapshot": "node scripts/snapshot-live-home.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

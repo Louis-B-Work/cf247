@@ -71,7 +71,7 @@ export function BudgetForm({ hint = true }: { hint?: boolean } = {}) {
 /** Centered modern hero with the brand car anchored beneath the content. */
 export function ModernHero() {
   return (
-    <section id="top" className="on-dark relative isolate flex min-h-[min(820px,100svh)] flex-col overflow-hidden bg-purple pt-[var(--nav-height)]">
+    <section id="top" className="on-dark relative isolate flex min-h-[min(704px,100svh)] flex-col overflow-hidden bg-purple bg-[linear-gradient(to_bottom,var(--color-purple)_30%,color-mix(in_srgb,var(--color-purple)_82%,white))] pt-[var(--nav-height)]">
       <motion.img
         src={heroCar.src}
         alt={heroCar.alt}
@@ -79,11 +79,12 @@ export function ModernHero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.1, ease, delay: 0.25 }}
-        className="pointer-events-none absolute right-[-8%] bottom-0 z-0 h-[140px] w-[min(112vw,920px)] object-contain object-right-bottom sm:right-[-4%] sm:h-[clamp(170px,32vh,310px)] md:right-0"
+        className="pointer-events-none absolute right-[-8%] bottom-0 z-0 h-[140px] w-[min(112vw,920px)] object-contain object-right-bottom sm:right-[-4%] sm:h-[clamp(150px,24vh,230px)] md:right-0"
       />
 
-      <div className="container-xl relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-5 pt-10 pb-[150px] text-center sm:translate-y-8 sm:pt-[clamp(4rem,10vh,8rem)] sm:pb-[clamp(190px,32vh,310px)]">
-        <h1 className="text-[clamp(2.5rem,13vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-white sm:text-[clamp(1.5rem,7.2vw,6.25rem)] sm:whitespace-nowrap neue-haas:text-[clamp(2.125rem,11vw,3.25rem)] neue-haas:sm:text-[clamp(1.25rem,6.1vw,5.25rem)]">
+      {/* A big heading with a compact form and a smaller car below it, so the hero stays close to the live homepage's height. */}
+      <div className="container-xl relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-5 pt-16 pb-[150px] text-center sm:pt-[clamp(4rem,11vh,7rem)] sm:pb-[clamp(150px,22vh,220px)]">
+        <h1 className="text-[clamp(2.5rem,13vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-white sm:text-[clamp(1.5rem,7.2vw,70px)] sm:whitespace-nowrap">
           <Line delay={0.1}>
             Car finance <br className="sm:hidden" />
             made{' '}
@@ -91,20 +92,11 @@ export function ModernHero() {
           </Line>
         </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.45 }}
-          className="mt-5 max-w-2xl text-balance text-center text-base leading-relaxed font-medium text-white sm:text-xl 2xl:text-[22px]"
-        >
-          Find car finance that fits your budget.
-        </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease, delay: 0.6 }}
-          className="mt-6 w-full max-w-[360px]"
+          className="mt-6 w-full max-w-[360px] sm:mt-8"
         >
           <BudgetForm />
         </motion.div>

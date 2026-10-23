@@ -9,18 +9,20 @@
     <script>
       // Apply the saved heading font before first paint so text (and the hero car below it) doesn't reflow.
       try {
-        // One-off preset: every visitor starts on the redesign homepage content, Neulis Sans and no cursive accents, even if an earlier visit saved other choices.
-        if (localStorage.getItem('cf247-preset') !== 'sans-redesign') {
-          localStorage.setItem('cf247-heading-font', 'neulis-sans')
+        // One-off preset: every visitor starts on the redesign homepage content, even if an earlier visit saved other choices.
+        if (localStorage.getItem('cf247-preset') !== 'aeonik-redesign') {
           localStorage.setItem('cf247-content', 'redesign')
-          localStorage.setItem('cf247-cursive', 'off')
-          localStorage.setItem('cf247-preset', 'sans-redesign')
+          localStorage.setItem('cf247-preset', 'aeonik-redesign')
         }
-        var saved = localStorage.getItem('cf247-heading-font')
-        document.documentElement.dataset.headingFont = ['neulis-neue', 'neulis-sans', 'inter-display', 'neue-haas'].indexOf(saved) > -1 ? saved : 'neulis-sans'
+        // The mockup is exploring Aeonik only, so the heading font is fixed and the cursive accents are always off.
+        document.documentElement.dataset.headingFont = 'aeonik'
+        document.documentElement.dataset.cursive = 'off'
+        var weight = localStorage.getItem('cf247-weight')
+        document.documentElement.dataset.weight = ['300', '400', '500', '600', '900'].indexOf(weight) > -1 ? weight : '700'
+        var tracking = localStorage.getItem('cf247-tracking')
+        document.documentElement.dataset.tracking = ['-0.03', '-0.02', '-0.01', '0.01', '0.02'].indexOf(tracking) > -1 ? tracking : '0'
         // CTAs are always green (the cog's CTA colour option has been removed).
         document.documentElement.dataset.ctaColor = 'green'
-        document.documentElement.dataset.cursive = localStorage.getItem('cf247-cursive') === 'on' ? 'on' : 'off'
         var green = localStorage.getItem('cf247-green')
         document.documentElement.dataset.green = ['fresh', 'green'].indexOf(green) > -1 ? green : 'original'
         var btn = localStorage.getItem('cf247-btn')

@@ -1,0 +1,43 @@
+/*
+ * Settings cog "Homepage content: Exact replica": the skin for the A/B test, where fonts and colours are the only things
+ * swapped on the live homepage. Everything else (layout, spacing, copy, behaviour) comes untouched from the live page via
+ * scripts/snapshot-live-home.mjs, so this file is the whole list of differences. Imported after live-replica.css.
+ */
+
+.live-replica {
+  /* Colours: the live near-black becomes the brand's blackcurrant (as hsl channels, like the live theme). */
+  --twc-dark-1: 265.7 96% 10%;
+  font-family: var(--font-body);
+}
+
+/* Colours: the live teal (CTAs, the open mobile menu) becomes the cog's green, which follows the Green option. */
+.live-replica .bg-secondary,
+.live-replica .hover\:bg-secondary:hover {
+  background-color: var(--color-lime);
+}
+.live-replica [style*='D9F9F4' i] {
+  /* The pale teal review card. */
+  background-color: color-mix(in srgb, var(--color-lime) 24%, white) !important;
+}
+.live-replica #quick-links .quick-links-item:focus-visible,
+.live-replica #card-trio-container .card-trio-button:focus-visible {
+  outline-color: var(--color-lime);
+}
+
+/* Fonts: headings use Aeonik at the cog's weight and letter-spacing; everything else is Aeonik at the live weights. */
+.live-replica :is(.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6) {
+  font-family: var(--font-display);
+  font-weight: var(--heading-weight, 700);
+  letter-spacing: var(--heading-tracking, 0em);
+}
+
+/* The new site smooth-scrolls and pads anchor jumps for its own nav; the live page does neither. */
+html:has(.live-replica) {
+  scroll-behavior: auto;
+  scroll-padding-top: 0;
+}
+
+/* The new site's base styles balance headings and tidy paragraph endings; the live page wraps text normally. */
+.live-replica :is(h1, h2, h3, h4, h5, h6, p) {
+  text-wrap: wrap;
+}

@@ -3,27 +3,12 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '../../lib/utils'
 import { CogIntro } from './CogIntro'
 
-const fonts = [
-  { id: 'neulis-neue', label: 'Neulis Neue', family: "'neulis-neue', sans-serif" },
-  { id: 'neulis-sans', label: 'Neulis Sans', family: "'neulis-sans', sans-serif" },
-  // Trials close to Monzo / Auto Trader's heavy display grotesques.
-  { id: 'inter-display', label: 'Inter Display', family: "'Inter', sans-serif" },
-  { id: 'neue-haas', label: 'Neue Haas Grotesk Display', family: "'neue-haas-grotesk-display', sans-serif" },
-] as const
-
-type FontId = (typeof fonts)[number]['id']
-
-const STORAGE_KEY = 'cf247-heading-font'
-const DEFAULT_FONT: FontId = 'neulis-sans'
-
-function initialFont(): FontId {
-  const saved = localStorage.getItem(STORAGE_KEY)
-  return fonts.some((f) => f.id === saved) ? (saved as FontId) : DEFAULT_FONT
-}
+// The site is set in CoType Foundry's Aeonik (trial, loaded locally from public/fonts/aeonik).
+const HEADING_FONT = 'aeonik'
 
 /**
  * Extra test options. Each one sets an attribute on <html> (read by the `hero-centered`, `hero-bleed`,
- * and `hero-big` Tailwind variants, and the `html[data-btn]` and `html[data-green]` rules, in index.css) and is saved, so it survives reloads.
+ * and `hero-big` Tailwind variants, and the `html[data-btn]`, `html[data-green]`, `html[data-weight]`, and `html[data-tracking]` rules, in index.css) and is saved, so it survives reloads.
  * `pages` lists where each option applies.
  */
 const toggles = [
@@ -82,16 +67,38 @@ const toggles = [
     ],
   },
   {
-    key: 'cf247-cursive',
-    attr: 'cursive',
-    label: 'Neulis Cursive accents',
+    key: 'cf247-weight',
+    attr: 'weight',
+    label: 'Heading weight',
     pages: ['home', 'landing'],
+    defaultId: '700',
     options: [
-      { id: 'off', label: 'Off' },
-      { id: 'on', label: 'On' },
+      { id: '300', label: '300' },
+      { id: '400', label: '400' },
+      { id: '500', label: '500' },
+      { id: '600', label: '600' },
+      { id: '700', label: '700' },
+      { id: '900', label: '900' },
+    ],
+  },
+  {
+    key: 'cf247-tracking',
+    attr: 'tracking',
+    label: 'Heading letter-spacing (em)',
+    pages: ['home', 'landing'],
+    defaultId: '0',
+    options: [
+      { id: '-0.03', label: '-0.03' },
+      { id: '-0.02', label: '-0.02' },
+      { id: '-0.01', label: '-0.01' },
+      { id: '0', label: '0' },
+      { id: '0.01', label: '+0.01' },
+      { id: '0.02', label: '+0.02' },
     ],
   },
 ] as const
+
+const gridCols = { 2: 'grid-cols-2', 3: 'grid-cols-3', 4: 'grid-cols-4', 6: 'grid-cols-3' } as Record<number, string>
 
 type ToggleKey = (typeof toggles)[number]['key']
 type Page = 'home' | 'landing'
@@ -115,16 +122,14 @@ function initialToggles(): Record<ToggleKey, string> {
 }
 /** Settings cog in the bottom-left corner for choosing a heading font. Mockup tooling only. */
 export function FontSwitcher({ page = 'home' }: { page?: Page }) {
-  const [font, setFont] = useState<FontId>(initialFont)
   const [opts, setOpts] = useState(initialToggles)
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const panelId = useId()
 
   useEffect(() => {
-    document.documentElement.dataset.headingFont = font
-    localStorage.setItem(STORAGE_KEY, font)
-  }, [font])
+    document.documentElement.dataset.headingFont = HEADING_FONT
+  }, [])
 
   useEffect(() => {
     for (const t of togglesFor(page)) {
@@ -132,39 +137,9 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
       localStorage.setItem(t.key, opts[t.key])
     }
   }, [opts, page])
-  // Fetch every option up front so switching is instant and the labels never show a fallback.
+  // Fetch every weight up front so switching is instant.
   useEffect(() => {
-    for (const f of fonts) {
-      for (const style of ['500', '600', '800', 'italic 500', 'italic 600']) void document.fonts.load(`${style} 16px ${f.family}`)
-    }
-  }, [])
-
-  // Fonts that only work once added to the Adobe Fonts kit: once the kit's stylesheet has loaded, flag any with no faces.
-  const [missing, setMissing] = useState<FontId[]>([])
-  useEffect(() => {
-    const kitFonts: FontId[] = ['neue-haas']
-    const check = async () => {
-      const results = await Promise.all(
-        kitFonts.map(async (id) => {
-          const family = fonts.find((f) => f.id === id)!.family
-          const faces = await document.fonts.load(`600 16px ${family}`)
-          return faces.length ? null : id
-        }),
-      )
-      setMissing(results.filter((id): id is FontId => id !== null))
-    }
-    const root = document.documentElement
-    if (root.classList.contains('has-neulis')) {
-      void check()
-      return
-    }
-    const observer = new MutationObserver(() => {
-      if (!root.classList.contains('has-neulis')) return
-      observer.disconnect()
-      void check()
-    })
-    observer.observe(root, { attributes: true, attributeFilter: ['class'] })
-    return () => observer.disconnect()
+    for (const weight of ['300', '400', '500', '600', '700', '900']) void document.fonts.load(`${weight} 16px 'Aeonik'`)
   }, [])
 
   useEffect(() => {
@@ -186,7 +161,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   const toggleGroup = (t: (typeof toggles)[number]) => (
     <div key={t.key} className="mt-2 border-t border-white/10 pt-2">
       <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">{t.label}</p>
-      <div role="radiogroup" aria-label={t.label} className="grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
+      <div role="radiogroup" aria-label={t.label} className={cn('grid gap-1 rounded-inner bg-white/5 p-1', gridCols[t.options.length])}>
         {t.options.map((o) => {
           const selected = opts[t.key] === o.id
           return (
@@ -252,44 +227,8 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
               .filter((t) => t.attr === 'content')
               .map(toggleGroup)}
 
-            <p className="border-t border-white/10 px-3 pt-3.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Heading font</p>
-            <div role="radiogroup" aria-label="Heading font" className="grid gap-1">
-              {fonts.map((f) => {
-                const selected = f.id === font
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={selected}
-                    onClick={() => setFont(f.id)}
-                    style={{ fontFamily: f.family }}
-                    className={cn(
-                      'relative flex items-center justify-between rounded-inner px-3 py-2.5 text-left text-[16px] font-semibold transition-colors',
-                      selected ? 'text-blackcurrant' : 'text-white/85 hover:bg-white/10 hover:text-white',
-                    )}
-                  >
-                    {selected && (
-                      <motion.span
-                        layoutId="font-switcher-pill"
-                        transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                        className="absolute inset-0 rounded-inner bg-lime"
-                      />
-                    )}
-                    <span className="relative">
-                      {f.label}
-                      {missing.includes(f.id) && (
-                        <span className="block font-sans text-[11px] leading-tight font-medium opacity-70">Add to the Adobe Fonts kit to preview</span>
-                      )}
-                    </span>
-                    <span className="relative text-sm font-medium opacity-70">Aa</span>
-                  </button>
-                )
-              })}
-            </div>
-
             {togglesFor(page)
-              .filter((t) => t.attr === 'cursive')
+              .filter((t) => t.attr === 'weight' || t.attr === 'tracking')
               .map(toggleGroup)}
 
           </motion.div>
@@ -298,7 +237,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
 
       <button
         type="button"
-        aria-label="Choose heading font"
+        aria-label="Choose heading and body type options"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((o) => !o)}

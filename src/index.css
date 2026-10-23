@@ -8,6 +8,120 @@
 /* Heading font trial "Neue Haas Grotesk Display": a wider, heavier face, so hero titles are set smaller. */
 @custom-variant neue-haas (&:where(html[data-heading-font='neue-haas'] *));
 
+/* Trial: Aeonik (CoType Foundry trial fonts, evaluation only; files live in public/fonts/aeonik, which is gitignored). */
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Air.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-AirItalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/aeonik/AeonikTRIAL-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /*
  * Brand tokens from CF247 Guidelines (2026 draft).
  * Lime is still being decided, so every lime usage reads from --color-lime
@@ -28,8 +142,8 @@
 
   --font-display: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
   --font-accent: 'neulis-neue', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
-  /* Body copy is always Helvetica Neue (Arial is the approved substitute, guidelines p.19). */
-  --font-body: 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
+  /* Body copy is Aeonik (CoType Foundry trial). Helvetica Neue and Arial, the guidelines' fonts (p.19), are the fallbacks. */
+  --font-body: 'Aeonik', 'Helvetica Neue', Helvetica, Arial, ui-sans-serif, sans-serif;
 
   /* Two corner radii only: brand for every card, panel, image, button and input; inner for small icon tiles and chips nested inside them. */
   --radius-brand: 16px;
@@ -164,6 +278,20 @@
 :is(h1, h2, h3, h4).font-medium:not(.leading-none),
 .font-display.font-medium:not(.cf-pill-button, .leading-none) {
   line-height: var(--leading-title);
+}
+/* Aeonik has no 800: the 800 title weight would jump to Black (900), so titles use the cog's "Heading weight" (Bold by default). */
+html[data-heading-font='aeonik'] :is(h1, h2, h3, h4).font-medium,
+html[data-heading-font='aeonik'] .font-display.font-medium:not(.cf-pill-button) {
+  font-weight: var(--heading-weight, 700);
+}
+/*
+ * Headings carry tracking of -0.035em to -0.045em, tuned for Neulis's looser letterforms. Aeonik is already tightly spaced,
+ * so that squashes the letters together; use the cog's "Heading letter-spacing" instead (natural spacing by default).
+ * Unlayered so it beats the `tracking-*` utilities.
+ */
+html[data-heading-font='aeonik'] :is(h1, h2, h3, h4),
+html[data-heading-font='aeonik'] .font-display:not(.cf-pill-button) {
+  letter-spacing: var(--heading-tracking, 0em);
 }
 
 /*
@@ -331,6 +459,53 @@ html[data-green='green'] {
     --font-display: 'neue-haas-grotesk-display', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --font-accent: 'neue-haas-grotesk-display', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
     --accent-style: normal;
+  }
+
+  /* Trial: Aeonik (CoType Foundry trial, served locally from public/fonts/aeonik). */
+  html[data-heading-font='aeonik'] {
+    --font-display: 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'Aeonik', 'neulis-sans', 'Urbanist', ui-sans-serif, system-ui, sans-serif;
+    --accent-style: normal;
+  }
+
+  /* Heading weight (cog): the Aeonik weights that suit headings: Light 300, Regular 400, Medium 500, Semibold 600, Bold 700 and Black 900 (there is no 800). */
+  html[data-weight='300'] {
+    --heading-weight: 300;
+  }
+  html[data-weight='400'] {
+    --heading-weight: 400;
+  }
+  html[data-weight='500'] {
+    --heading-weight: 500;
+  }
+  html[data-weight='600'] {
+    --heading-weight: 600;
+  }
+  html[data-weight='700'] {
+    --heading-weight: 700;
+  }
+  html[data-weight='900'] {
+    --heading-weight: 900;
+  }
+
+  /* Heading letter-spacing (cog), in em. 0 is Aeonik's natural spacing. */
+  html[data-tracking='-0.03'] {
+    --heading-tracking: -0.03em;
+  }
+  html[data-tracking='-0.02'] {
+    --heading-tracking: -0.02em;
+  }
+  html[data-tracking='-0.01'] {
+    --heading-tracking: -0.01em;
+  }
+  html[data-tracking='0'] {
+    --heading-tracking: 0em;
+  }
+  html[data-tracking='0.01'] {
+    --heading-tracking: 0.01em;
+  }
+  html[data-tracking='0.02'] {
+    --heading-tracking: 0.02em;
   }
 
   html[data-cursive='on'] {

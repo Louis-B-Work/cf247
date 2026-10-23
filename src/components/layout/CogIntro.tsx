@@ -9,15 +9,19 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
   { title: 'Page', body: 'Jump between the homepage and the refinance landing page.', pages: ['home', 'landing'] },
   {
     title: 'Homepage content',
-    body: 'Redesign shows the proposed copy and layout. Exact replica shows the live site’s content, word for word and in the same order, in the new design.',
+    body: 'Redesign shows the proposed copy and layout. Exact replica is the live site exactly as it is today, with only the fonts and colours swapped, for the first A/B test.',
     pages: ['home'],
   },
   {
-    title: 'Heading font',
-    body: 'Compare Neulis Sans and Neulis Neue with two bolder trials close to Monzo’s headings: Inter Display and Neue Haas Grotesk Display.',
+    title: 'Heading weight',
+    body: 'The whole site is set in Aeonik. Compare heading weights from 300 to 900 for how chunky they feel; paragraph text is unaffected.',
     pages: ['home', 'landing'],
   },
-  { title: 'Neulis Cursive accents', body: 'Trial the cursive letters used for emphasis in some headings.', pages: ['home', 'landing'] },
+  {
+    title: 'Heading letter-spacing',
+    body: 'Tighten or loosen the gaps between heading letters, from -0.03em to +0.02em. 0 is Aeonik’s natural spacing.',
+    pages: ['home', 'landing'],
+  },
 ]
 
 function seen() {

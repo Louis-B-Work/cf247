@@ -3,8 +3,7 @@ import { useEffect } from 'react'
 import { FontSwitcher } from './components/layout/FontSwitcher'
 import { Footer } from './components/layout/Footer'
 import { Nav } from './components/layout/Nav'
-import { LiveFooter } from './components/live/LiveFooter'
-import { LiveHome } from './components/live/LiveHome'
+import { LiveSite } from './components/live/LiveSite'
 import { ModernHome } from './components/modern/ModernHome'
 import { Faq } from './components/sections/Faq'
 import { FinalCta } from './components/sections/FinalCta'
@@ -18,7 +17,7 @@ import { Situations } from './components/sections/Situations'
 import { Statement } from './components/sections/Statement'
 import { Steps } from './components/sections/Steps'
 import { Values } from './components/sections/Values'
-import { liveMobileMenuLinks, liveNavItems, livePage } from './data/liveHome'
+import { livePage } from './data/liveHome'
 import { useTestOption } from './lib/useTestOption'
 
 /** While the live-content option is on, the page title and meta description match the live homepage too. */
@@ -46,42 +45,46 @@ function usePageMeta(live: boolean) {
 
 export default function App() {
   const modern = useTestOption('design') === 'modern'
-  // Settings cog "Homepage content: Exact replica": the live homepage's content and order in the new design.
+  // Settings cog "Homepage content: Exact replica": the live homepage as it is, with only fonts and colours swapped.
   const live = useTestOption('content') === 'live'
   usePageMeta(live)
 
   return (
     <MotionConfig reducedMotion="user">
-      <a
-        href="#main"
-        className="sr-only z-[70] rounded-brand bg-white px-4 py-3 font-bold text-purple focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-      >
-        Skip to content
-      </a>
-      {live ? <Nav items={liveNavItems} mobileLinks={liveMobileMenuLinks} parity /> : <Nav />}
-      <main id="main">
-        {live ? (
-          <LiveHome />
-        ) : modern ? (
-          <ModernHome />
-        ) : (
-          <>
-            <Hero />
-            <QuickLinks />
-            <Steps />
-            <Statement />
-            <Values />
-            <Reviews />
-            <Partners />
-            <Situations />
-            <Founders />
-            <Guides />
-            <Faq />
-            <FinalCta />
-          </>
-        )}
-      </main>
-      {live ? <LiveFooter /> : <Footer />}
+      {live ? (
+        <LiveSite />
+      ) : (
+        <>
+          <a
+            href="#main"
+            className="sr-only z-[70] rounded-brand bg-white px-4 py-3 font-bold text-purple focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          >
+            Skip to content
+          </a>
+          <Nav />
+          <main id="main">
+            {modern ? (
+              <ModernHome />
+            ) : (
+              <>
+                <Hero />
+                <QuickLinks />
+                <Steps />
+                <Statement />
+                <Values />
+                <Reviews />
+                <Partners />
+                <Situations />
+                <Founders />
+                <Guides />
+                <Faq />
+                <FinalCta />
+              </>
+            )}
+          </main>
+          <Footer />
+        </>
+      )}
       <FontSwitcher />
     </MotionConfig>
   )
