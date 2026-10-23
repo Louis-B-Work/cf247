@@ -69,7 +69,7 @@ const toggles = [
   {
     key: 'cf247-weight',
     attr: 'weight',
-    label: 'Heading weight',
+    label: 'Aeonik heading weight',
     pages: ['home', 'landing'],
     defaultId: '700',
     options: [

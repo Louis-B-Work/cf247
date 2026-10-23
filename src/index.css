@@ -279,7 +279,7 @@
 .font-display.font-medium:not(.cf-pill-button, .leading-none) {
   line-height: var(--leading-title);
 }
-/* Aeonik has no 800: the 800 title weight would jump to Black (900), so titles use the cog's "Heading weight" (Bold by default). */
+/* Aeonik has no 800: the 800 title weight would jump to Black (900), so titles use the cog's "Aeonik heading weight" (Bold by default). */
 html[data-heading-font='aeonik'] :is(h1, h2, h3, h4).font-medium,
 html[data-heading-font='aeonik'] .font-display.font-medium:not(.cf-pill-button) {
   font-weight: var(--heading-weight, 700);

@@ -13,7 +13,7 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
     pages: ['home'],
   },
   {
-    title: 'Heading weight',
+    title: 'Aeonik heading weight',
     body: 'The whole site is set in Aeonik. Compare heading weights from 300 to 900 for how chunky they feel; paragraph text is unaffected.',
     pages: ['home', 'landing'],
   },
