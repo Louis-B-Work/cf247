@@ -71,7 +71,9 @@ const toggles = [
   {
     // One font for all text (headings, accents and body), so the A/B test compares like with like.
     // The attribute and storage key keep their old "heading font" names.
-    key: 'cf247-heading-font',
+    // The Aeonik build (published at /cf247/aeonik/) shares an origin, and so localStorage, with the main site, so it saves
+    // its font choice under its own key and always opens on Aeonik whatever was picked on the main site.
+    key: __HAS_AEONIK__ ? 'cf247-heading-font-aeonik' : 'cf247-heading-font',
     attr: 'headingFont',
     label: 'Font',
     pages: ['home', 'landing'],
@@ -171,7 +173,7 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
   }, [open])
 
   // The weight group names the heading font it applies to, so it's always clear which one is being adjusted.
-  const headingFont = toggles.find((t) => t.attr === 'headingFont')!.options.find((o) => o.id === opts['cf247-heading-font'])!.label
+  const headingFont = toggles.find((t) => t.attr === 'headingFont')!.options.find((o) => o.id === opts[toggles.find((t) => t.attr === 'headingFont')!.key])!.label
   const labelOf = (t: (typeof toggles)[number]) => (t.attr === 'weight' ? `${headingFont} heading weight` : t.label)
 
   const toggleGroup = (t: (typeof toggles)[number]) => (
