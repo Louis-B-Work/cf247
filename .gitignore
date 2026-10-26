@@ -26,5 +26,6 @@ dist-ssr
 .env
 .env.local
 
-# CoType Aeonik trial fonts: evaluation licence only, so kept on the owner's machine and never committed or deployed
+# CoType Aeonik trial fonts: evaluation licence only, so never committed to main. Only the built Aeonik variant lives on the aeonik-site branch (see the README)
 public/fonts/aeonik
+dist-aeonik

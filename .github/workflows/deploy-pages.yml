@@ -39,6 +39,20 @@ jobs:
       - name: Build site
         run: npm run build
 
+      # The Aeonik variant (with the CoType trial fonts) is built locally and kept on its own branch, so main never holds the
+      # fonts. It is published at /cf247/aeonik/. Remove these two steps to take it down.
+      - name: Check out the Aeonik build
+        uses: actions/checkout@v4
+        with:
+          ref: aeonik-site
+          path: aeonik-build
+
+      - name: Add the Aeonik build under /aeonik
+        run: |
+          mkdir -p dist/aeonik
+          cp -r aeonik-build/. dist/aeonik/
+          rm -rf dist/aeonik/.git dist/aeonik/README.md
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:

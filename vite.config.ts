@@ -11,7 +11,8 @@ const hasAeonik = existsSync(resolve(import.meta.dirname, 'public/fonts/aeonik/A
 // https://vite.dev/config/
 // Two pages share one set of components and styles: the homepage (/) and the refinance landing page (/landing-page/).
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS === 'true' ? '/cf247/' : '/',
+  // SITE_BASE overrides the base, for the Aeonik build that is published under /cf247/aeonik/ (see the README).
+  base: process.env.SITE_BASE ?? (process.env.GITHUB_ACTIONS === 'true' ? '/cf247/' : '/'),
   define: { __HAS_AEONIK__: JSON.stringify(hasAeonik) },
   plugins: [
     {
