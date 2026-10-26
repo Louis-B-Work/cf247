@@ -15,7 +15,7 @@
           localStorage.setItem('cf247-preset', 'aeonik-redesign')
         }
         // All text is Aeonik or Overused Grotesk (the cog's Font option; the storage key and attribute keep the old heading-font name), and the cursive accents are always off.
-        var headingFont = localStorage.getItem('cf247-heading-font')
+        var headingFont = localStorage.getItem(true ? 'cf247-heading-font-aeonik' : 'cf247-heading-font')
         // Aeonik is only offered where its trial files exist (see vite.config.ts); otherwise Overused Grotesk is the only font.
         document.documentElement.dataset.headingFont = headingFont === 'overused-grotesk' || !true ? 'overused-grotesk' : 'aeonik'
         document.documentElement.dataset.cursive = 'off'
@@ -39,8 +39,8 @@
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://cdn.imagin.studio" />
-    <script type="module" crossorigin src="/cf247/aeonik/assets/landingPage-3M-FfpTB.js"></script>
-    <link rel="modulepreload" crossorigin href="/cf247/aeonik/assets/fonts-B4aoPEez.js">
+    <script type="module" crossorigin src="/cf247/aeonik/assets/landingPage-AIj3AD7a.js"></script>
+    <link rel="modulepreload" crossorigin href="/cf247/aeonik/assets/fonts-BYpB0nGo.js">
     <link rel="stylesheet" crossorigin href="/cf247/aeonik/assets/fonts-DqQZeW5Z.css">
   </head>
   <body>
