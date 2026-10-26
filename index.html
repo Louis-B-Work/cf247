@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/cf247/aeonik/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6905F2" />
+    <title>Car Finance 247 | Homepage mockup</title>
+    <script>
+      // Apply the saved heading font before first paint so text (and the hero car below it) doesn't reflow.
+      try {
+        // One-off preset: every visitor starts on the redesign homepage content, even if an earlier visit saved other choices.
+        if (localStorage.getItem('cf247-preset') !== 'aeonik-redesign') {
+          localStorage.setItem('cf247-content', 'redesign')
+          localStorage.setItem('cf247-preset', 'aeonik-redesign')
+        }
+        // All text is Aeonik or Overused Grotesk (the cog's Font option; the storage key and attribute keep the old heading-font name), and the cursive accents are always off.
+        var headingFont = localStorage.getItem('cf247-heading-font')
+        // Aeonik is only offered where its trial files exist (see vite.config.ts); otherwise Overused Grotesk is the only font.
+        document.documentElement.dataset.headingFont = headingFont === 'overused-grotesk' || !true ? 'overused-grotesk' : 'aeonik'
+        document.documentElement.dataset.cursive = 'off'
+        var weight = localStorage.getItem('cf247-weight')
+        document.documentElement.dataset.weight = ['300', '400', '500', '600', '900'].indexOf(weight) > -1 ? weight : '700'
+        var tracking = localStorage.getItem('cf247-tracking')
+        document.documentElement.dataset.tracking = ['-0.03', '-0.02', '-0.01', '0.01', '0.02'].indexOf(tracking) > -1 ? tracking : '0'
+        // CTAs are always green (the cog's CTA colour option has been removed).
+        document.documentElement.dataset.ctaColor = 'green'
+        document.documentElement.dataset.design = 'modern'
+        document.documentElement.dataset.content = localStorage.getItem('cf247-content') === 'live' ? 'live' : 'redesign'
+        var hero = localStorage.getItem('cf247-hero')
+        document.documentElement.dataset.hero = ['centered', 'bleed', 'big'].indexOf(hero) > -1 ? hero : 'car'
+        var green = localStorage.getItem('cf247-green')
+        document.documentElement.dataset.green = ['fresh', 'green'].indexOf(green) > -1 ? green : 'original'
+        var btn = localStorage.getItem('cf247-btn')
+        document.documentElement.dataset.btn = ['static', 'plain'].indexOf(btn) > -1 ? btn : 'slide'
+      } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Urbanist:ital,wght@0,300..800;1,500..800&display=swap"
+    />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://cdn.imagin.studio" />
+    <script type="module" crossorigin src="/cf247/aeonik/assets/home-INe9rMF-.js"></script>
+    <link rel="modulepreload" crossorigin href="/cf247/aeonik/assets/fonts-B4aoPEez.js">
+    <link rel="stylesheet" crossorigin href="/cf247/aeonik/assets/fonts-DqQZeW5Z.css">
+    <link rel="stylesheet" crossorigin href="/cf247/aeonik/assets/home-C_B5lzvi.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
