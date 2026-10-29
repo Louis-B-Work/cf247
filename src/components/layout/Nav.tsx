@@ -5,7 +5,7 @@ import {
   useScroll,
   useSpring,
 } from 'motion/react'
-import { useEffect, useRef, useState, type FocusEvent } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type FocusEvent } from 'react'
 import { navItems, quoteUrl, signInUrl, type NavItem, type NavLink } from '../../data/nav'
 import { cn } from '../../lib/utils'
 import { Logo } from '../brand/Logo'
@@ -14,6 +14,29 @@ import { Icon } from '../ui/Icon'
 import { MobileMenu } from './MobileMenu'
 
 const CLOSE_DELAY = 140
+
+/**
+ * Whether the page's own main quote button (the hero's submit button) is on screen below the bar. On phones the bar's
+ * Get my quote button waits until that one has scrolled out of view, so the same action is never shown twice at once.
+ * Pages with no hero button never report it, so the bar's button always shows there.
+ */
+function useHeroCtaInView() {
+  const [inView, setInView] = useState(false)
+  useLayoutEffect(() => {
+    const target = document.querySelector('#top button[type="submit"]')
+    if (!target) return
+    // Hide before the first paint when the button already sits in the first screen, so the bar's button never flashes.
+    const rect = target.getBoundingClientRect()
+    // A layout measurement of the DOM before paint, which is what a layout effect is for.
+    // oxlint-disable-next-line react/set-state-in-effect
+    setInView(rect.bottom > 0 && rect.top < window.innerHeight)
+    // The bar is 76px tall, so the button counts as gone once it slips under it.
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { rootMargin: '-76px 0px 0px 0px' })
+    observer.observe(target)
+    return () => observer.disconnect()
+  }, [])
+  return inView
+}
 
 type NavProps = {
   /** minimal: logo and quote button only, for paid landing pages that keep visitors focused on one action. */
@@ -36,6 +59,7 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl, items = navItems, 
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 8)
   const [mobileOpen, setMobileOpen] = useState(false)
   const closeTimer = useRef<number | undefined>(undefined)
+  const heroCtaInView = useHeroCtaInView()
 
   const { scrollY, scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 32, restDelta: 0.001 })
@@ -98,14 +122,22 @@ export function Nav({ variant = 'full', quoteHref = quoteUrl, items = navItems, 
 
           <div className="ml-auto flex items-center gap-1 sm:gap-4">
             {!minimal && <SignInLink label={parity ? 'Sign In' : 'Sign in'} alwaysShow={parity} />}
-            <Button
-              href={quoteHref}
-              variant="reverse"
-              size="md"
-              className="max-sm:[--btn-pad:10px] max-sm:[--btn-gap:8px]"
+            {/* On phones it fades out while the hero's own button is on screen; it keeps its space so the menu button never shifts. */}
+            <div
+              className={cn(
+                'max-md:transition-[opacity,translate] max-md:duration-300 max-md:ease-[var(--ease-brand)] motion-reduce:transition-none',
+                heroCtaInView && 'max-md:pointer-events-none max-md:invisible max-md:translate-y-1 max-md:opacity-0',
+              )}
             >
-              Get my quote
-            </Button>
+              <Button
+                href={quoteHref}
+                variant="reverse"
+                size="md"
+                className="max-sm:[--btn-pad:10px] max-sm:[--btn-gap:8px]"
+              >
+                Get my quote
+              </Button>
+            </div>
             {!minimal && (
             <button
               type="button"
