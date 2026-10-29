@@ -39,7 +39,7 @@ export function BudgetForm({ hint = true }: { hint?: boolean } = {}) {
       <label htmlFor="hero-budget" className="font-display text-lg font-semibold text-white sm:text-xl">
         My monthly budget is
       </label>
-      <div className="flex h-14 items-center rounded-inner bg-white px-5 text-blackcurrant shadow-[0_20px_45px_-28px_rgba(22,1,50,0.8)] focus-within:ring-4 focus-within:ring-lime sm:h-16">
+      <div className="flex h-14 items-center rounded-full bg-white px-7 text-blackcurrant shadow-[0_20px_45px_-28px_rgba(22,1,50,0.8)] focus-within:ring-4 focus-within:ring-lime sm:h-16">
         <span aria-hidden className="font-display text-2xl font-bold">
           £
         </span>
