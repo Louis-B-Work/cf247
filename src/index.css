@@ -211,6 +211,26 @@
     flex-shrink: 0;
     height: var(--btn-h);
     color: var(--btn-label-color);
+    /* The halo's tint: purple on light grounds, white on purple and dark grounds (the on-dark utility). */
+    --btn-halo: rgb(105 5 242 / 0.3);
+  }
+
+  .on-dark .cf-pill-button {
+    --btn-halo: rgb(255 255 255 / 0.3);
+  }
+
+  /* Filled buttons are a pill with a thin halo ring set off by a small gap. Outline variants carry their own ring. */
+  .cf-pill-button--primary,
+  .cf-pill-button--reverse,
+  .cf-pill-button--light {
+    outline: 2px solid var(--btn-halo);
+    outline-offset: 3px;
+  }
+
+  /* Keyboard focus replaces the halo with the focus ring, pushed out beyond it. */
+  .cf-pill-button:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 6px;
   }
 
   .cf-pill-button--primary,
@@ -232,13 +252,13 @@
   html[data-cta-color='green'] .cf-pill-button--reverse {
     --btn-label-color: var(--color-blackcurrant);
     --btn-chip-bg: white;
-    --btn-chip-text: var(--color-purple);
+    --btn-chip-text: var(--color-blackcurrant);
     background: var(--color-lime);
   }
 
   html[data-cta-color='green'] .cf-pill-button:is(:hover, :focus-visible, :active, [data-active], [data-attention], [data-pressed]),
   html[data-cta-color='green'] .group:is(:hover, :focus-visible, :active) .cf-pill-button {
-    --btn-chip-text: var(--color-purple);
+    --btn-chip-text: var(--color-blackcurrant);
   }
 
   .cf-pill-button--outline-light {
@@ -265,10 +285,10 @@
   .group:is(:hover, :focus-visible, :active) .cf-pill-button {
     --btn-flood-scale: 1;
     --btn-chip-x: 3px;
-    /* Green and white on hover: dark label for legibility, white chip with a green arrow. */
+    /* Lime and white on hover: dark label for legibility, white chip with a dark chevron. */
     --btn-label-color: var(--color-blackcurrant);
     --btn-chip-bg: white;
-    --btn-chip-text: var(--color-lime);
+    --btn-chip-text: var(--color-blackcurrant);
     /*
      * The button's own fill turns lime once the flood has swept across. Otherwise the purple or white
      * underneath shows as a hairline round the rounded corners, where the edge pixels are only part-covered.
@@ -294,7 +314,7 @@
     top: var(--chip-offset);
     bottom: var(--chip-offset);
     right: var(--chip-offset);
-    border-radius: var(--radius-inner);
+    border-radius: 9999px;
     color: var(--btn-chip-text);
     background: var(--btn-chip-bg);
   }

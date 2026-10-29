@@ -64,7 +64,7 @@ const sizeStyles: Record<Size, { button: string; icon: string }> = {
 const motion = 'duration-500 group-active:duration-150 ease-[var(--ease-brand)] motion-reduce:transition-none'
 
 /**
- * Solid rounded-square CTA with a medium-weight label on the left and a square arrow chip inset evenly on the right.
+ * Solid pill CTA with a bold label on the left and a round chevron chip inset evenly on the right, set off by a thin halo ring.
  * Settings cog "Buttons": Sliding arrow (default, the chip slides to the left on hover, after the 21st.dev
  * ShadcnSpace "Button with icon"), Fixed arrow (the chip stays put) or No arrow (text only with even padding).
  * Hover, focus and press sweep a lime flood across the button, invert the chip and turn the label blackcurrant.
@@ -93,7 +93,7 @@ export function Button({
   const s = sizeStyles[size]
   const dataActive = active ? '' : undefined
   const classes = cn(
-    'cf-pill-button group relative isolate inline-flex touch-manipulation items-center overflow-hidden rounded-brand font-display font-medium whitespace-nowrap select-none [-webkit-tap-highlight-color:transparent] transition-[transform,background-color] duration-150 active:scale-[0.97] motion-reduce:active:scale-100',
+    'cf-pill-button group relative isolate inline-flex touch-manipulation items-center rounded-full overflow-hidden font-display font-bold whitespace-nowrap select-none [-webkit-tap-highlight-color:transparent] transition-[transform,background-color] duration-150 active:scale-[0.97] motion-reduce:active:scale-100',
     variantStyles[variant],
     s.button,
     fullWidth && 'w-full justify-center',
@@ -105,7 +105,7 @@ export function Button({
       <span
         aria-hidden
         className={cn(
-          'cf-pill-button__flood absolute inset-0 z-0 origin-right rounded-brand bg-lime transition-transform',
+          'cf-pill-button__flood absolute inset-0 z-0 origin-right rounded-full bg-lime transition-transform',
           motion,
         )}
       />
@@ -116,7 +116,7 @@ export function Button({
           motion,
         )}
       >
-        <Icon name="arrow" className={cn('cf-pill-button__arrow transition-[translate]', s.icon, motion)} />
+        <Icon name="chevron-right" className={cn('cf-pill-button__arrow transition-[translate]', s.icon, motion)} />
       </span>
       <span
         className={cn(

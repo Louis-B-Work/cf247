@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { brandIconPaths, type BrandIconName } from './iconPaths'
 
 /** Brand icons come from the brand sheet (see iconPaths.ts); the rest are small interface glyphs drawn to match. */
-export type IconName = BrandIconName | 'arrow-up-right' | 'chevron' | 'close' | 'menu' | 'plus' | 'star' | 'play'
+export type IconName = BrandIconName | 'arrow-up-right' | 'chevron' | 'chevron-right' | 'close' | 'menu' | 'plus' | 'star' | 'play'
 
 type Glyph = {
   /** Solid shapes, filled with the current colour. */
@@ -18,6 +18,8 @@ const interfaceGlyphs: Record<Exclude<IconName, BrandIconName>, Glyph> = {
     stroke: <path d="M14 34L34 14M21 14H34V27" {...line} strokeWidth={5.5} />,
   },
   chevron: { stroke: <path d="M14 19l10 10 10-10" {...line} strokeWidth={4.5} /> },
+  /** The button's chip glyph: a bold chevron pointing right. */
+  'chevron-right': { stroke: <path d="M19 13l11 11-11 11" {...line} strokeWidth={5.5} /> },
   close: { stroke: <path d="M13 13l22 22M35 13L13 35" {...line} strokeWidth={4.5} /> },
   menu: { stroke: <path d="M8 15h32M8 24h32M8 33h20" {...line} strokeWidth={4.5} /> },
   plus: { stroke: <path d="M24 11v26M11 24h26" {...line} strokeWidth={4.5} /> },
