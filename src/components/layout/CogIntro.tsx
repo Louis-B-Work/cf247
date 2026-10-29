@@ -29,7 +29,7 @@ const items: Array<{ title: string; body: string; pages: Page[] }> = [
   },
   {
     title: 'Heading letter-spacing',
-    body: 'Tighten or loosen the gaps between heading letters, from -0.03em to +0.02em. 0 is Aeonik’s natural spacing.',
+    body: 'Tighten or loosen the gaps between heading letters, from -0.03em to +0.02em. 0 is the font’s natural spacing.',
     pages: ['home', 'landing'],
   },
 ]
@@ -115,6 +115,21 @@ export function CogIntro({ page, onOpenCog }: { page: Page; onOpenCog: () => voi
                   </p>
                   <p className="mt-1 text-blackcurrant/65">
                     The licence also bars using the fonts on any website accessible via public networks. Keep this page internal and don’t forward the link.
+                  </p>
+                </div>
+              </div>
+            )}
+            {/* The public build has no Aeonik: say why, so its absence is not mistaken for a gap. */}
+            {!__HAS_AEONIK__ && (
+              <div role="note" className="mt-3 flex gap-3 rounded-inner bg-purple-10 p-3.5 ring-1 ring-purple/25">
+                <svg viewBox="0 0 24 24" aria-hidden className="mt-0.5 size-5 shrink-0 text-purple" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 11v5.5M12 7.8v.1" />
+                </svg>
+                <div className="text-[13.5px] leading-snug">
+                  <strong className="font-display font-semibold">Aeonik isn’t on this page</strong>
+                  <p className="mt-1 text-blackcurrant/80">
+                    Aeonik is on a trial licence that bars the font on any website accessible via public networks, so this public page uses Overused Grotesk only.
                   </p>
                 </div>
               </div>
