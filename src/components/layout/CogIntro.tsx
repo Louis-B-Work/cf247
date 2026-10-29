@@ -90,7 +90,7 @@ export function CogIntro({ page, onOpenCog }: { page: Page; onOpenCog: () => voi
             exit={{ opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             style={{ transformOrigin: 'bottom left' }}
-            className="fixed bottom-[88px] left-4 z-[56] w-[min(calc(100vw-2rem),380px)] rounded-brand bg-white p-6 text-blackcurrant shadow-[0_30px_80px_-30px_rgba(22,1,50,0.8)] sm:bottom-[104px] sm:left-6"
+            className="fixed bottom-[88px] left-4 z-[56] max-h-[calc(100svh-7rem)] w-[min(calc(100vw-2rem),380px)] overflow-y-auto overscroll-contain rounded-brand bg-white p-6 text-blackcurrant shadow-[0_30px_80px_-30px_rgba(22,1,50,0.8)] sm:bottom-[104px] sm:left-6"
           >
             {/* Pointer down to the cog. */}
             <span aria-hidden className="absolute -bottom-2 left-[18px] size-4 rotate-45 bg-white" />
@@ -100,6 +100,24 @@ export function CogIntro({ page, onOpenCog }: { page: Page; onOpenCog: () => voi
             <p className="mt-2 text-base leading-relaxed text-blackcurrant/75">
               The cog in the bottom-left corner lets you compare versions of this mockup:
             </p>
+            {/* Only where the Aeonik trial files are served (the local build and the /aeonik/ site). The terms are CoType Foundry's trial EULA. */}
+            {__HAS_AEONIK__ && (
+              <div role="note" className="mt-3 flex gap-3 rounded-inner bg-purple-10 p-3.5 ring-1 ring-purple/25">
+                <svg viewBox="0 0 24 24" aria-hidden className="mt-0.5 size-5 shrink-0 text-purple" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 3.5l9.5 16.5h-19z" />
+                  <path d="M12 10v4.5M12 17.2v.1" />
+                </svg>
+                <div className="text-[13.5px] leading-snug">
+                  <strong className="font-display font-semibold">Aeonik is a trial font</strong>
+                  <p className="mt-1 text-blackcurrant/80">
+                    CoType Foundry’s trial licence covers internal trial and evaluation only, on at most 5 devices inside our own organisation. Don’t copy the font files, pass them to anyone outside the organisation, or use them in final files for a commercial project. Delete all copies when the trial ends.
+                  </p>
+                  <p className="mt-1 text-blackcurrant/65">
+                    The licence also bars using the fonts on any website accessible via public networks. Keep this page internal and don’t forward the link.
+                  </p>
+                </div>
+              </div>
+            )}
             <ul className="mt-4 space-y-3">
               {items
                 .filter((item) => item.pages.includes(page))

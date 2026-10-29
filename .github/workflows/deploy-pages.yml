@@ -40,33 +40,19 @@ jobs:
         run: npm run build
 
       # The Aeonik variant (with the CoType trial fonts) is built locally and kept on its own branch, so main never holds the
-      # fonts. It is published at /cf247/aeonik/. Remove these two steps to take it down.
+      # fonts. It is published at an unlisted path, for internal review only. The licence bars the trial fonts on public
+      # websites, so remove these two steps to take it down.
       - name: Check out the Aeonik build
         uses: actions/checkout@v4
         with:
           ref: aeonik-site
           path: aeonik-build
 
-      - name: Add the Aeonik build under /aeonik
+      - name: Add the Aeonik build under its unlisted path
         run: |
-          mkdir -p dist/aeonik
-          cp -r aeonik-build/. dist/aeonik/
-          rm -rf dist/aeonik/.git dist/aeonik/README.md
-
-      # The design system, as a static page built from the claude.ai design system artifact. It includes the Aeonik trial
-      # fonts, so like the Aeonik build above it lives on its own branch. Published at /cf247/new-design-system/.
-      # Remove these two steps to take it down.
-      - name: Check out the design system site
-        uses: actions/checkout@v4
-        with:
-          ref: design-system-site
-          path: design-system-build
-
-      - name: Add the design system under /new-design-system
-        run: |
-          mkdir -p dist/new-design-system
-          cp -r design-system-build/. dist/new-design-system/
-          rm -rf dist/new-design-system/.git dist/new-design-system/README.md
+          mkdir -p dist/review-8bf85032d4af8b4663
+          cp -r aeonik-build/. dist/review-8bf85032d4af8b4663/
+          rm -rf dist/review-8bf85032d4af8b4663/.git dist/review-8bf85032d4af8b4663/README.md
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
