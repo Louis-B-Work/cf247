@@ -11,7 +11,7 @@ export function RefinanceFinalCta() {
         <Reveal className="container-cf flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           {/* Not a heading on the live page, so it stays a paragraph to keep the same heading outline. */}
           <p id="lp-final-title" className="font-display text-[clamp(2.4rem,4.6vw,4.25rem)] leading-[var(--leading-title)] font-medium">
-            Ready to <EndSmile tone="white" size={0.66}><Accent>go?</Accent></EndSmile>
+            Ready to <EndSmile tone="white" size={0.66}><Accent>Go?</Accent></EndSmile>
           </p>
           <Button href={refinanceQuoteUrl} variant="reverse" size="xl" attention>
             Get my quote

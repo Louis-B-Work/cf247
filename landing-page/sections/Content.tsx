@@ -30,7 +30,7 @@ export function Explainer() {
       <div className="container-cf grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
         <Reveal className="lg:col-span-6">
           <h2 id="explainer-title" className="text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[var(--leading-title)] font-medium">
-            Car <span className="whitespace-nowrap"><Accent>refinancing</Accent>:</span> What is it and how does it work?
+            Car <span className="whitespace-nowrap"><Accent>Refinancing</Accent>:</span> What Is It and How Does It Work?
           </h2>
           <div className="mt-4 max-w-2xl space-y-4 text-[17px] leading-relaxed text-blackcurrant/80">
             <p>
@@ -174,7 +174,7 @@ export function HowItWorks() {
           id="how-title"
           title={
             <>
-              Refinance how it <Accent>works</Accent>
+              Refinance How It <Accent>Works</Accent>
             </>
           }
         />

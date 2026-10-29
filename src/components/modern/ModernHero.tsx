@@ -86,9 +86,9 @@ export function ModernHero() {
       <div className="container-xl relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-5 pt-16 pb-[150px] text-center sm:pt-[clamp(4rem,11vh,7rem)] sm:pb-[clamp(150px,22vh,220px)]">
         <h1 className="text-[clamp(2.5rem,13vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.045em] text-white sm:text-[clamp(1.5rem,7.2vw,70px)] sm:whitespace-nowrap">
           <Line delay={0.1}>
-            Car finance <br className="sm:hidden" />
-            made{' '}
-            <Accent className="text-white">easy</Accent>
+            Car Finance <br className="sm:hidden" />
+            Made{' '}
+            <Accent className="text-white">Easy</Accent>
           </Line>
         </h1>
 

@@ -120,14 +120,14 @@ export function ModernSituations() {
       <div className="container-xl">
         <Reveal>
           <ModernHeading id="situations-title">
-            Car finance for every <span className="whitespace-nowrap"><Accent>si</Accent>tuation</span>
+            Car Finance for Every <span className="whitespace-nowrap"><Accent>Si</Accent>tuation</span>
           </ModernHeading>
         </Reveal>
 
         {/* Desktop: the large card spans two rows; beside it the stats card sits on top and the refinancing card below. The three remaining cards share the last row. */}
         <div className="mt-8 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 lg:grid-cols-6 lg:grid-rows-[repeat(2,minmax(0,1fr))_auto] lg:gap-5 xl:mt-12">
           <SituationCard
-            title="Found a car you love?"
+            title="Found a Car You Love?"
             body="Tell us about it and we’ll find a quote that fits."
             cta="Get my quote"
             href={quoteUrl}
@@ -150,7 +150,7 @@ export function ModernSituations() {
           <StatsCard className="lg:col-span-2 lg:col-start-5 lg:row-start-1" />
 
           <SituationCard
-            title="Thinking of refinancing your car?"
+            title="Thinking of Refinancing Your Car?"
             body="See if you could pay less each month. Extending your loan term could increase the interest payable."
             cta="See what I could save"
             href={siteUrl('/refinance-car-finance')}
@@ -163,7 +163,7 @@ export function ModernSituations() {
           </SituationCard>
 
           <SituationCard
-            title="Still searching for the perfect car?"
+            title="Still Searching for the Perfect Car?"
             body="See what fits your monthly budget."
             cta="See what I can afford"
             href={siteUrl('/car-finance-calculator')}
@@ -174,7 +174,7 @@ export function ModernSituations() {
           </SituationCard>
 
           <SituationCard
-            title="Bad credit? We look beyond your score"
+            title="Bad Credit? We Look Beyond Your Score"
             body="Some of our lenders specialise in bad credit."
             cta="Find out more"
             href={siteUrl('/bad-credit-car-finance')}
@@ -185,7 +185,7 @@ export function ModernSituations() {
           </SituationCard>
 
           <SituationCard
-            title="Value my car"
+            title="Value My Car"
             body="Use your part exchange as a deposit."
             cta="Value my car"
             href={siteUrl('/valuations')}

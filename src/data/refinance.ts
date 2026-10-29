@@ -45,43 +45,43 @@ export const reasons = [
 
 export const pros = [
   {
-    title: 'Reduce your monthly payments',
+    title: 'Reduce Your Monthly Payments',
     body: 'See if you could lower your monthly repayments by spreading the cost over a new finance term that better suits your budget.',
   },
   {
-    title: 'Manage your PCP balloon payment',
+    title: 'Manage Your PCP Balloon Payment',
     body: 'Turn your PCP balloon payment into more affordable monthly instalments, making your final lump sum easier to manage.',
   },
   {
-    title: 'Potentially lower your interest rate',
+    title: 'Potentially Lower Your Interest Rate',
     body: 'If your credit score has improved since you took out your original agreement, you may be eligible for a more competitive interest rate.',
   },
 ]
 
 export const cons = [
   {
-    title: 'Savings aren’t guaranteed',
+    title: 'Savings Aren’t Guaranteed',
     body: 'Spreading your outstanding loan over a longer term can reduce the monthly payment but may increase the total amount of interest payable.',
   },
   {
-    title: 'Early repayment fees',
+    title: 'Early Repayment Fees',
     body: 'If you’re thinking about refinancing, it’s a good idea to find out if there are any early repayment charges.',
   },
   {
-    title: 'Offers vary by customer',
+    title: 'Offers Vary by Customer',
     body: 'Eligibility, rates, and terms depend on your credit history and are subject to lender checks.',
   },
 ]
 
 export const howItWorks = [
-  { title: 'Get approved', body: 'Make a quick application and get a decision in minutes.' },
-  { title: 'Switch your deal', body: 'We\'ll work with your current lender to settle your existing finance.' },
-  { title: 'Keep your car', body: 'Stay behind the wheel of the car you love, just with a deal that suits you better.' },
+  { title: 'Get Approved', body: 'Make a quick application and get a decision in minutes.' },
+  { title: 'Switch Your Deal', body: 'We\'ll work with your current lender to settle your existing finance.' },
+  { title: 'Keep Your Car', body: 'Stay behind the wheel of the car you love, just with a deal that suits you better.' },
 ]
 
 export const whyPoints = [
   {
-    title: 'Finding you the best deal',
+    title: 'Finding You the Best Deal',
     body: 'We search our wide panel of lenders to get you the best deal for your circumstances!',
     icon: 'search' as const,
   },
@@ -114,7 +114,7 @@ export const testimonial = {
 }
 
 /** The live page's Trustpilot band heading. */
-export const trustpilotHeading = 'Rated Excellent by 59,096 customers – 4.9 out of 5 on Trustpilot'
+export const trustpilotHeading = 'Rated Excellent by 59,096 Customers – 4.9 Out of 5 on Trustpilot'
 
 export const commissionNote =
   'We look to find the best rate from our panel of lenders and will offer you the best deal that you\'re eligible for. We will be paid a commission for providing our services and this commission may be a fixed amount or a percentage of the amount borrowed. The interest rate you pay is directly linked to the amount you are borrowing and your individual credit status.'
@@ -161,11 +161,11 @@ export const guideLinks = {
 export const calculator = {
   title: 'Refinance Calculator',
   intro: 'Run an illustrative quote to see how much you could save*',
-  existingTitle: 'Your existing finance',
+  existingTitle: 'Your Existing Finance',
   currentLabel: 'Current Monthly Payments',
   settlementLabel: 'Early Settlement Figure',
   settlementHint: 'An estimate is fine if you don\'t know the exact figure.',
-  newTitle: 'Calculate your new finance deal',
+  newTitle: 'Calculate Your New Finance Deal',
   termLabel: 'Finance Term (Months)',
   terms: [24, 36, 48, 60],
   profileLabel: 'Your Credit Profile',
@@ -191,21 +191,21 @@ export const calculator = {
   subjectToStatus: 'Credit is subject to status.',
   help: {
     settlement: {
-      title: 'How to get your early settlement figure',
+      title: 'How to Get Your Early Settlement Figure',
       body: [
         'To get your early settlement figure, you\'ll need to contact your current finance provider directly. They will be able to tell you the exact amount needed to pay off your finance agreement early.',
         'You can usually find your finance provider\'s contact details on your finance agreement or on recent statements. Many providers also offer this information through their online portal or mobile app.',
       ],
     },
     credit: {
-      title: 'What is a Credit Score?',
+      title: 'What Is a Credit Score?',
       body: [
         'Your credit score is based on your payment history (paying bills on time), debt levels, length of credit history, types of credit, and recent credit inquiries.',
       ],
       link: { label: 'Improve my Credit Score', href: siteUrl('/guide/how-to-improve-your-credit-score') },
     },
     product: {
-      title: 'What finance options are available?',
+      title: 'What Finance Options Are Available?',
       body: [
         'HP (Hire Purchase): involves making regular monthly payments until you\'ve covered the full cost of the car. Once all payments are made, you own the car outright.',
         'PCP (Personal Contract Purchase): involves making lower monthly payments compared to HP. At the end of the contract, you have the choice to either buy the car by making a final balloon payment or return it.',

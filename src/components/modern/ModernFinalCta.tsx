@@ -31,7 +31,7 @@ export function ModernFinalCta() {
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(380px,0.85fr)] lg:items-stretch">
             <Reveal className="flex flex-col justify-center px-1 py-5 sm:px-4 lg:px-6 lg:py-6">
               <h2 id="final-title" className="text-[clamp(2.25rem,4.2vw,3.75rem)] leading-[0.98] font-medium tracking-[-0.05em] text-white">
-                Let’s get you{' '}
+                Let’s Get You{' '}
                 <EndSmile tone="white" size={0.62} delay={0.35}>
                   <Accent>started</Accent>
                 </EndSmile>

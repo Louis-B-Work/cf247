@@ -156,7 +156,7 @@ export function ModernReviews() {
       <div className="container-xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
           <Reveal>
-            <ModernHeading id="reviews-title">Making car finance <span className="whitespace-nowrap"><Accent>si</Accent>mple</span> for 500,000+ customers</ModernHeading>
+            <ModernHeading id="reviews-title">Making Car Finance <span className="whitespace-nowrap"><Accent>Si</Accent>mple</span> for 500,000+ Customers</ModernHeading>
           </Reveal>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -205,7 +205,7 @@ export function ModernReviews() {
 
         <div className="mt-10 md:mt-12">
           <Reveal>
-            <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-purple sm:text-2xl">More from our <span className="whitespace-nowrap"><Accent>cu</Accent>stomers</span></h3>
+            <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-purple sm:text-2xl">More From Our <span className="whitespace-nowrap"><Accent>Cu</Accent>stomers</span></h3>
           </Reveal>
           <ul
             ref={moreRef}

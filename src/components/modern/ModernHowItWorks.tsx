@@ -18,17 +18,17 @@ type Step = {
 
 const steps: Step[] = [
   {
-    title: 'Get your quote',
+    title: 'Get Your Quote',
     body: 'Answer a few quick questions and get a decision in minutes.',
     icon: 'search',
   },
   {
-    title: 'Choose your car',
+    title: 'Choose Your Car',
     body: 'Browse 100,000+ cars in our members area and we will help agree the deal.',
     icon: 'car',
   },
   {
-    title: 'Drive away',
+    title: 'Drive Away',
     body: 'We sort the paperwork with the dealer and lender. You just turn up and drive away.',
     icon: 'shield',
   },
@@ -42,9 +42,9 @@ const cars = [
 ]
 
 const checklist = [
-  { title: 'Approved in principle', body: 'A lender on our panel agrees in principle to lend to you.' },
-  { title: 'Finance agreement signed', body: 'You review and sign your finance agreement.' },
-  { title: 'Ready to collect', body: 'Collect your car from the dealer and drive away.' },
+  { title: 'Approved in Principle', body: 'A lender on our panel agrees in principle to lend to you.' },
+  { title: 'Finance Agreement Signed', body: 'You review and sign your finance agreement.' },
+  { title: 'Ready to Collect', body: 'Collect your car from the dealer and drive away.' },
 ]
 
 function Tick({ className }: { className?: string }) {
@@ -378,7 +378,7 @@ export function ModernHowItWorks() {
               id="modern-how-title"
               className="font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.02] font-medium tracking-[-0.04em] text-purple"
             >
-              Three steps to <span className="whitespace-nowrap">feel-good</span> car finance
+              Three Steps to <span className="whitespace-nowrap">Feel-Good</span> Car Finance
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-blackcurrant/70">
               Get your quote in minutes.
