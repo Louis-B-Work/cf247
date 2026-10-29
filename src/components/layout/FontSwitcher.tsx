@@ -221,6 +221,17 @@ export function FontSwitcher({ page = 'home' }: { page?: Page }) {
             style={{ transformOrigin: 'bottom left' }}
             className="absolute bottom-[calc(100%+10px)] left-0 max-h-[calc(100svh-6rem)] w-64 overflow-y-auto overscroll-contain rounded-brand bg-blackcurrant/95 p-2 text-white shadow-[0_20px_50px_-15px_rgba(22,1,50,0.7)] ring-1 ring-white/10 backdrop-blur-md"
           >
+            {/* The font every piece of text on the page is set in, shown in that font, so it is always obvious which one you are looking at. */}
+            <div className="mb-2 flex items-center gap-3 rounded-inner bg-white/5 p-3" aria-live="polite">
+              <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-full bg-lime text-2xl leading-none font-bold text-blackcurrant">
+                Aa
+              </span>
+              <div className="min-w-0">
+                <p className="text-[11px] font-semibold tracking-wide text-white/60 uppercase">Font in use</p>
+                <p className="text-lg leading-tight font-bold text-white">{headingFont}</p>
+                {!__HAS_AEONIK__ && <p className="mt-1 text-[12px] leading-snug text-white/65">Aeonik isn’t on this public page (trial licence).</p>}
+              </div>
+            </div>
             <p className="px-3 pt-1.5 pb-2 text-xs font-semibold tracking-wide text-white/60 uppercase">Page</p>
             <nav aria-label="Mockup pages" className="mb-2 grid grid-cols-2 gap-1 rounded-inner bg-white/5 p-1">
               {pages.map((p) => {
