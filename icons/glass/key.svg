@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <title>Key</title>
+  <defs>
+    <radialGradient id="body" cx=".3" cy=".22" r=".95"><stop offset="0" stop-color="#f0e6fe"/><stop offset=".3" stop-color="#c39bfa"/><stop offset=".68" stop-color="#a569f7"/><stop offset="1" stop-color="#6905f2"/></radialGradient>
+    <radialGradient id="pale" cx=".3" cy=".22" r=".95"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#f0e6fe"/><stop offset="1" stop-color="#c39bfa"/></radialGradient>
+    <radialGradient id="lime" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset=".3" stop-color="#8ef205"/><stop offset="1" stop-color="#8ef205"/></radialGradient>
+    <linearGradient id="tube" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e6fe"/><stop offset=".45" stop-color="#a569f7"/><stop offset="1" stop-color="#6905f2"/></linearGradient>
+    <filter id="b3" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="b5" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+    <clipPath id="c"><circle cx="38" cy="82" r="24"/></clipPath>
+  </defs>
+  <ellipse cx="64" cy="118" rx="38" ry="6" fill="#6905f2" opacity=".35" filter="url(#b3)"/>
+  <g transform="rotate(-38 64 64)">
+    <rect x="56" y="56" width="58" height="16" rx="8" fill="url(#tube)"/>
+    <rect x="92" y="66" width="12" height="20" rx="6" fill="url(#tube)"/><rect x="106" y="66" width="11" height="14" rx="5.5" fill="url(#tube)"/>
+    <circle cx="36" cy="64" r="24" fill="url(#body)"/>
+    <circle cx="36" cy="64" r="10" fill="url(#lime)"/>
+    <circle cx="36" cy="64" r="10" stroke="#6905f2" stroke-width="2.5" opacity=".5"/>
+    <path d="M20 52Q28 42 40 41" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+    <rect x="62" y="59" width="30" height="3.5" rx="1.75" fill="#ffffff" opacity=".7"/>
+  </g>
+  <path d="M20 13Q20 22 29 22Q20 22 20 31Q20 22 11 22Q20 22 20 13Z" fill="#a569f7"/>
+  <path d="M110 100Q110 106 116 106Q110 106 110 112Q110 106 104 106Q110 106 110 100Z" fill="#c39bfa"/>
+</svg>

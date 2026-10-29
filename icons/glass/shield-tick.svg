@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <title>Shield with tick</title>
+  <defs>
+    <radialGradient id="body" cx=".3" cy=".22" r=".95"><stop offset="0" stop-color="#f0e6fe"/><stop offset=".3" stop-color="#c39bfa"/><stop offset=".68" stop-color="#a569f7"/><stop offset="1" stop-color="#6905f2"/></radialGradient>
+    <radialGradient id="pale" cx=".3" cy=".22" r=".95"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#f0e6fe"/><stop offset="1" stop-color="#c39bfa"/></radialGradient>
+    <radialGradient id="lime" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset=".3" stop-color="#8ef205"/><stop offset="1" stop-color="#8ef205"/></radialGradient>
+    <linearGradient id="tube" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e6fe"/><stop offset=".45" stop-color="#a569f7"/><stop offset="1" stop-color="#6905f2"/></linearGradient>
+    <filter id="b3" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="b5" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+    <clipPath id="c"><path d="M64 8L112 24V62Q112 98 64 120Q16 98 16 62V24Z"/></clipPath>
+  </defs>
+  <ellipse cx="64" cy="118" rx="38" ry="6" fill="#6905f2" opacity=".35" filter="url(#b3)"/>
+  <path d="M64 8L112 24V62Q112 98 64 120Q16 98 16 62V24Z" fill="url(#body)"/>
+  <g clip-path="url(#c)"><g filter="url(#b5)"><path d="M-10 84Q30 52 64 82T140 60V140H-10Z" fill="#d2b4fb" opacity=".6"/><ellipse cx="96" cy="46" rx="26" ry="12" fill="#8ef205" opacity=".28" transform="rotate(-25 96 46)"/><ellipse cx="34" cy="100" rx="30" ry="10" fill="#6905f2" opacity=".4"/></g></g>
+  <path d="M64 22L100 34V62Q100 88 64 106Q28 88 28 62V34Z" fill="url(#pale)" opacity=".8"/>
+  <path d="M44 66L58 80L86 50" stroke="#6905f2" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity=".35" transform="translate(0 3)"/>
+  <path d="M44 66L58 80L86 50" stroke="url(#lime)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M26 34L26 60" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+  <path d="M112 7Q112 16 121 16Q112 16 112 25Q112 16 103 16Q112 16 112 7Z" fill="#a569f7"/>
+  <path d="M16 94Q16 100 22 100Q16 100 16 106Q16 100 10 100Q16 100 16 94Z" fill="#c39bfa"/>
+</svg>

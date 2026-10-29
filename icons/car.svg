@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <title>Car</title>
+  <path d="M16 90V76Q16 68 24 66L44 62L56 48Q60 44 66 44H90Q96 44 100 50L110 64Q120 66 120 76V90Q120 96 114 96H22Q16 96 16 90Z" fill="#160132"/>
+  <path d="M12 84V70Q12 62 20 60L40 56L52 42Q56 38 62 38H86Q92 38 96 44L106 58Q116 60 116 70V84Q116 90 110 90H18Q12 90 12 84Z" fill="#a569f7"/>
+  <rect x="20" y="72" width="60" height="4" rx="2" fill="#d2b4fb"/>
+  <path d="M54 48Q56 45 60 45H68V57H47Z" fill="#d2b4fb"/>
+  <path d="M74 45H86Q89 45 91 48L97 57H74Z" fill="#d2b4fb"/>
+  <rect x="106" y="65" width="9" height="7" rx="3.5" fill="#8ef205"/>
+  <circle cx="36" cy="90" r="13" fill="#160132"/>
+  <circle cx="36" cy="90" r="5" fill="#d2b4fb"/>
+  <circle cx="92" cy="90" r="13" fill="#160132"/>
+  <circle cx="92" cy="90" r="5" fill="#d2b4fb"/>
+  <path d="M102 20Q102 30 112 30Q102 30 102 40Q102 30 92 30Q102 30 102 20Z" fill="#a569f7"/>
+  <path d="M20 28Q20 34 26 34Q20 34 20 40Q20 34 14 34Q20 34 20 28Z" fill="#c39bfa"/>
+</svg>

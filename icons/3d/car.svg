@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <title>Car</title>
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d2b4fb"/><stop offset=".55" stop-color="#a569f7"/><stop offset="1" stop-color="#8737f5"/></linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8737f5"/><stop offset="1" stop-color="#6905f2"/></linearGradient>
+    <linearGradient id="light" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0e6fe"/><stop offset="1" stop-color="#c39bfa"/></linearGradient>
+  </defs>
+  <defs><linearGradient id="bodyv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d2b4fb"/><stop offset=".5" stop-color="#a569f7"/><stop offset="1" stop-color="#8737f5"/></linearGradient></defs>
+  <path d="M10 88V72Q10 62 20 60L40 56L52 42Q56 38 62 38H88Q94 38 98 44L108 58Q118 60 118 72V88Q118 94 112 94H16Q10 94 10 88Z" fill="url(#bodyv)"/>
+  <path d="M14 78H114V88Q114 92 110 92H18Q14 92 14 88Z" fill="#8737f5"/>
+  <path d="M55 47Q57 45 61 45H68V57H48Z" fill="url(#light)"/>
+  <path d="M74 45H87Q90 45 92 48L98 57H74Z" fill="url(#light)"/>
+  <path d="M24 66L42 61L53 47" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+  <rect x="106" y="66" width="8" height="6" rx="3" fill="#8ef205"/>
+  <circle cx="36" cy="92" r="13" fill="url(#side)" stroke="#a569f7" stroke-width="2"/><circle cx="36" cy="92" r="6" fill="url(#light)"/>
+  <circle cx="92" cy="92" r="13" fill="url(#side)" stroke="#a569f7" stroke-width="2"/><circle cx="92" cy="92" r="6" fill="url(#light)"/>
+  <path d="M112 7Q112 16 121 16Q112 16 112 25Q112 16 103 16Q112 16 112 7Z" fill="#a569f7"/>
+  <path d="M16 94Q16 100 22 100Q16 100 16 106Q16 100 10 100Q16 100 16 94Z" fill="#c39bfa"/>
+</svg>

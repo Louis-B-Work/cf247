@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <title>Thumbs up</title>
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d2b4fb"/><stop offset=".55" stop-color="#a569f7"/><stop offset="1" stop-color="#8737f5"/></linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8737f5"/><stop offset="1" stop-color="#6905f2"/></linearGradient>
+    <linearGradient id="light" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0e6fe"/><stop offset="1" stop-color="#c39bfa"/></linearGradient>
+  </defs>
+  <g transform="translate(4 6)" fill="#8737f5">
+    <path d="M48 58L64 24Q70 12 80 18Q88 24 84 36L80 48H100Q114 48 110 62L104 94Q102 106 90 106H48Z"/>
+    <rect x="14" y="56" width="26" height="52" rx="8"/>
+  </g>
+  <path d="M48 58L64 24Q70 12 80 18Q88 24 84 36L80 48H100Q114 48 110 62L104 94Q102 106 90 106H48Z" fill="url(#face)"/>
+  <path d="M68 32Q71 22 78 26" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+  <rect x="14" y="56" width="26" height="52" rx="8" fill="url(#light)"/>
+  <rect x="23" y="68" width="8" height="28" rx="4" fill="#8ef205"/>
+  <path d="M112 7Q112 16 121 16Q112 16 112 25Q112 16 103 16Q112 16 112 7Z" fill="#a569f7"/>
+  <path d="M20 28Q20 34 26 34Q20 34 20 40Q20 34 14 34Q20 34 20 28Z" fill="#c39bfa"/>
+</svg>

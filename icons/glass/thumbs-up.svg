@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <title>Thumbs up</title>
+  <defs>
+    <radialGradient id="body" cx=".3" cy=".22" r=".95"><stop offset="0" stop-color="#f0e6fe"/><stop offset=".3" stop-color="#c39bfa"/><stop offset=".68" stop-color="#a569f7"/><stop offset="1" stop-color="#6905f2"/></radialGradient>
+    <radialGradient id="pale" cx=".3" cy=".22" r=".95"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#f0e6fe"/><stop offset="1" stop-color="#c39bfa"/></radialGradient>
+    <radialGradient id="lime" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset=".3" stop-color="#8ef205"/><stop offset="1" stop-color="#8ef205"/></radialGradient>
+    <linearGradient id="tube" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e6fe"/><stop offset=".45" stop-color="#a569f7"/><stop offset="1" stop-color="#6905f2"/></linearGradient>
+    <filter id="b3" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="b5" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+    <clipPath id="c"><path d="M46 56L62 22Q68 8 82 14Q92 20 88 34L84 46H102Q118 46 114 62L108 96Q105 110 90 110H46Z"/></clipPath>
+  </defs>
+  <ellipse cx="64" cy="118" rx="38" ry="6" fill="#6905f2" opacity=".35" filter="url(#b3)"/>
+  <path d="M46 56L62 22Q68 8 82 14Q92 20 88 34L84 46H102Q118 46 114 62L108 96Q105 110 90 110H46Z" fill="url(#body)"/>
+  <g clip-path="url(#c)"><g filter="url(#b5)"><path d="M-10 84Q30 52 64 82T140 60V140H-10Z" fill="#d2b4fb" opacity=".6"/><ellipse cx="96" cy="46" rx="26" ry="12" fill="#8ef205" opacity=".28" transform="rotate(-25 96 46)"/><ellipse cx="34" cy="100" rx="30" ry="10" fill="#6905f2" opacity=".4"/></g></g>
+  <path d="M66 28Q70 18 78 22" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+  <rect x="12" y="54" width="28" height="56" rx="12" fill="url(#tube)"/>
+  <rect x="22" y="66" width="8" height="30" rx="4" fill="url(#lime)"/>
+  <path d="M112 7Q112 16 121 16Q112 16 112 25Q112 16 103 16Q112 16 112 7Z" fill="#a569f7"/>
+  <path d="M20 28Q20 34 26 34Q20 34 20 40Q20 34 14 34Q20 34 20 28Z" fill="#c39bfa"/>
+</svg>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Finance 247 | Brand icon set, 3D (mock-up)</title>
+    <style>
+      :root { --purple: #6905f2; --purple-10: #f0e6fe; --blackcurrant: #160132; }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 24px 16px 48px; font-family: system-ui, sans-serif; color: var(--blackcurrant); background: #fff; }
+      h1 { margin: 0 0 4px; font-size: 1.5rem; }
+      p.lede { margin: 0 0 24px; max-width: 60ch; }
+      h2 { margin: 28px 0 10px; font-size: 1rem; }
+      .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      .tile { border-radius: 16px; padding: 14px 10px 10px; text-align: center; font-size: 13px; }
+      .tile .big img { width: 128px; height: 128px; }
+      .tile .small { margin-top: 6px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+      .tile .small img { width: 48px; height: 48px; }
+      .tile span { display: block; margin-top: 4px; }
+      .white { background: #fff; box-shadow: inset 0 0 0 1px rgb(105 5 242 / 0.15); }
+      .lilac { background: var(--purple-10); }
+      .purple { background: var(--purple); color: #fff; }
+    </style>
+  </head>
+  <body>
+    <h1>Brand icon set: 3D</h1>
+    <p class="lede">Mock-up spot illustrations in the CF247 palette. Each icon is a 128×128 SVG; shown at 128px and 48px on white, lilac and purple.</p>
+    <main id="sets"></main>
+    <script>
+      var icons = [
+        ['calculator', 'Finance calculator'],
+        ['car', 'Car'],
+        ['key', 'Key'],
+        ['piggy-bank', 'Budget'],
+        ['shield-tick', 'Soft credit check'],
+        ['phone-tick', 'Quote in minutes'],
+        ['application', 'Application'],
+        ['thumbs-up', 'Approved'],
+      ]
+      var bgs = [['white', 'On white'], ['lilac', 'On lilac (purple-10)'], ['purple', 'On purple']]
+      var root = document.getElementById('sets')
+      bgs.forEach(function (bg) {
+        var h = document.createElement('h2')
+        h.textContent = bg[1]
+        var row = document.createElement('div')
+        row.className = 'row'
+        icons.forEach(function (i) {
+          var t = document.createElement('div')
+          t.className = 'tile ' + bg[0]
+          t.innerHTML =
+            '<div class="big"><img src="' + i[0] + '.svg" alt="" /></div>' +
+            '<div class="small"><img src="' + i[0] + '.svg" alt="" /></div><span>' + i[1] + '</span>'
+          row.appendChild(t)
+        })
+        root.appendChild(h)
+        root.appendChild(row)
+      })
+    </script>
+  </body>
+</html>
