@@ -53,6 +53,21 @@ jobs:
           cp -r aeonik-build/. dist/aeonik/
           rm -rf dist/aeonik/.git dist/aeonik/README.md
 
+      # The design system, as a static page built from the claude.ai design system artifact. It includes the Aeonik trial
+      # fonts, so like the Aeonik build above it lives on its own branch. Published at /cf247/new-design-system/.
+      # Remove these two steps to take it down.
+      - name: Check out the design system site
+        uses: actions/checkout@v4
+        with:
+          ref: design-system-site
+          path: design-system-build
+
+      - name: Add the design system under /new-design-system
+        run: |
+          mkdir -p dist/new-design-system
+          cp -r design-system-build/. dist/new-design-system/
+          rm -rf dist/new-design-system/.git dist/new-design-system/README.md
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
