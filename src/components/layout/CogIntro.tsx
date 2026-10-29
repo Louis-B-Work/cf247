@@ -62,7 +62,8 @@ export function CogIntro({ page, onOpenCog }: { page: Page; onOpenCog: () => voi
 
   useEffect(() => {
     if (!show) return
-    buttonRef.current?.focus()
+    // Focus the button for keyboard users without scrolling the panel to it, or the warning at the top would open out of view.
+    buttonRef.current?.focus({ preventScroll: true })
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && dismiss()
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
